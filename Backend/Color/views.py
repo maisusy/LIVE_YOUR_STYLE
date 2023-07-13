@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework import permissions
 
 from Color.models import Color
-from Color.serializers import ColorSerializer
+from Color.serializers import ColorSerializers
 
 
 # Create your views here.
@@ -15,7 +15,7 @@ class color_lista(APIView):
     #lista 
     def get(self,request,*args, **kwargs):
         color = Color.objects.all()
-        serializer = ColorSerializer(color,many=True)
+        serializer = ColorSerializers(color,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     #Crear
     def post(self,request,*args, **kwargs):
@@ -24,7 +24,7 @@ class color_lista(APIView):
             'tono' : request.data.get('tono')
         }
 
-        serializer = ColorSerializer(dat=data)
+        serializer = ColorSerializers(dat=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.errors,status=status.HTTP_201_CREATED)
@@ -48,7 +48,7 @@ class Color_id(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        serializer = ColorSerializer(instance)
+        serializer = ColorSerializers(instance)
         return Response(serializer.data,status=status.HTTP_200_OK)
     #UPDATE
     def put(self,request,id,*args, **kwargs):
@@ -62,7 +62,7 @@ class Color_id(APIView):
             'nombre': request.data.get('nombre'),
             'tono' : request.data.get('tono')
         }
-        serializer = ColorSerializer(instance = instance, data=data, partial = True)
+        serializer = ColorSerializers(instance = instance, data=data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

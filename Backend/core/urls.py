@@ -7,6 +7,7 @@ from Color import urls as color_url
 from Direccion import urls as dire_url
 from Proveedor import urls as prov_url
 from Unidad_medida import urls as unidadmedida_url
+from Factura import urls as fact_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('direccion/', include(dire_url)),
     path('proveedor/', include(prov_url)),
     path('unidad_medida/', include(unidadmedida_url)),
+    path('factura/', include(fact_url)),
 ]

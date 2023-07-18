@@ -9,6 +9,7 @@ from Proveedor import urls as prov_url
 from Unidad_medida import urls as unidadmedida_url
 from Factura import urls as fact_url
 from Observacion import urls as obs_url
+from Insumo import urls as insumo_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -20,4 +21,5 @@ urlpatterns = [
     path('unidad_medida/', include(unidadmedida_url)),
     path('factura/', include(fact_url)),
     path('obs/', include(obs_url)),
+    path('insumo/', include(insumo_url)),
 ]

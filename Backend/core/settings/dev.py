@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     'Proveedor',
     'Unidad_medida',
     'Factura',
-    'Observacion'
+    'Observacion',
+    'Insumo'
 ]
 
 MIDDLEWARE = [

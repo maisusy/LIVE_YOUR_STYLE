@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'Telefono',
     'Correo',
     'Tarjeta',
+    'Turno',
 ]
 
 MIDDLEWARE = [

@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'Insumo',
     'Producto',
     'Presupuesto',
+    'Datos_Usuario',
 ]
 
 MIDDLEWARE = [

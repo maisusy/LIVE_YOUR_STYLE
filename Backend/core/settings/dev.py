@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'Presupuesto',
     'Datos_Usuario',
     'Telefono',
+    'Correo',
 ]
 
 MIDDLEWARE = [

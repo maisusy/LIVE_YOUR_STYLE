@@ -13,6 +13,7 @@ from Insumo import urls as insumo_url
 from Producto import urls as producto_url
 from Presupuesto import urls as presupuesto_url
 from Datos_Usuario import urls as datos_usuario_url
+from Telefono import urls as telefono_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('producto/', include(producto_url)),
     path('presupuesto/', include(presupuesto_url)),
     path('datos_usuario/', include(datos_usuario_url)),
+    path('telefono/', include(telefono_url)),
 ]

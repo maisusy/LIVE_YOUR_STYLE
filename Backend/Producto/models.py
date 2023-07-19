@@ -14,4 +14,3 @@ class Producto(models.Model):
     id_u_med : models.ForeignKey(Unidad_medida , on_delete=models.CASCADE)
     original : models.BooleanField()
     id_marca : models.ForeignKey(Marca,on_delete=models.CASCADE)
-    id_obs : models.ForeignKey(Observacion , on_delete=models.CASCADE)

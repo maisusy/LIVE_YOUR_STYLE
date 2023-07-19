@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'Datos_Usuario',
     'Telefono',
     'Correo',
+    'Tarjeta',
 ]
 
 MIDDLEWARE = [

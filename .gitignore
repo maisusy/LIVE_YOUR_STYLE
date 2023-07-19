@@ -1,3 +1,5 @@
 /entorno_proyecto
 /entorno
 Backend/core/settings/.env
+Backend/*/__pycache__/*
+Backend/*/migrations/*

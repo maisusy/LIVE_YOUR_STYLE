@@ -17,6 +17,7 @@ from Telefono import urls as telefono_url
 from Correo import urls as correo_url
 from Tarjeta import urls as tarjeta_url
 from Turno import urls as turno_url
+from Orden_trabajo import urls as ord_trabajo_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,4 +37,6 @@ urlpatterns = [
     path('correo/', include(correo_url)),
     path('tarjeta/', include(tarjeta_url)),
     path('turno/', include(turno_url)),
+    path('ord_trabajo/', include(ord_trabajo_url)),
 ]
+

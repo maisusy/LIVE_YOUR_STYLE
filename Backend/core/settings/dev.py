@@ -65,7 +65,8 @@ INSTALLED_APPS = [
     'Factura',
     'Observacion',
     'Insumo',
-    'Producto'
+    'Producto',
+    'Presupuesto',
 ]
 
 MIDDLEWARE = [

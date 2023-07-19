@@ -11,6 +11,7 @@ from Factura import urls as fact_url
 from Observacion import urls as obs_url
 from Insumo import urls as insumo_url
 from Producto import urls as producto_url
+from Presupuesto import urls as presupuesto_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,5 @@ urlpatterns = [
     path('obs/', include(obs_url)),
     path('insumo/', include(insumo_url)),
     path('producto/', include(producto_url)),
+    path('presupuesto/', include(presupuesto_url)),
 ]

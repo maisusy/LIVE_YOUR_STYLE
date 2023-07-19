@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'Tarjeta',
     'Turno',
     'Orden_trabajo',
+    'Venta',
 ]
 
 MIDDLEWARE = [

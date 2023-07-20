@@ -2,10 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
-
 from Producto.models import Producto
 from Producto.serializers import ProductoSerializers
-
+import logging
 
 class Producto_lista(APIView):
 
@@ -16,8 +15,10 @@ class Producto_lista(APIView):
         prod = Producto.objects.all()
         serializer = ProductoSerializers(prod,many=True)
         return Response(serializer.data, status = status.HTTP_200_OK)
+    
     #cREAR
     def post(self,request,*args,**kwargs):
+
         data = {
             'nombre' : request.data.get('nombre'),
             'stock' : request.data.get('stock'),
@@ -27,13 +28,15 @@ class Producto_lista(APIView):
             'id_u_med' : request.data.get('id_u_med'),
             'original' : request.data.get('original'),
             'id_marca' : request.data.get('id_marca'),
+            'color' : request.data.get('color'),
         }
 
-        serializer = ProductoSerializers(dat=data)
-         
+        serializer = ProductoSerializers(data=data)
+
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response( {'res':'Producto creado','data':serializer.data },status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Producto_id(APIView):
@@ -73,6 +76,7 @@ class Producto_id(APIView):
             'id_u_med' : request.data.get('id_u_med'),
             'original' : request.data.get('original'),
             'id_marca' : request.data.get('id_marca'),
+            'color' : request.data.get('color'),
         }
 
         serializer = ProductoSerializers(instance = instance, data=data, partial = True)

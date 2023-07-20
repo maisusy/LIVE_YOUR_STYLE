@@ -29,11 +29,11 @@ class Venta_lista(APIView):
             'fecha' : request.data.get('fecha'),
         }
 
-        serializer = VentaSerializers(dat=data)
+        serializer = VentaSerializers(data=data)
          
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Venta_id(APIView):

@@ -28,11 +28,11 @@ class Orden_Trabajo_lista(APIView):
             'id_usuario' : request.data.get('id_usuario'),
         }
 
-        serializer = Orden_trabajoSerializers(dat=data)
+        serializer = Orden_trabajoSerializers(data=data)
          
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Orden_Trabajo_id(APIView):

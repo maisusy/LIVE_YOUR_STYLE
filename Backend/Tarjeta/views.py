@@ -25,11 +25,11 @@ class Tarjeta_lista(APIView):
             'id_usuario' : request.data.get('id_usuario'),
         }
 
-        serializer = TarjetaSerializers(dat=data)
+        serializer = TarjetaSerializers(data=data)
          
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Tarjeta_id(APIView):

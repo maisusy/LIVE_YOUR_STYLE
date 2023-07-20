@@ -29,10 +29,10 @@ class Factura_lista(APIView):
             'id_compra' : request.data.get('id_compra'),
         }
 
-        serializer = FacturaSerializer(dat=data)
+        serializer = FacturaSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Factura_id(APIView):

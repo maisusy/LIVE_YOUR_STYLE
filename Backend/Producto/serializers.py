@@ -5,7 +5,7 @@ from Producto.models import Producto
 
 
 class ProductoSerializers(serializers.ModelSerializer):
-    color = ColorSerializers(many=True,read_only=True)
+    color = ColorSerializers(many=True)
     class Meta:
         model = Producto
         fields =  ['id','nombre','stock','id_cat_prod','precio','costo','id_u_med','original','id_marca','color']

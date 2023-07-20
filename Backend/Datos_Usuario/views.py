@@ -17,18 +17,21 @@ class Datos_Usuario_lista(APIView):
         usuario = Datos_Usuario.objects.all()
         serializer = Datos_UsuarioSerializers(usuario,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+
     #Crear
     def post(self,request,*args, **kwargs):
         data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
+            'nombres' : request.data.get('nombres'),
+            'apellidos' : request.data.get('apellidos'),
+            'fecha_alta' : request.data.get('fecha_alta'),
+            'dni' : request.data.get('dni'),
+            'cuit' : request.data.get('cuit')
         }
 
-        serializer = Datos_UsuarioSerializers(dat=data)
+        serializer = Datos_UsuarioSerializers(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Datos_Usuario_id(APIView):
@@ -60,9 +63,11 @@ class Datos_Usuario_id(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
+            'nombres' : request.data.get('nombres'),
+            'apellidos' : request.data.get('apellidos'),
+            'fecha_alta' : request.data.get('fecha_alta'),
+            'dni' : request.data.get('dni'),
+            'cuit' : request.data.get('cuit')
         }
         serializer = Datos_UsuarioSerializers(instance = instance, data=data, partial = True)
         if serializer.is_valid():

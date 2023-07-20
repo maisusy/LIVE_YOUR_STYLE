@@ -18,7 +18,7 @@ class Producto_lista(APIView):
     
     #cREAR
     def post(self,request,*args,**kwargs):
-
+        
         serializer = ProductoSerializers(data = request.data)
 
         if serializer.is_valid():

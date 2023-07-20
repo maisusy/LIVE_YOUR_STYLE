@@ -25,10 +25,10 @@ class Observacion_lista(APIView):
             'usuario' : request.data.get('usuario'),
         }
 
-        serializer = ObservacionSerializer(dat=data)
+        serializer = ObservacionSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Observacion_id(APIView):

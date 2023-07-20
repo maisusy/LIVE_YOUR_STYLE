@@ -20,15 +20,14 @@ class Correo_lista(APIView):
     #Crear
     def post(self,request,*args, **kwargs):
         data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
+            'correo' : request.data.get('correo'),
+            'id_usuario' : request.data.get('id_usuario'),
         }
 
-        serializer = CorreoSerializers(dat=data)
+        serializer = CorreoSerializers(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Correo_id(APIView):
@@ -60,9 +59,8 @@ class Correo_id(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
+            'correo' : request.data.get('correo'),
+            'id_usuario' : request.data.get('id_usuario'),
         }
         serializer = CorreoSerializers(instance = instance, data=data, partial = True)
         if serializer.is_valid():

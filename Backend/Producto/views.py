@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from Producto.models import Producto
+from Color.models import Color
 from Producto.serializers import ProductoSerializers
-import logging
 
 class Producto_lista(APIView):
 
@@ -19,19 +19,7 @@ class Producto_lista(APIView):
     #cREAR
     def post(self,request,*args,**kwargs):
 
-        data = {
-            'nombre' : request.data.get('nombre'),
-            'stock' : request.data.get('stock'),
-            'id_cat_prod' : request.data.get('id_cat_prod'),
-            'precio' : request.data.get('precio'),
-            'costo' : request.data.get('costo'),
-            'id_u_med' : request.data.get('id_u_med'),
-            'original' : request.data.get('original'),
-            'id_marca' : request.data.get('id_marca'),
-            'color' : request.data.get('color'),
-        }
-
-        serializer = ProductoSerializers(data=data)
+        serializer = ProductoSerializers(data = request.data)
 
         if serializer.is_valid():
             serializer.save()

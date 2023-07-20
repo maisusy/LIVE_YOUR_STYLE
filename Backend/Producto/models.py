@@ -14,7 +14,7 @@ class Producto(models.Model):
     id_u_med = models.ForeignKey(Unidad_medida , on_delete=models.CASCADE)
     original = models.BooleanField()
     id_marca = models.ForeignKey(Marca,on_delete=models.CASCADE)
-    color = models.ManyToManyField(Color)
+    color = models.ManyToManyField(Color,blank=True)
     # color : models.ManyToManyField(Color,through='producto_color')
 
 

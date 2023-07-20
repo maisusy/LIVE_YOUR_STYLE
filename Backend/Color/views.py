@@ -7,8 +7,6 @@ from Color.models import Color
 from Color.serializers import ColorSerializers
 
 
-# Create your views here.
-
 class color_lista(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -21,14 +19,15 @@ class color_lista(APIView):
     def post(self,request,*args, **kwargs):
         data = {
             'nombre' : request.data.get('nombre'),
-            'tono' : request.data.get('tono')
+            'tono' : request.data.get('tono'),
         }
 
-        serializer = ColorSerializers(dat=data)
+        serializer = ColorSerializers(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class Color_id(APIView):
 

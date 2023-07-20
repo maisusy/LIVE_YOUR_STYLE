@@ -23,10 +23,10 @@ class Unidad_medida_lista(APIView):
             'nombre' : request.data.get('nombre'),
         }
 
-        serializer = UnidadMedidaSerializers(dat=data)
+        serializer = UnidadMedidaSerializers(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Unidad_medida_id(APIView):

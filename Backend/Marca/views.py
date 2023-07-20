@@ -8,27 +8,18 @@ from Marca.serializers import MarcaSerializer
 
 
 class marca_lista(APIView):
-    # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
 
     # 1. List all
     def get(self, request, *args, **kwargs):
-        '''
-        List all the todo items for given requested user
-        '''
-        marca = Marca.objects.all()#.filter(user = request.user.id)
+        marca = Marca.objects.all()
         serializer = MarcaSerializer(marca, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 2. Create
     def post(self, request, *args, **kwargs):
-        '''
-        Create the Todo with given todo data
-        '''
         data = {
-            'codigo': request.data.get('codigo'), 
-            'tipo': request.data.get('tipo'), 
-            #'user': request.user.id
+            'nombre': request.data.get('nombre'), 
         }
         serializer = MarcaSerializer(data=data)
         if serializer.is_valid():
@@ -40,22 +31,15 @@ class marca_lista(APIView):
 
 class marca_id(APIView):
 
-    # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, id):
-        '''
-        Helper method to get the object with given id, and user_id
-        '''
         try:
             return Marca.objects.get(id=id)
         except Marca.DoesNotExist:
             return None
     # 2. Retrieve
     def get(self, request, id, *args, **kwargs):
-        '''
-        Retrieves the Todo with given todo_id
-        '''
         todo_instance = self.get_object(id)
         if not todo_instance:
             return Response(
@@ -67,9 +51,6 @@ class marca_id(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
      # 3. Update
     def put(self, request, id, *args, **kwargs):
-        '''
-        Updates the todo item with given id if exists
-        '''
         todo_instance = self.get_object(id)
         if not todo_instance:
             return Response(
@@ -86,9 +67,7 @@ class marca_id(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # 4. Delete
     def delete(self, request, id, *args, **kwargs):
-        '''
-        Deletes the todo item with given id if exists
-        '''
+
         todo_instance = self.get_object(id)
         if not todo_instance:
             return Response(

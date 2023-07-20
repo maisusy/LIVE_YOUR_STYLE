@@ -5,6 +5,6 @@ from Marca.views import (
 )
 
 urlpatterns = [
-    path('api', marca_lista.as_view()),
+    path('api/', marca_lista.as_view()),
     path('api/<int:id>/', marca_id.as_view()),
 ]

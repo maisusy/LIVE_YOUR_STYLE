@@ -23,10 +23,10 @@ class cat_prod_lista(APIView):
             'nombre' : request.data.get('nombre'),
         }
 
-        serializer = CatProdSerializer(dat=data)
+        serializer = CatProdSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class cat_prod_id(APIView):

@@ -5,6 +5,6 @@ from Categoria_producto.views import (
 )
 
 urlpatterns = [
-     path('api',cat_prod_lista.as_view()),
+     path('api/',cat_prod_lista.as_view()),
      path('api/<int:id>/',cat_prod_id.as_view())
 ]

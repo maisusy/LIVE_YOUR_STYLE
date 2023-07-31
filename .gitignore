@@ -3,3 +3,6 @@
 Backend/core/settings/.env
 Backend/*/__pycache__/*
 Backend/*/migrations/*
+Backend/core/LIVE_YOUR_STYLE.sqlite3
+Backend/*/migrations/__pycache__/__init__.cpython-310.pyc
+Backend/*/__pycache__/models.cpython-310.pyc

@@ -1,41 +1,44 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import permissions
-
+from rest_framework.permissions import IsAuthenticated
 from Insumo.models import Insumo
 from Insumo.serializers import InsumoSerializers
 
 
-# Create your views here.
+
 
 class Insumo_lista(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    queryset = Insumo.objects.none()
+    permission_classes = (IsAuthenticated,)
+    
+    def post(self,request,*args, **kwargs):
 
+        data = {
+            "nombre" : request.data.get("nombre"),
+            "id_u_med" : request.data.get("id_u_med"),
+            "stock" : request.data.get("stock"),
+            "costo" : request.data.get("costo"),
+            "id_marca" : request.data.get("id_marca")
+        }
+
+        _serializer = InsumoSerializers(data=data)
+
+        if _serializer.is_valid():
+            _serializer.save(color = request.data.get('color'))
+            return Response(_serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(_serializer.errors , status = status.HTTP_400_BAD_REQUEST)    
     #lista 
     def get(self,request,*args, **kwargs):
         insumo = Insumo.objects.all()
         serializer = InsumoSerializers(insumo,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
-    #Crear
-    def post(self,request,*args, **kwargs):
-        data = {
-            'nombre' : request.data.get('nombre'),
-            'id_u_med' : request.data.get('id_u_med'),
-            'stock' : request.data.get('stock'),
-            'costo' : request.data.get('costo'),
-            'id_marca' : request.data.get('id_marca'),
-        }
-
-        serializer = InsumoSerializers(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Insumo_id(APIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+    queryset = Insumo.objects.none()
+    permission_classes = (IsAuthenticated,)
 
     #obtener uno
     def get_object(self,id):
@@ -43,6 +46,7 @@ class Insumo_id(APIView):
             return  Insumo.objects.get(id=id)
         except Insumo.DoesNotExist:
             return None
+        
     def get(self,requestt,id,*args, **kwargs):
         instance = self.get_object(id)
         if not instance:
@@ -51,9 +55,9 @@ class Insumo_id(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        serializer = InsumoSerializers(instance)
-        return Response(serializer.data,status=status.HTTP_200_OK)
-    #UPDATE
+        _serializer = InsumoSerializers(instance)
+        return Response(_serializer.data,status=status.HTTP_200_OK)
+    
     def put(self,request,id,*args, **kwargs):
         instance = self.get_object(id)
         if not instance:
@@ -62,18 +66,19 @@ class Insumo_id(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'nombre' : request.data.get('nombre'),
-            'id_u_med' : request.data.get('id_u_med'),
-            'stock' : request.data.get('stock'),
-            'costo' : request.data.get('costo'),
-            'id_marca' : request.data.get('id_marca'),
+            "nombre" : request.data.get("nombre"),
+            "id_u_med" : request.data.get("id_u_med"),
+            "stock" : request.data.get("stock"),
+            "costo" : request.data.get("costo"),
+            "id_marca" : request.data.get("id_marca"),
         }
-        serializer = InsumoSerializers(instance = instance, data=data, partial = True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # 4. Delete
+        _serializer = InsumoSerializers(instance = instance, data=data, partial = True)
+        if _serializer.is_valid():
+            _serializer.save(color = request.data.get("color"))
+            return Response(_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
     def delete(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         if not instance:

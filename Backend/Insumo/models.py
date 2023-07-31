@@ -1,4 +1,5 @@
 from django.db import models
+from Color.models import Color
 from Unidad_medida.models import Unidad_medida
 from Marca.models import Marca
 
@@ -9,3 +10,5 @@ class Insumo (models.Model):
     stock = models.IntegerField()
     costo = models.FloatField()
     id_marca =  models.ForeignKey(Marca,on_delete= models.CASCADE)
+    color = models.ManyToManyField(Color,blank=True)
+   

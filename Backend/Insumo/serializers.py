@@ -3,5 +3,6 @@ from Insumo.models import Insumo
 
 class InsumoSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Insumo,
-        field = ['id','nombre','id_u_med','stock','costo','id_marca']
+        model = Insumo
+        fields = ['id','nombre','id_u_med','stock',
+                  'costo','id_marca','color']

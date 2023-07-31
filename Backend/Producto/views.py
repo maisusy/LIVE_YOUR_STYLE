@@ -24,6 +24,7 @@ class Producto_GET(APIView):
         }
 
         _serializer = ProductoSerializers(data=data)  # NOQA
+        
         if _serializer.is_valid():
             _serializer.save(color = request.data.get('color'))
             return Response(data=_serializer.data, status=status.HTTP_201_CREATED)  # NOQA

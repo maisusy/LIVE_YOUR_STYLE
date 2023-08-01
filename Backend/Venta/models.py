@@ -3,6 +3,7 @@ from Correo.models import Correo
 from Datos_Usuario.models import Datos_Usuario
 from Direccion.models import Direccion
 from Telefono.models import Telefono
+from Producto.models import Producto
 
 # Create your models here.
 class Venta(models.Model):
@@ -14,3 +15,11 @@ class Venta(models.Model):
     medio_pago = models.CharField(max_length=50)
     fecha = models.DateField()
     estado = models.CharField(max_length=50)
+    productos = models.ManyToManyField(Producto,through="Producto_venta",through_fields=("id_venta","id_producto"))
+
+
+class Producto_venta(models.Model):
+    id_producto = models.ForeignKey(Producto,on_delete=models.CASCADE)
+    id_venta = models.ForeignKey(Venta,on_delete=models.CASCADE)
+    cant = models.IntegerField()
+    p_total = models.FloatField()

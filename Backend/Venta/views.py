@@ -32,7 +32,7 @@ class Venta_lista(APIView):
         serializer = VentaSerializers(data=data)
          
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(productos = request.data.get('productos'))
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     

@@ -19,7 +19,8 @@ class Insumo_lista(APIView):
             "id_u_med" : request.data.get("id_u_med"),
             "stock" : request.data.get("stock"),
             "costo" : request.data.get("costo"),
-            "id_marca" : request.data.get("id_marca")
+            "id_marca" : request.data.get("id_marca"),
+            "id_proveedor" : request.data.get("id_proveedor")
         }
 
         _serializer = InsumoSerializers(data=data)
@@ -72,6 +73,7 @@ class Insumo_id(APIView):
             "stock" : request.data.get("stock"),
             "costo" : request.data.get("costo"),
             "id_marca" : request.data.get("id_marca"),
+            "id_proveedor" : request.data.get("id_proveedor")
         }
         _serializer = InsumoSerializers(instance = instance, data=data, partial = True)
         if _serializer.is_valid():

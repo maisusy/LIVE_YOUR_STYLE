@@ -2,6 +2,7 @@ from django.db import models
 from Color.models import Color
 from Unidad_medida.models import Unidad_medida
 from Observacion.models import Observacion
+from Proveedor.models import Proveedor
 from Marca.models import Marca
 
 # Create your models here.
@@ -13,4 +14,5 @@ class Insumo (models.Model):
     id_marca =  models.ForeignKey(Marca,on_delete= models.CASCADE)
     color = models.ManyToManyField(Color,blank=True)
     obs = models.ManyToManyField(Observacion,blank=True)
+    id_proveedor = models.ForeignKey(Proveedor,on_delete=models.CASCADE)
    

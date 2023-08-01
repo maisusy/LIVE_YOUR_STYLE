@@ -6,5 +6,3 @@ class Direccion(models.Model):
     nro = models.IntegerField()
     dpto = models.IntegerField()
     piso = models.IntegerField()
-    def __str__(self):
-        return print(self.calle + ' N° ' + self.nro)

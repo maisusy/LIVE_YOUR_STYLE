@@ -3,5 +3,5 @@ from Direccion.models import Direccion
 
 class DireccionSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Direccion,
-        field = ['id','calle','nro','dpto','piso']
+        model = Direccion
+        fields = ['id','calle','nro','dpto','piso']

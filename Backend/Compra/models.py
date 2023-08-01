@@ -6,6 +6,4 @@ class Compra(models.Model):
     estado = models.CharField(max_length=50)
     fecha = models.DateField()
     nro = models.IntegerField()
-    def __str__(self):
-        return self.nro
     

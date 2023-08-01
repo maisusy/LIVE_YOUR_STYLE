@@ -20,6 +20,7 @@ from Turno import urls as turno_url
 from Orden_trabajo import urls as ord_trabajo_url
 from Venta import urls as venta_url
 from Envio import urls as envio_url
+from Compra import urls as compras_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,6 +43,8 @@ urlpatterns = [
     path('ord_trabajo/', include(ord_trabajo_url)),
     path('venta/', include(venta_url)),
     path('envio/', include(envio_url)),
+    path('compras/', include(compras_url)),
+
 ]
 
 

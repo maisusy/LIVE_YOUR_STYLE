@@ -26,6 +26,7 @@ class Insumo_lista(APIView):
 
         if _serializer.is_valid():
             _serializer.save(color = request.data.get('color'))
+            _serializer.save(obs = request.data.get('obs'))
             return Response(_serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(_serializer.errors , status = status.HTTP_400_BAD_REQUEST)    
@@ -75,6 +76,7 @@ class Insumo_id(APIView):
         _serializer = InsumoSerializers(instance = instance, data=data, partial = True)
         if _serializer.is_valid():
             _serializer.save(color = request.data.get("color"))
+            _serializer.save(obs = request.data.get('obs'))
             return Response(_serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -20,16 +20,17 @@ class Proveedor_lista(APIView):
     #Crear
     def post(self,request,*args, **kwargs):
         data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
+            "cuit" : request.data.get("cuit"),
+            "razon_social" : request.data.get("razon_social"),
+            "obs" : request.data.get("obs"),
         }
 
         serializer = ProveedorSerializers(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Proveedor_id(APIView):
 
@@ -45,7 +46,7 @@ class Proveedor_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {'res':'No exite el objeto'},
+                {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -56,13 +57,13 @@ class Proveedor_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {'res':'No exite el objeto'},
+                {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
+            "cuit" : request.data.get("cuit"),
+            "razon_social" : request.data.get("razon_social"),
+            "obs" : request.data.get("obs"),
         }
         serializer = ProveedorSerializers(instance = instance, data=data, partial = True)
         if serializer.is_valid():

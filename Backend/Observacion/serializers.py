@@ -3,5 +3,5 @@ from Observacion.models import Observacion
 
 class ObservacionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Observacion,
-        field = ['id','detalle','fecha','usuario']
+        model = Observacion
+        fields = ['id','detalle','fecha','usuario']

@@ -20,16 +20,17 @@ class Observacion_lista(APIView):
     #Crear
     def post(self,request,*args, **kwargs):
         data = {
-            'detalle' : request.data.get('detalle'),
-            'fecha' : request.data.get('fecha'),
-            'usuario' : request.data.get('usuario'),
+            "detalle" : request.data.get("detalle"),
+            "fecha" : request.data.get("fecha"),
+            "usuario" : request.data.get("usuario"),
         }
 
         serializer = ObservacionSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
 class Observacion_id(APIView):
 
@@ -45,7 +46,7 @@ class Observacion_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {'res':'No exite el objeto'},
+                {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -56,17 +57,19 @@ class Observacion_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {'res':'No exite el objeto'},
+                {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'detalle' : request.data.get('detalle'),
+            "detalle" : request.data.get("detalle"),
         }
         serializer = ObservacionSerializer(instance = instance, data=data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
     # 4. Delete
     def delete(self, request, id, *args, **kwargs):
         instance = self.get_object(id)

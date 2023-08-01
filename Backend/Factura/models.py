@@ -1,6 +1,7 @@
 from django.db import models
 from Proveedor.models import Proveedor
 from Compra.models import Compra
+from Insumo.models import Insumo
 
 # Create your models here.
 
@@ -12,3 +13,11 @@ class Factura (models.Model):
     nro_p_vta = models.IntegerField()
     id_proveedor = models.ForeignKey(Proveedor,on_delete=models.CASCADE)
     id_compra= models.ForeignKey(Compra,on_delete=models.CASCADE)
+    insumos = models.ManyToManyField(Insumo,through="Factura_insumo",through_fields=("id_fact","id_insumo"))
+
+
+class Factura_insumo(models.Model):
+    id_fact = models.ForeignKey(Factura,on_delete=models.CASCADE)
+    id_insumo = models.ForeignKey(Insumo,on_delete=models.CASCADE)
+    cant = models.IntegerField()
+    costo_total = models.FloatField()

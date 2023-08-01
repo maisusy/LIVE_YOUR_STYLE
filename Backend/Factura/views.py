@@ -20,18 +20,18 @@ class Factura_lista(APIView):
     #Crear
     def post(self,request,*args, **kwargs):
         data = {
-            'fecha_alta' : request.data.get('fecha_alta'),
-            'fecha_registro' : request.data.get('fecha_registro'),
-            'nro_factura' : request.data.get('nro_factura'),
-            'nro_comprobante' : request.data.get('nro_comprobante'),
-            'nro_p_vta' : request.data.get('nro_p_vta'),
-            'id_proveedor' : request.data.get('id_proveedor'),
-            'id_compra' : request.data.get('id_compra'),
+            "fecha_alta" : request.data.get("fecha_alta"),
+            "fecha_registro" : request.data.get("fecha_registro"),
+            "nro_factura" : request.data.get("nro_factura"),
+            "nro_comprobante" : request.data.get("nro_comprobante"),
+            "nro_p_vta" : request.data.get("nro_p_vta"),
+            "id_proveedor" : request.data.get("id_proveedor"),
+            "id_compra" : request.data.get("id_compra"),
         }
 
         serializer = FacturaSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(insumos = request.data.get("insumos"))
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     
@@ -49,7 +49,7 @@ class Factura_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {'res':'No exite el objeto'},
+                {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -60,22 +60,22 @@ class Factura_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {'res':'No exite el objeto'},
+                {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         
         data = {
-            'fecha_registro' : request.data.get('fecha_registro'),
-            'nro_factura' : request.data.get('nro_factura'),
-            'nro_comprobante' : request.data.get('nro_comprobante'),
-            'nro_p_vta' : request.data.get('nro_p_vta'),
-            'id_proveedor' : request.data.get('id_proveedor'),
-            'id_compra' : request.data.get('id_compra')
+            "fecha_registro" : request.data.get("fecha_registro"),
+            "nro_factura" : request.data.get("nro_factura"),
+            "nro_comprobante" : request.data.get("nro_comprobante"),
+            "nro_p_vta" : request.data.get("nro_p_vta"),
+            "id_proveedor" : request.data.get("id_proveedor"),
+            "id_compra" : request.data.get("id_compra")
         }
 
         serializer = FacturaSerializer(instance = instance, data=data, partial = True)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(insumos = request.data.get("insumos"))
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # 4. Delete

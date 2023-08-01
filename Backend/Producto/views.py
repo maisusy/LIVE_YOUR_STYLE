@@ -27,6 +27,7 @@ class Producto_list(APIView):
         
         if _serializer.is_valid():
             _serializer.save(color = request.data.get('color'))
+            _serializer.save(obs = request.data.get('obs'))
             return Response(_serializer.data, status=status.HTTP_201_CREATED)  # NOQA
         else:
             return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # NOQA
@@ -81,6 +82,7 @@ class Producto_id(APIView):
         serializer = ProductoSerializers(instance = instance, data=data, partial = True)
         if serializer.is_valid():
             serializer.save(color = request.data.get('color'))
+            serializer.save(obs = request.data.get('obs'))
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # 4. Delete

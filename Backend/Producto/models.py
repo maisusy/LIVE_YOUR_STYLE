@@ -16,4 +16,4 @@ class Producto(models.Model):
     original = models.BooleanField()
     id_marca = models.ForeignKey(Marca,on_delete=models.CASCADE)
     color = models.ManyToManyField(Color,blank=True)
-    # obs = models.ManyToManyField(Observacion,blank=True)
+    obs = models.ManyToManyField(Observacion,blank=True)

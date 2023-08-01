@@ -1,6 +1,7 @@
 from django.db import models
 from Color.models import Color
 from Categoria_producto.models import Cat_prod
+from Observacion.models import Observacion
 from Unidad_medida.models import Unidad_medida
 from Marca.models import Marca
 
@@ -15,9 +16,4 @@ class Producto(models.Model):
     original = models.BooleanField()
     id_marca = models.ForeignKey(Marca,on_delete=models.CASCADE)
     color = models.ManyToManyField(Color,blank=True)
-    # color : models.ManyToManyField(Color,through='producto_color')
-
-
-# class producto_color(models.Model):
-#     id_producto: models.ForeignKey(Producto,on_delete=models.CASCADE)
-#     id_color : models.ForeignKey(Color,on_delete=models.CASCADE)
+    # obs = models.ManyToManyField(Observacion,blank=True)

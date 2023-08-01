@@ -27,9 +27,9 @@ class Producto_list(APIView):
         
         if _serializer.is_valid():
             _serializer.save(color = request.data.get('color'))
-            return Response(data=_serializer.data, status=status.HTTP_201_CREATED)  # NOQA
+            return Response(_serializer.data, status=status.HTTP_201_CREATED)  # NOQA
         else:
-            return Response(data=_serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # NOQA
+            return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # NOQA
 
     def get(self, request, *args, **kwargs):
 

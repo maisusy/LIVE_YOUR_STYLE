@@ -1,8 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated  # NOQA
 from rest_framework import status
-from rest_framework import permissions
-
 from Datos_Usuario.models import Datos_Usuario
 from Datos_Usuario.serializers import Datos_UsuarioSerializers
 
@@ -10,33 +9,39 @@ from Datos_Usuario.serializers import Datos_UsuarioSerializers
 # Create your views here.
 
 class Datos_Usuario_lista(APIView):
-    permission_classes = [permissions.IsAuthenticated]
 
-    #lista 
-    def get(self,request,*args, **kwargs):
-        usuario = Datos_Usuario.objects.all()
-        serializer = Datos_UsuarioSerializers(usuario,many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    queryset = Datos_Usuario.objects.none()
+    permission_classes = (IsAuthenticated,)
 
-    #Crear
     def post(self,request,*args, **kwargs):
         data = {
-            'nombres' : request.data.get('nombres'),
-            'apellidos' : request.data.get('apellidos'),
-            'fecha_alta' : request.data.get('fecha_alta'),
-            'dni' : request.data.get('dni'),
-            'cuit' : request.data.get('cuit')
+            "nombres" : request.data.get("nombres"),
+            "apellidos" : request.data.get("apellidos"),
+            "fecha_alta" : request.data.get("fecha_alta"),
+            "dni" : request.data.get("dni"),
+            "cuit" : request.data.get("cuit")
         }
 
-        serializer = Datos_UsuarioSerializers(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
-    
+        _serializer = Datos_UsuarioSerializers(data=data)
+
+        if _serializer.is_valid():
+            _serializer.save(dir = request.data.get('dir'))
+            return Response(_serializer.data, status=status.HTTP_201_CREATED) 
+        else:
+            return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
+
+    def get(self,request,*args, **kwargs):
+        usuario = Datos_Usuario.objects.all()
+        _serializer = Datos_UsuarioSerializers(usuario,many=True)
+        return Response(_serializer.data,status=status.HTTP_200_OK)
+
+
+
 class Datos_Usuario_id(APIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+
+    queryset = Datos_Usuario.objects.none()
+    permission_classes = (IsAuthenticated,)
 
     #obtener uno
     def get_object(self,id):
@@ -48,7 +53,7 @@ class Datos_Usuario_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {'res':'No exite el objeto'},
+                {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -59,21 +64,22 @@ class Datos_Usuario_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {'res':'No exite el objeto'},
+                {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'nombres' : request.data.get('nombres'),
-            'apellidos' : request.data.get('apellidos'),
-            'fecha_alta' : request.data.get('fecha_alta'),
-            'dni' : request.data.get('dni'),
-            'cuit' : request.data.get('cuit')
+            "nombres" : request.data.get("nombres"),
+            "apellidos" : request.data.get("apellidos"),
+            "fecha_alta" : request.data.get("fecha_alta"),
+            "dni" : request.data.get("dni"),
+            "cuit" : request.data.get("cuit")
         }
         serializer = Datos_UsuarioSerializers(instance = instance, data=data, partial = True)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(dir = request.data.get("dir"))
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # 4. Delete
     def delete(self, request, id, *args, **kwargs):
         instance = self.get_object(id)

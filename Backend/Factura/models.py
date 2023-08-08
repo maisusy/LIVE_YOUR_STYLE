@@ -3,7 +3,6 @@ from Proveedor.models import Proveedor
 from Compra.models import Compra
 from Insumo.models import Insumo
 
-# Create your models here.
 
 class Factura (models.Model):
     fecha_alta = models.DateField()
@@ -16,7 +15,7 @@ class Factura (models.Model):
     insumos = models.ManyToManyField(Insumo,through="Factura_insumo",through_fields=("id_fact","id_insumo"))
 
 
-class Factura_insumo(models.Model):
+class Factura_Insumo(models.Model):
     id_fact = models.ForeignKey(Factura,on_delete=models.CASCADE)
     id_insumo = models.ForeignKey(Insumo,on_delete=models.CASCADE)
     cant = models.IntegerField()

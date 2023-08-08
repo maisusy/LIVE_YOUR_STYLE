@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 
-from Factura.models import Factura
-from Factura.serializers import FacturaSerializer
+from Factura.models import Factura ,Factura_Insumo
+from Factura.serializers import FacturaSerializer,Factura_InsumoSerializer
 
 
 # Create your views here.
@@ -19,6 +19,7 @@ class Factura_lista(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
     #Crear
     def post(self,request,*args, **kwargs):
+
         data = {
             "fecha_alta" : request.data.get("fecha_alta"),
             "fecha_registro" : request.data.get("fecha_registro"),
@@ -30,8 +31,20 @@ class Factura_lista(APIView):
         }
 
         serializer = FacturaSerializer(data=data)
+        
         if serializer.is_valid():
-            serializer.save(insumos = request.data.get("insumos"))
+            factura = serializer.save()
+
+            insumo_data = request.data.get("insumos",[])
+
+            for insumo in insumo_data : 
+                Factura_Insumo.objects.create(
+                    id_fact = factura,
+                    id_insumo = insumo.get("id_insumo"),
+                    cant = insumo.get("cant"),
+                    costo_total = insumo.get("costo_total")
+                )
+
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
     

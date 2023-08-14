@@ -1,7 +1,7 @@
 from .dev import *
 from pathlib import Path
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 

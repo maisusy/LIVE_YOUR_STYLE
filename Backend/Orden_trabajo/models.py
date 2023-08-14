@@ -5,8 +5,8 @@ from Turno.models import Turno
 
 # Create your models here.
 class Orden_Trabajo(models.Model):
-    id_presupuesto = models.ForeignKey(Presupuesto,on_delete=models.CASCADE)
-    id_turno = models.ForeignKey(Turno,on_delete=models.CASCADE)
+    presupuesto = models.ForeignKey(Presupuesto,on_delete=models.CASCADE)
+    turno = models.ForeignKey(Turno,on_delete=models.CASCADE)
     estado = models.CharField(max_length=50)
-    id_usuario = models.ForeignKey(Datos_Usuario,on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Datos_Usuario,on_delete=models.CASCADE)
     fecha = models.DateField()

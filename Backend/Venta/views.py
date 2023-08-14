@@ -18,18 +18,8 @@ class Venta_lista(APIView):
         return Response(serializer.data, status = status.HTTP_200_OK)
     #cREAR
     def post(self,request,*args,**kwargs):
-        data = {
-            'id_usuario' : request.data.get('id_usuario'),
-            'id_correo' : request.data.get('id_correo'),
-            'id_direccion' : request.data.get('id_direccion'),
-            'id_telefono' : request.data.get('id_telefono'),
-            'precio_total' : request.data.get('precio_total'),
-            'medio_pago' : request.data.get('medio_pago'),
-            'estado' : request.data.get('estado'),
-            'fecha' : request.data.get('fecha'),
-        }
 
-        serializer = VentaSerializers(data=data)
+        serializer = VentaSerializers(data=request.data)
          
         if serializer.is_valid():
             serializer.save(productos = request.data.get('productos'))
@@ -64,18 +54,9 @@ class Venta_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'id_usuario' : request.data.get('id_usuario'),
-            'id_correo' : request.data.get('id_correo'),
-            'id_direccion' : request.data.get('id_direccion'),
-            'id_telefono' : request.data.get('id_telefono'),
-            'precio_total' : request.data.get('precio_total'),
-            'medio_pago' : request.data.get('medio_pago'),
-            'estado' : request.data.get('estado'),
-            'fecha' : request.data.get('fecha'),
-        }
 
-        serializer = VentaSerializers(instance = instance, data=data, partial = True)
+
+        serializer = VentaSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

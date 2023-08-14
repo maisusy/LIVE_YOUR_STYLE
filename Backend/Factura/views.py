@@ -2,10 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
-
-from Factura.models import Factura 
-from Factura.serializers import FacturaSerializer,FacturaInsumoDetalle
-
+from Insumo.models import Insumo
+from Factura.models import Factura , FacturaInsumo
+from Factura.serializers import FacturaSerializer
 
 # Create your views here.
 
@@ -13,48 +12,29 @@ class Factura_lista(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
      
-    def get(self,request,*args, **kwargs):
+    def get(self, request, *args, **kwargs):
         try:
             facturas = Factura.objects.all()
             serializer = FacturaSerializer(facturas, many=True)
+            print('Factutas Serializers: ', serializer.data)
+
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     
 
     def post(self,request,*args, **kwargs):
         try:
-            data = {
-                "fecha_alta" : request.data.get("fecha_alta"),
-                "fecha_registro" : request.data.get("fecha_registro"),
-                "nro_factura" : request.data.get("nro_factura"),
-                "nro_comprobante" : request.data.get("nro_comprobante"),
-                "nro_p_vta" : request.data.get("nro_p_vta"),
-                "id_proveedor" : request.data.get("id_proveedor"),
-                "id_compra" : request.data.get("id_compra"),
-            }
 
-            serializer = FacturaSerializer(data=data)
-            
+            serializer = FacturaSerializer(data=request.data)
             if serializer.is_valid():
-                factura = serializer.save()
+                serializer.save(insumos = request.data.get('insumos'))
 
-                insumo_data = request.data.get("insumos", [])
-                for insumo in insumo_data:
-                    data_2 = {
-                        "id_fact": factura.id,
-                        "id_insumo": insumo.get("id_insumo"),
-                        "cant": insumo.get("cant"),
-                        "costo_total": insumo.get("costo_total")
-                    }
-                    fi_s = FacturaInsumoDetalle(data=data_2)
-                    if fi_s.is_valid():
-                        fi_s.save()
-                    else:
-                        return Response(fi_s.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(serializer.data,status=status.HTTP_201_CREATED) 
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-            
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
@@ -86,17 +66,8 @@ class Factura_id(APIView):
                 {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
-        data = {
-            "fecha_registro" : request.data.get("fecha_registro"),
-            "nro_factura" : request.data.get("nro_factura"),
-            "nro_comprobante" : request.data.get("nro_comprobante"),
-            "nro_p_vta" : request.data.get("nro_p_vta"),
-            "id_proveedor" : request.data.get("id_proveedor"),
-            "id_compra" : request.data.get("id_compra")
-        }
 
-        serializer = FacturaSerializer(instance = instance, data=data, partial = True)
+        serializer = FacturaSerializer(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save(insumos = request.data.get("insumos"))
             return Response(serializer.data, status=status.HTTP_200_OK)

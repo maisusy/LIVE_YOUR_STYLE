@@ -18,14 +18,8 @@ class Tarjeta_lista(APIView):
         return Response(serializer.data, status = status.HTTP_200_OK)
     #cREAR
     def post(self,request,*args,**kwargs):
-        data = {
-            'nro' : request.data.get('nro'),
-            'titular' : request.data.get('titular'),
-            'f_venc' : request.data.get('f_venc'),
-            'id_usuario' : request.data.get('id_usuario'),
-        }
 
-        serializer = TarjetaSerializers(data=data)
+        serializer = TarjetaSerializers(data=request.data)
          
         if serializer.is_valid():
             serializer.save()
@@ -60,19 +54,13 @@ class Tarjeta_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'nro' : request.data.get('nro'),
-            'titular' : request.data.get('titular'),
-            'f_venc' : request.data.get('f_venc'),
-            'id_usuario' : request.data.get('id_usuario'),
-        }
 
-        serializer = TarjetaSerializers(instance = instance, data=data, partial = True)
+        serializer = TarjetaSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # 4. Eliminar
+    # 4. Eliminarrequest.data
     def delete(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         if not instance:

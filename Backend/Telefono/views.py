@@ -19,13 +19,8 @@ class Telefono_lista(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
     #Crear
     def post(self,request,*args, **kwargs):
-        data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
-        }
 
-        serializer = TelefonoSerializers(data=data)
+        serializer = TelefonoSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -59,12 +54,8 @@ class Telefono_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
-        }
-        serializer = TelefonoSerializers(instance = instance, data=data, partial = True)
+
+        serializer = TelefonoSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

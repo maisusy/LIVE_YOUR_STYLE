@@ -7,4 +7,4 @@ class Tarjeta(models.Model):
     nro = models.IntegerField()
     f_venc = models.DateField()
     titular = models.CharField(max_length=100)
-    id_usuario = models.ForeignKey(Datos_Usuario,on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Datos_Usuario,on_delete=models.CASCADE)

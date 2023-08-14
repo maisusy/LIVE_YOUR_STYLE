@@ -5,25 +5,48 @@ from Insumo.models import Insumo
 class InsumoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Insumo
-        fields = ['id']
+        fields = ['id']   
+
+# class Factura_Serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Factura
+#         fields = ['id']   
+        
 
 class FacturaInsumoSerializer(serializers.ModelSerializer):
-    id_insumo = InsumoSerializer(read_only=True)
+    insumo = InsumoSerializer(read_only=True)
     class Meta:
         model = FacturaInsumo
-        fields = ['id','id_insumo', 'cant', 'costo_total']
-
-class FacturaInsumoDetalle(serializers.ModelSerializer):
-    id_insumo = InsumoSerializer(read_only=True)  
-    class Meta:
-        model = FacturaInsumo
-        fields = ['id', 'id_fact', 'id_insumo', 'cant', 'costo_total']
+        fields = ('insumo', 'cant', 'costo_total')
 
 class FacturaSerializer(serializers.ModelSerializer):
-    insumos = FacturaInsumoDetalle(read_only=True,many=True)
+    insumos = FacturaInsumoSerializer(many=True,read_only=True)
     class Meta:
         model = Factura
-        fields = ['id', 'fecha_alta', 'fecha_registro', 'nro_factura',
-                  'nro_comprobante', 'nro_p_vta', 'id_proveedor', 'id_compra', 'insumos']
+        fields = ('fecha_alta', 'fecha_registro', 'nro_factura', 'nro_comprobante', 'nro_p_vta',
+                  'proveedor', 'compra', 'insumos')
 
+    def create(self, validated_data):
+
+        insumos = validated_data.pop('insumos')
+
+        factura_intance = Factura.objects.create(**validated_data)
+        for item in insumos:
+            instance_insumo = Insumo.objects.get(id=item.get('insumo'))  
+
+            FacturaInsumo.objects.create(
+                id_fact = factura_intance,
+                id_insumo= instance_insumo,
+                cant = item.get('cant'),
+                costo_total = item.get('costo_total'),
+            )
+
+        data = {**validated_data,
+                "insumos" : insumos
+            }
+
+
+        return data
+            
+                  
                   

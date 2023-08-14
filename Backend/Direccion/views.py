@@ -19,14 +19,7 @@ class Direccion_lista(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
     #Crear
     def post(self,request,*args, **kwargs):
-        data = {
-            'calle' : request.data.get('calle'),
-            'dpto' : request.data.get('dpto'),
-            'piso' : request.data.get('piso'),
-            'nro' : request.data.get('nro'),
-        }
-
-        serializer = DireccionSerializers(data=data)
+        serializer = DireccionSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -61,13 +54,7 @@ class Direccion_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'calle' : request.data.get('calle'),
-            'dpto' : request.data.get('dpto'),
-            'piso' : request.data.get('piso'),
-            'nro' : request.data.get('nro'),
-        }
-        serializer = DireccionSerializers(instance = instance, data=data, partial = True)
+        serializer = DireccionSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

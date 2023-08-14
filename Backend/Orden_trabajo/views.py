@@ -21,14 +21,9 @@ class Orden_Trabajo_lista(APIView):
         return Response(serializer.data, status = status.HTTP_200_OK)
     #cREAR
     def post(self,request,*args,**kwargs):
-        data = {
-            'nro' : request.data.get('nro'),
-            'titular' : request.data.get('titular'),
-            'f_venc' : request.data.get('f_venc'),
-            'id_usuario' : request.data.get('id_usuario'),
-        }
 
-        serializer = Orden_trabajoSerializers(data=data)
+
+        serializer = Orden_trabajoSerializers(data=request.data)
          
         if serializer.is_valid():
             serializer.save()
@@ -63,14 +58,8 @@ class Orden_Trabajo_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'nro' : request.data.get('nro'),
-            'titular' : request.data.get('titular'),
-            'f_venc' : request.data.get('f_venc'),
-            'id_usuario' : request.data.get('id_usuario'),
-        }
 
-        serializer = Orden_trabajoSerializers(instance = instance, data=data, partial = True)
+        serializer = Orden_trabajoSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

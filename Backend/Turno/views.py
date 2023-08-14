@@ -18,17 +18,9 @@ class Turno_lista(APIView):
         return Response(serializer.data, status = status.HTTP_200_OK)
     #cREAR
     def post(self,request,*args,**kwargs):
-        data = {
-            'id_usuario' : request.data.get('id_usuario'),
-            'id_correo' : request.data.get('id_correo'),
-            'fecha' : request.data.get('fecha'),
-            'hora' : request.data.get('hora'),
-            'monto' : request.data.get('monto'),
-            'motivo' : request.data.get('motivo'),
-            'estado' : request.data.get('estado'),
-        }
 
-        serializer = TurnoSerializers(data=data)
+
+        serializer = TurnoSerializers(data=request.data)
          
         if serializer.is_valid():
             serializer.save()
@@ -63,17 +55,9 @@ class Turno_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'id_usuario' : request.data.get('id_usuario'),
-            'id_correo' : request.data.get('id_correo'),
-            'fecha' : request.data.get('fecha'),
-            'hora' : request.data.get('hora'),
-            'monto' : request.data.get('monto'),
-            'motivo' : request.data.get('motivo'),
-            'estado' : request.data.get('estado'),
-        }
 
-        serializer = TurnoSerializers(instance = instance, data=data, partial = True)
+
+        serializer = TurnoSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

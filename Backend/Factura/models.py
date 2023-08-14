@@ -10,13 +10,13 @@ class Factura(models.Model):
     nro_factura = models.CharField(max_length=50)
     nro_comprobante = models.IntegerField()
     nro_p_vta = models.IntegerField()
-    id_proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
-    id_compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
-    insumos = models.ManyToManyField(Insumo, through="FacturaInsumo", through_fields=("id_fact", "id_insumo"))
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
+    insumos = models.ManyToManyField(Insumo, through="FacturaInsumo", through_fields=("fact", "insumo"))
 
 
 class FacturaInsumo(models.Model):
-    id_fact = models.ForeignKey(Factura, on_delete=models.CASCADE)
-    id_insumo = models.ForeignKey(Insumo, on_delete=models.CASCADE)
+    fact = models.ForeignKey(Factura, on_delete=models.CASCADE)
+    insumo = models.ForeignKey(Insumo, on_delete=models.CASCADE)
     cant = models.IntegerField()
     costo_total = models.FloatField()

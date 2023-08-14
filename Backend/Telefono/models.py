@@ -6,4 +6,4 @@ from Datos_Usuario.models import Datos_Usuario
 class Telefono(models.Model):
     cod = models.IntegerField()
     nro = models.IntegerField()
-    id_usuario = models.ForeignKey(Datos_Usuario,on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Datos_Usuario,on_delete=models.CASCADE)

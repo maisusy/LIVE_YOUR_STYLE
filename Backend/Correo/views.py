@@ -19,12 +19,7 @@ class Correo_lista(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
     #Crear
     def post(self,request,*args, **kwargs):
-        data = {
-            'correo' : request.data.get('correo'),
-            'id_usuario' : request.data.get('id_usuario'),
-        }
-
-        serializer = CorreoSerializers(data=data)
+        serializer = CorreoSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -58,11 +53,7 @@ class Correo_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'correo' : request.data.get('correo'),
-            'id_usuario' : request.data.get('id_usuario'),
-        }
-        serializer = CorreoSerializers(instance = instance, data=data, partial = True)
+        serializer = CorreoSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

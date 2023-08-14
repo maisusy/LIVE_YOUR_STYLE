@@ -19,14 +19,7 @@ class Compra_lista(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
     #Crear
     def post(self,request,*args, **kwargs):
-        data = {
-            "costo_total" : request.data.get("costo_total"),
-            "estado" : request.data.get("estado"),
-            "fecha" : request.data.get("fecha"),
-            "nro" : request.data.get("nro"),
-        }
-
-        serializer = ComprasSerializers(data=data)
+        serializer = ComprasSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -61,13 +54,7 @@ class Compra_id(APIView):
                 {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            "costo_total" : request.data.get("costo_total"),
-            "estado" : request.data.get("estado"),
-            "fecha" : request.data.get("fecha"),
-            "nro" : request.data.get("nro"),
-        }
-        serializer = ComprasSerializers(instance = instance, data=data, partial = True)
+        serializer = ComprasSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

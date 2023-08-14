@@ -19,13 +19,8 @@ class Envio_lista(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
     #Crear
     def post(self,request,*args, **kwargs):
-        data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
-        }
 
-        serializer = EnvioSerializers(data=data)
+        serializer = EnvioSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -59,12 +54,8 @@ class Envio_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'cuit' : request.data.get('cuit'),
-            'razon_social' : request.data.get('razon_social'),
-            'obs' : request.data.get('obs'),
-        }
-        serializer = EnvioSerializers(instance = instance, data=data, partial = True)
+        
+        serializer = EnvioSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

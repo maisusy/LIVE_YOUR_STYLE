@@ -13,17 +13,7 @@ class Insumo_lista(APIView):
     permission_classes = (IsAuthenticated,)
     
     def post(self,request,*args, **kwargs):
-
-        data = {
-            "nombre" : request.data.get("nombre"),
-            "id_u_med" : request.data.get("id_u_med"),
-            "stock" : request.data.get("stock"),
-            "costo" : request.data.get("costo"),
-            "id_marca" : request.data.get("id_marca"),
-            "id_proveedor" : request.data.get("id_proveedor")
-        }
-
-        _serializer = InsumoSerializers(data=data)
+        _serializer = InsumoSerializers(data=request.data)
 
         if _serializer.is_valid():
             _serializer.save(color = request.data.get('color'))
@@ -67,15 +57,7 @@ class Insumo_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            "nombre" : request.data.get("nombre"),
-            "id_u_med" : request.data.get("id_u_med"),
-            "stock" : request.data.get("stock"),
-            "costo" : request.data.get("costo"),
-            "id_marca" : request.data.get("id_marca"),
-            "id_proveedor" : request.data.get("id_proveedor")
-        }
-        _serializer = InsumoSerializers(instance = instance, data=data, partial = True)
+        _serializer = InsumoSerializers(instance = instance, data=request.data, partial = True)
         if _serializer.is_valid():
             _serializer.save(color = request.data.get("color"))
             _serializer.save(obs = request.data.get('obs'))

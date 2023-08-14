@@ -11,19 +11,8 @@ class Producto_list(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
-    
-        data = {
-            "nombre" : request.data.get("nombre"),
-            "stock" : request.data.get("stock"),
-            "id_cat_prod" : request.data.get("id_cat_prod"),
-            "precio" : request.data.get("precio"),
-            "costo" : request.data.get("costo"),
-            "id_u_med" : request.data.get("id_u_med"),
-            "original" : request.data.get("original"),
-            "id_marca" : request.data.get("id_marca")
-        }
 
-        _serializer = ProductoSerializers(data=data)  # NOQA
+        _serializer = ProductoSerializers(data=request.data)  # NOQA
         
         if _serializer.is_valid():
             _serializer.save(color = request.data.get('color'))
@@ -68,18 +57,8 @@ class Producto_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            "nombre" : request.data.get("nombre"),
-            "stock" : request.data.get("stock"),
-            "id_cat_prod" : request.data.get("id_cat_prod"),
-            "precio" : request.data.get("precio"),
-            "costo" : request.data.get("costo"),
-            "id_u_med" : request.data.get("id_u_med"),
-            "original" : request.data.get("original"),
-            "id_marca" : request.data.get("id_marca")
-        }
 
-        serializer = ProductoSerializers(instance = instance, data=data, partial = True)
+        serializer = ProductoSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save(color = request.data.get('color'))
             serializer.save(obs = request.data.get('obs'))

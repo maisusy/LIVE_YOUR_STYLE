@@ -14,15 +14,7 @@ class Datos_Usuario_lista(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self,request,*args, **kwargs):
-        data = {
-            "nombres" : request.data.get("nombres"),
-            "apellidos" : request.data.get("apellidos"),
-            "fecha_alta" : request.data.get("fecha_alta"),
-            "dni" : request.data.get("dni"),
-            "cuit" : request.data.get("cuit")
-        }
-
-        _serializer = Datos_UsuarioSerializers(data=data)
+        _serializer = Datos_UsuarioSerializers(data=request.data)
 
         if _serializer.is_valid():
             _serializer.save(dir = request.data.get('dir'))
@@ -67,14 +59,7 @@ class Datos_Usuario_id(APIView):
                 {"res":"No exite el objeto"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            "nombres" : request.data.get("nombres"),
-            "apellidos" : request.data.get("apellidos"),
-            "fecha_alta" : request.data.get("fecha_alta"),
-            "dni" : request.data.get("dni"),
-            "cuit" : request.data.get("cuit")
-        }
-        serializer = Datos_UsuarioSerializers(instance = instance, data=data, partial = True)
+        serializer = Datos_UsuarioSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save(dir = request.data.get("dir"))
             return Response(serializer.data, status=status.HTTP_200_OK)

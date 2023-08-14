@@ -19,11 +19,8 @@ class Unidad_medida_lista(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
     #Crear
     def post(self,request,*args, **kwargs):
-        data = {
-            'nombre' : request.data.get('nombre'),
-        }
 
-        serializer = UnidadMedidaSerializers(data=data)
+        serializer = UnidadMedidaSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -57,10 +54,8 @@ class Unidad_medida_id(APIView):
                 {'res':'No exite el objeto'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        data = {
-            'nombre' : request.data.get('nombre'),
-        }
-        serializer = UnidadMedidaSerializers(instance = instance, data=data, partial = True)
+
+        serializer = UnidadMedidaSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

@@ -12,7 +12,7 @@ class Factura(models.Model):
     nro_p_vta = models.IntegerField()
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
-    insumos = models.ManyToManyField(Insumo, through="FacturaInsumo", through_fields=("fact", "insumo"))
+    insumos = models.ManyToManyField(Insumo, through="FacturaInsumo")
 
 
 class FacturaInsumo(models.Model):

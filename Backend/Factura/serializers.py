@@ -2,29 +2,24 @@ from rest_framework import serializers
 from Factura.models import Factura,FacturaInsumo
 from Insumo.models import Insumo  
 
-class InsumoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Insumo
-        fields = ['id']   
 
-# class Factura_Serializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Factura
-#         fields = ['id']   
-        
 
 class FacturaInsumoSerializer(serializers.ModelSerializer):
-    insumo = InsumoSerializer(read_only=True)
     class Meta:
         model = FacturaInsumo
-        fields = ('insumo', 'cant', 'costo_total')
+        fields = ['id','fact','insumo', 'cant', 'costo_total']
 
 class FacturaSerializer(serializers.ModelSerializer):
-    insumos = FacturaInsumoSerializer(many=True,read_only=True)
+    insumos = serializers.SerializerMethodField()
+
     class Meta:
         model = Factura
-        fields = ('fecha_alta', 'fecha_registro', 'nro_factura', 'nro_comprobante', 'nro_p_vta',
-                  'proveedor', 'compra', 'insumos')
+        fields = ['fecha_alta', 'fecha_registro', 'nro_factura', 'nro_comprobante', 'nro_p_vta',
+                  'proveedor', 'compra', 'insumos']
+
+    def get_insumos(self,obj):
+        qset = FacturaInsumo.objects.filter(fact=obj)
+        return [FacturaInsumoSerializer(m).data for m in qset]
 
     def create(self, validated_data):
 
@@ -35,11 +30,12 @@ class FacturaSerializer(serializers.ModelSerializer):
             instance_insumo = Insumo.objects.get(id=item.get('insumo'))  
 
             FacturaInsumo.objects.create(
-                id_fact = factura_intance,
-                id_insumo= instance_insumo,
+                fact = factura_intance,
+                insumo= instance_insumo,
                 cant = item.get('cant'),
-                costo_total = item.get('costo_total'),
+                costo_total = item.get('costo_total')
             )
+
 
         data = {**validated_data,
                 "insumos" : insumos

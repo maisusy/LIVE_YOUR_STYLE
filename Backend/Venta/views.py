@@ -11,20 +11,30 @@ class Venta_lista(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    #lista
+    
     def get(self,request,*args,**kwargs):
-        vta = Venta.objects.all()
-        serializer = VentaSerializers(vta,many=True)
-        return Response(serializer.data, status = status.HTTP_200_OK)
-    #cREAR
-    def post(self,request,*args,**kwargs):
+        try:
+            ventas = Venta.objects.all()
+            serializer = VentaSerializers(ventas, many=True)
+            print('Factutas Serializers: ', serializer.data)
 
-        serializer = VentaSerializers(data=request.data)
-         
-        if serializer.is_valid():
-            serializer.save(productos = request.data.get('productos'))
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors , status = status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    def post(self,request,*args,**kwargs):
+        try:
+
+            serializer = VentaSerializers(data=request.data)
+            if serializer.is_valid():
+                serializer.save(productos = request.data.get('productos'))
+
+                return Response(serializer.data,status=status.HTTP_201_CREATED) 
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 class Venta_id(APIView):
 

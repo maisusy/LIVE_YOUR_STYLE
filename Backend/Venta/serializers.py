@@ -34,12 +34,4 @@ class VentaSerializers(serializers.ModelSerializer):
                 p_total = item.get('p_total')
             )
 
-
-        data = {"id":venta_instance.id,
-                **validated_data,
-                "productos" : productos
-            }
-        
-        print('data   ',data)
-
-        return data
+        return venta_instance

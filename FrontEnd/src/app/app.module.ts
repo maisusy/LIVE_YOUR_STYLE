@@ -6,18 +6,22 @@ import { InterceptorService } from './interceptors/interceptor.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StylesModule } from './styles.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuComponent } from './menu/menu.component';
+import { MenuModule } from './menu/menu.module';
+import { ProductoComponent } from './producto/producto.component'
 
 @NgModule({
   declarations: [								
-    AppComponent,
+    AppComponent, ProductoComponent
    ],
   imports: [
     BrowserModule,
     HttpClientModule,
     StylesModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MenuModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

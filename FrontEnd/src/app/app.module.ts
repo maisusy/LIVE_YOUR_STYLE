@@ -9,11 +9,10 @@ import { StylesModule } from './styles.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './menu/menu.component';
 import { MenuModule } from './menu/menu.module';
-import { ProductoComponent } from './producto/producto.component'
 
 @NgModule({
   declarations: [								
-    AppComponent, ProductoComponent
+    AppComponent, 
    ],
   imports: [
     BrowserModule,

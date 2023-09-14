@@ -50,7 +50,13 @@ export class MenuComponent {
                 items : [
                   {
                     label : 'Listado Predefinidos'  ,
-                    icon: 'pi pi-fw pi-plus',                  
+                    icon: 'pi pi-fw pi-plus',  
+                    items : [
+                      {
+                        label:'Marcas',
+                        icon: 'pi pi-fw pi-plus',  
+                      }
+                    ]                
                   }
                 ]
             },
@@ -73,8 +79,6 @@ export class MenuComponent {
     }
 
     onActiveItemChange(event: MenuItem) {
-
-
 
         this.activeItem = event;
         console.log(event.label)

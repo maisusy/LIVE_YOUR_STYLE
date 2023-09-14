@@ -7,8 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StylesModule } from './styles.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MenuComponent } from './menu/menu.component';
 import { MenuModule } from './menu/menu.module';
+import { MarcaModule } from './predefinidos/marca/marca.module';
 
 @NgModule({
   declarations: [								
@@ -20,7 +20,8 @@ import { MenuModule } from './menu/menu.module';
     StylesModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MenuModule
+    MenuModule,
+    MarcaModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

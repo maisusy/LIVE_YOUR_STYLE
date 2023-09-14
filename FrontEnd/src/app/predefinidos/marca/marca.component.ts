@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PredefinidosService } from '../predefinidos.service'
 import { PrimeNGConfig } from 'primeng/api';
@@ -27,6 +27,7 @@ export class MarcaComponent {
   ) { }
 
   ngOnInit(): void {
+    console.log('marcaaa')
     this.config.setTranslation({
       'startsWith' : 'Que comienze con',
       'contains' : 'Que Contenga',

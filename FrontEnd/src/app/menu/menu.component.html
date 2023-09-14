@@ -1,8 +1,10 @@
-<p-menubar [model]="items">
+<p-menubar [model]="items"  >
     <ng-template pTemplate="start">
-        <img src="{{env.myVarForImageURLS}}//diseno-de-moda.png" height="40" class="mr-2" />
+      <img src="{{env.myVarForImageURLS}}/diseno-de-moda.png" height="40" class="mr-2" />
     </ng-template>
+    
     <ng-template pTemplate="end">
-        <input type="text" pInputText placeholder="Search" class="w-full" />
+      <input type="text" pInputText placeholder="Search" class="w-full" />
     </ng-template>
-</p-menubar>
+  </p-menubar>
+  

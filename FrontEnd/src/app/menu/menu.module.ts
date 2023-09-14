@@ -17,7 +17,7 @@ import { StylesModule } from '../styles.module';
     CommonModule,
     MenubarModule,
     TabMenuModule,
-    StylesModule
+    StylesModule,
   ]
 })
 export class MenuModule { }

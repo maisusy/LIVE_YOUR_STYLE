@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { environment as env } from '../../environments/environments';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MarcaComponent } from '../predefinidos/marca/marca.component';
 
 @Component({
   selector: 'app-menu',
@@ -15,11 +16,12 @@ export class MenuComponent {
   public env = env;
 
 
-  constructor(private router: Router,
+  constructor( public router : Router,
      private route: ActivatedRoute){}
 
 
     ngOnInit() {
+
         this.items = [
             {
                 label: 'Productos',
@@ -54,7 +56,11 @@ export class MenuComponent {
                     items : [
                       {
                         label:'Marcas',
-                        icon: 'pi pi-fw pi-plus',  
+                        icon: 'pi pi-fw pi-plus',
+                        command : () => {
+                          this.onMenuItemClick('marca')
+                        }
+
                       }
                     ]                
                   }
@@ -78,26 +84,19 @@ export class MenuComponent {
         this.activeItem = this.items[0];
     }
 
-    onActiveItemChange(event: MenuItem) {
 
-        this.activeItem = event;
-        console.log(event.label)
-        switch(event.label){
-        case 'Productos' : 
-            this.router.navigate(['productos']);
-        break;
-        case 'Turnos' : 
-            this.router.navigate(['turnos']);
-        break;
-        case 'Administracion' : 
-            this.router.navigate(['admin']);
-        break;
-        case 'Usuarios' : 
-            this.router.navigate(['usuarios']);
-        break;
-    }
+    onMenuItemClick(item : any) {
+        // Acceder al valor del elemento del menú seleccionado
+      console.log(item);
 
-        console.log('aaaa', event.label )
+      this.activeItem = item;
+
+        switch(item){
+        case 'marca' : 
+            this.router.navigate(['marca']);
+        break;
+        }
+
      }
 
 }

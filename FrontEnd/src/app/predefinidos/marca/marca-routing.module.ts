@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { MarcaComponent } from './marca.component';
 
 const routes: Routes = [
-   { path: '', component : MarcaComponent},
+  {
+    path: '',
+    component: MarcaComponent,
+  },
 ];
 
 @NgModule({

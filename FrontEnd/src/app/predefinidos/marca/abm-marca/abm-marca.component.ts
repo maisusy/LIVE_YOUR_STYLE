@@ -42,7 +42,6 @@ export class AbmMarcaComponent {
 
     if (this.datos != null) {
       this.accion = "Actualizar"
-      this.formsMarca.setValue(this.datos)
     } else {
       this.accion = "Guardar"
     }
@@ -50,7 +49,7 @@ export class AbmMarcaComponent {
 
   submit() {
     if (this.formsMarca.valid) {
-      if (this.datos == null) {
+      if (this.accion == "Guardar") {
         delete this.formsMarca.value.id
         this.MarcaService.AgregarMarca(this.formsMarca.value)
         .subscribe(_ => {

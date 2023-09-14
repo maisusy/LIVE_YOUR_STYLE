@@ -12,7 +12,7 @@
     [loading]="loading"
     [paginator]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['codigo', 'nombre']"
+    [globalFilterFields]="['nombre']"
     [tableStyle]="{ 'min-width': '75rem' }"
     >
     <ng-template pTemplate="header">
@@ -36,7 +36,7 @@
     <ng-template pTemplate="body" let-marca>
         <tr>
             <td>
-                {{ marca.codigo }}
+                {{ marca.id }}
             </td>
             <td>
                 {{ marca.nombre }}

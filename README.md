@@ -31,7 +31,7 @@ pip install python-decouple
 
 RUN
 ```bash
-ng runserve --open
+ng serve --open
 ```
 
 INSTALL
@@ -40,9 +40,6 @@ npm install -g @angular/cli
 npm i primeng
 npm i primeflex 
 npm i primeicons
-npm i file-saver
-npm i xlsx
-npm i read-excel-file
 ```
 O
 ```bash

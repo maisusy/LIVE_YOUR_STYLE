@@ -25,34 +25,34 @@ export class MenuComponent {
         this.items = [
             {
                 label: 'Productos',
-                icon: 'pi pi-fw pi-file'
+                icon: 'pi pi-fw pi-shopping-cart'
             },
             {
                 label: 'Turnos',
-                icon: 'pi pi-fw pi-file',
+                icon: 'pi pi-fw pi-calendar',
                 items : [
                   {
                     label : 'Agendar Turno'  ,
-                    icon: 'pi pi-fw pi-plus',                  
+                    icon: 'pi pi-fw pi-calendar-plus',                  
                   },
                   {
                     label : 'Listado'  ,
-                    icon: 'pi pi-fw pi-plus',                  
+                    icon: 'pi pi-fw pi-calendar-minus',                  
                   },
                   {
                     label : 'Mis turnos'  ,
-                    icon: 'pi pi-fw pi-plus',                  
+                    icon: 'pi pi-fw pi-calendar-minus',                  
                   }
                 ]
             },
             
             {
                 label: 'Administracion',
-                icon: 'pi pi-fw pi-pencil',
+                icon: 'pi pi-fw pi-cog',
                 items : [
                   {
                     label : 'Listado Predefinidos'  ,
-                    icon: 'pi pi-fw pi-plus',  
+                    icon: 'pi pi-fw pi-list',  
                     items : [
                       {
                         label:'Marcas',
@@ -87,12 +87,12 @@ export class MenuComponent {
                 icon: 'pi pi-fw pi-user',
                 items : [
                   {
-                    label : 'Cambir contraseña'  ,
-                    icon: 'pi pi-fw pi-plus',                  
+                    label : 'Cambiar contraseña'  ,
+                    icon: 'pi pi-fw pi-lock',                  
                   },
                   {
                     label : 'Actualizar datos'  ,
-                    icon: 'pi pi-fw pi-plus',                  
+                    icon: 'pi pi-fw pi-user-edit',                  
                   }
                 ]
             }

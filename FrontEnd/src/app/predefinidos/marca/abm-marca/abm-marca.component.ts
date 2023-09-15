@@ -42,6 +42,7 @@ export class AbmMarcaComponent {
 
     if (this.datos != null) {
       this.accion = "Actualizar"
+      this.formsMarca.setValue(this.datos)
     } else {
       this.accion = "Guardar"
     }
@@ -51,6 +52,7 @@ export class AbmMarcaComponent {
     if (this.formsMarca.valid) {
       if (this.accion == "Guardar") {
         delete this.formsMarca.value.id
+        console.log(this.formsMarca.value)
         this.MarcaService.AgregarMarca(this.formsMarca.value)
         .subscribe(_ => {
           this.messageService.add({ key: 'abm-marca', severity: 'success', summary: `${this.accion} Marca`, detail: 'La acción se realizo correctamente' });

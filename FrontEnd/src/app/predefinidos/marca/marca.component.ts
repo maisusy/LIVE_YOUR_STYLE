@@ -54,7 +54,6 @@ export class MarcaComponent {
   }
 
   Confirmar(event : Event, id : number ){
-    console.log(id);
       this.confirmationService.confirm({
         target: event.target!,
           message: '¿Estas seguro?',
@@ -85,7 +84,6 @@ export class MarcaComponent {
     this.MarcaService.ObtenerMarca()
     .subscribe(
       (res) => {
-        console.log("marca",res)
         this.Marca = res;
         this.loading = false;
       }

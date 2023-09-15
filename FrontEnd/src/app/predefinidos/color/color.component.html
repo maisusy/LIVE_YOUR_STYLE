@@ -1,0 +1,68 @@
+
+<app-abm-color [visible]="modal == 'color'" (success)="success()" [datos]="modalDatos" ></app-abm-color>
+<p-toast key="color"></p-toast>
+
+<p-table
+    #dt2
+    [value]="Color"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['nombre','tono']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    >
+    <ng-template pTemplate="caption">
+        <p class="text-2xl">Colores</p>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:22%">Codigo</th>
+            <th style="width:22%">Nombre</th>
+            <th style="width:22%">Tono</th>
+            <th style="width:12%">Acciones</th>
+        </tr>
+        <tr>
+            <th>
+                <p-columnFilter type="text" field="codigo"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="nombre"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="tono"></p-columnFilter>
+            </th>
+            <th>
+                <p-button icon="pi pi-plus" (onClick)="MODAL('color',null)" styleClass="p-button-raised p-button-success"></p-button>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-color>
+        <tr>
+            <td>
+                {{ color.id }}
+            </td>
+            <td>
+                {{ color.nombre }}
+            </td>
+            <td>
+                {{ color.tono }}
+            </td>
+            <td>
+                <p-toast></p-toast>
+                <p-confirmPopup></p-confirmPopup>
+                <p-button icon="pi pi-pencil" styleClass="p-button-raised"(onClick)="MODAL('color',color)"> </p-button>
+                <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,color.id)"> </p-button>
+            
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>

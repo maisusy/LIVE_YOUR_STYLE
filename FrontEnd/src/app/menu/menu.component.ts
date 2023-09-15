@@ -61,6 +61,14 @@ export class MenuComponent {
                           this.onMenuItemClick('marca')
                         }
 
+                      },
+                      {
+                        label:'Colores',
+                        icon: 'pi pi-fw pi-plus',
+                        command : () => {
+                          this.onMenuItemClick('color')
+                        }
+
                       }
                     ]                
                   }
@@ -94,6 +102,9 @@ export class MenuComponent {
         switch(item){
         case 'marca' : 
             this.router.navigate(['marca']);
+        break;
+        case 'color' : 
+            this.router.navigate(['color']);
         break;
         }
 

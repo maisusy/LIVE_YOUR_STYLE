@@ -11,9 +11,12 @@ import { MenuModule } from './menu/menu.module';
 import { MarcaModule } from './predefinidos/marca/marca.module';
 import { ColorModule } from './predefinidos/color/color.module';
 import { UnidadMedidaModule } from './predefinidos/unidad-medida/unidad-medida.module';
+import { LoginModule } from './login/login.module';
+
+
 @NgModule({
   declarations: [								
-    AppComponent, 
+    AppComponent,
    ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import { UnidadMedidaModule } from './predefinidos/unidad-medida/unidad-medida.m
     MenuModule,
     MarcaModule,
     ColorModule,
-    UnidadMedidaModule
+    UnidadMedidaModule,
+    LoginModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

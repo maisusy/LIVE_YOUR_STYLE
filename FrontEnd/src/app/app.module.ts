@@ -9,8 +9,6 @@ import { StylesModule } from './styles.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuModule } from './menu/menu.module';
 import { MarcaModule } from './predefinidos/marca/marca.module';
-import { ColorComponent } from './predefinidos/color/color.component';
-import { AbmColorComponent } from './predefinidos/color/abm-color/abm-color.component';
 import { ColorModule } from './predefinidos/color/color.module';
 import { UnidadMedidaModule } from './predefinidos/unidad-medida/unidad-medida.module';
 @NgModule({
@@ -25,7 +23,8 @@ import { UnidadMedidaModule } from './predefinidos/unidad-medida/unidad-medida.m
     BrowserAnimationsModule,
     MenuModule,
     MarcaModule,
-    ColorModule
+    ColorModule,
+    UnidadMedidaModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

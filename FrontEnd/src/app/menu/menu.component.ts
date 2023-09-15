@@ -69,6 +69,14 @@ export class MenuComponent {
                           this.onMenuItemClick('color')
                         }
 
+                      },
+                      {
+                        label:'Unidades de Medida',
+                        icon: 'pi pi-fw pi-plus',
+                        command : () => {
+                          this.onMenuItemClick('unidad_medida')
+                        }
+
                       }
                     ]                
                   }
@@ -105,6 +113,9 @@ export class MenuComponent {
         break;
         case 'color' : 
             this.router.navigate(['color']);
+        break;
+        case 'unidad_medida' : 
+            this.router.navigate(['unidad_medida']);
         break;
         }
 

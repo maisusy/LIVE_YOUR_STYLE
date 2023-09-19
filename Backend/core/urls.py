@@ -21,6 +21,7 @@ from Orden_trabajo import urls as ord_trabajo_url
 from Venta import urls as venta_url
 from Envio import urls as envio_url
 from Compra import urls as compras_url
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,7 +45,7 @@ urlpatterns = [
     path('venta/', include(venta_url)),
     path('envio/', include(envio_url)),
     path('compras/', include(compras_url)),
+    path('api/token/', TokenObtainPairView.as_view() ,name ='toke-obtain-pair' ),
+    path('api/token/refresh',TokenRefreshView.as_view(), name='token-refresh' )
 
 ]
-
-

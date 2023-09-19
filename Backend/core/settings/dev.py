@@ -42,6 +42,11 @@ REST_FRAMEWORK = {
     ],
 }
 
+SIMPLe_JWT = {
+    'ACCESS_TOKEN_LIFETIME' : 900,
+    'REFRESH_TOKEN_LIFETIME' : 3600
+}
+
 # Application definition
 
 INSTALLED_APPS = [

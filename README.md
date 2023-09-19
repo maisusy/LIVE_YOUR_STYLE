@@ -18,6 +18,7 @@ python3 -m venv entorno
 source entorno/bin/activate
 
 # instalar dependencias del backend
+sudo apt install python3-django
 python3 -m pip install django
 python3 -m pip install django-admin
 python3 -m pip install djangorestframework
@@ -25,7 +26,9 @@ python3 -m pip install django-cors-headers
 python3 -m pip install psycopg2-binary
 pip install django-environ
 pip install python-decouple
+pip install djangorestframework-simplejwt
 ```
+
 
 # ----FRONT----- #
 

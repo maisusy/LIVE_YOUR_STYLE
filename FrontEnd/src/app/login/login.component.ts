@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment as env} from '../../environments/environments';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,15 @@ export class LoginComponent {
   public invalid: string = "";
   public env = env;
 
+  constructor(
+    private Router : Router
+  ){}
+
 
   Ingresar(){
     if (this.formsLogin.valid) {
       console.log(this.formsLogin.value)
+      this.Router.navigate(['inicio'])
     }else{
       this.invalid = "ng-dirty"
     }

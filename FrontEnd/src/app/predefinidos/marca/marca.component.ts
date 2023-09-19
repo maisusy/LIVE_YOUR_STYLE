@@ -27,7 +27,6 @@ export class MarcaComponent {
   ) { }
 
   ngOnInit(): void {
-    console.log('marcaaa')
     this.config.setTranslation({
       'startsWith' : 'Que comienze con',
       'contains' : 'Que Contenga',

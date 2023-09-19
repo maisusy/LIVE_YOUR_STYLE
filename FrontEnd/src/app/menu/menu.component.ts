@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { environment as env } from '../../environments/environments';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MarcaComponent } from '../predefinidos/marca/marca.component';
 
 @Component({
   selector: 'app-menu',

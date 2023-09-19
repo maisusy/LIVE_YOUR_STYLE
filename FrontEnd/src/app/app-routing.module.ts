@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'unidad_medida', loadChildren: () => import('./predefinidos/unidad-medida/unidad-medida.module').then(m => m.UnidadMedidaModule) },
   { path: 'color', loadChildren: () => import('./predefinidos/color/color.module').then(m => m.ColorModule) },
   { path: 'marca', loadChildren: () => import('./predefinidos/marca/marca.module').then(m => m.MarcaModule) },
+  { path: 'inicio', loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioModule) },
   { path: 'login', component: LoginComponent},
   { path:'',redirectTo:'login',pathMatch:'full'},
 

@@ -7,12 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StylesModule } from './styles.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MenuModule } from './menu/menu.module';
 import { MarcaModule } from './predefinidos/marca/marca.module';
 import { ColorModule } from './predefinidos/color/color.module';
 import { UnidadMedidaModule } from './predefinidos/unidad-medida/unidad-medida.module';
 import { LoginModule } from './login/login.module';
-
+import { InicioModule } from './inicio/inicio.module';
+import { MenuModule } from './menu/menu.module';
 
 @NgModule({
   declarations: [								
@@ -24,11 +24,12 @@ import { LoginModule } from './login/login.module';
     StylesModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MenuModule,
     MarcaModule,
     ColorModule,
     UnidadMedidaModule,
-    LoginModule
+    LoginModule,
+    MenuModule,
+    InicioModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

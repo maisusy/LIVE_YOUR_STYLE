@@ -31,7 +31,10 @@ export class MenuComponent {
             },
             {
                 label: 'Productos',
-                icon: 'pi pi-fw pi-shopping-cart'
+                icon: 'pi pi-fw pi-shopping-cart',
+                command : () => {
+                  this.onMenuItemClick('producto')
+                }
             },
             {
                 label: 'Turnos',
@@ -125,6 +128,9 @@ export class MenuComponent {
         break;
         case 'inicio' : 
             this.router.navigate(['inicio']);
+        break;
+        case 'producto' : 
+            this.router.navigate(['producto']);
         break;
         }
 

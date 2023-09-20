@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './interceptors/interceptor.service';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StylesModule } from './styles.module';
@@ -13,6 +12,7 @@ import { UnidadMedidaModule } from './predefinidos/unidad-medida/unidad-medida.m
 import { LoginModule } from './login/login.module';
 import { InicioModule } from './inicio/inicio.module';
 import { MenuModule } from './menu/menu.module';
+import { ProductoModule } from './producto/producto.module';
 
 @NgModule({
   declarations: [								
@@ -29,7 +29,8 @@ import { MenuModule } from './menu/menu.module';
     UnidadMedidaModule,
     LoginModule,
     MenuModule,
-    InicioModule
+    InicioModule,
+    ProductoModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

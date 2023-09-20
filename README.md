@@ -27,6 +27,7 @@ python3 -m pip install psycopg2-binary
 pip install django-environ
 pip install python-decouple
 pip install djangorestframework-simplejwt
+python -m pip install Pillow
 ```
 
 

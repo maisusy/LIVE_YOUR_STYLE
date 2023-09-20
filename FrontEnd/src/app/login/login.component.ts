@@ -27,8 +27,6 @@ export class LoginComponent {
 
   constructor(
     private Router : Router,
-    private interceptorService :InterceptorService,
-    private http :  HttpClient,
     private LoginService : LoginService
   ){}
 

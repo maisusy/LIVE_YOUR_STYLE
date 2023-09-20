@@ -23,6 +23,13 @@ export class MenuComponent {
 
         this.items = [
             {
+                label: 'Inicio',
+                icon: 'pi pi-fw pi-home',
+                command : () => {
+                  this.onMenuItemClick('inicio')
+                }
+            },
+            {
                 label: 'Productos',
                 icon: 'pi pi-fw pi-shopping-cart'
             },
@@ -115,6 +122,9 @@ export class MenuComponent {
         break;
         case 'unidad_medida' : 
             this.router.navigate(['unidad_medida']);
+        break;
+        case 'inicio' : 
+            this.router.navigate(['inicio']);
         break;
         }
 

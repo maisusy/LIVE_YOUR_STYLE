@@ -1,0 +1,65 @@
+
+<ng-template pTemplate="header">
+    {{accion.toLocaleUpperCase()}} PRODUCTO
+</ng-template>
+<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+   
+    <form [formGroup]="formsProducto">
+        <div class="p-fluid mt-2">
+            <div class="p-field">
+                <label for="nombre" class="mb-2 block"  >Nombre de Producto:</label>
+                <input formControlName="nombre" class="p-inputtext-lg {{invalid}}"  id='nombre' pInputText />
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un nombre</small>
+            </div>
+            <div class="p-field">
+                <label for="stock" class="mb-2 block">Stock:</label>
+                <p-inputNumber formControlName="stock" id="stock" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="2000" ></p-inputNumber>
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un stock</small>
+            </div>
+            <div class="p-field">
+                <label for="categoria" class="mb-2 block">Seleccione la categoria:</label>
+                <p-dropdown formControlName="categoria_producto" id="categoria" class="p-inputtext-lg {{invalid}}" [options]="categoria_producto"  ></p-dropdown>
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una categoria</small>
+            </div>
+            <div class="p-field">
+                <label for="precio" class="mb-2 block">Precio:</label>
+                <p-inputNumber formControlName="precio" id="precio" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="stacked" mode="currency" currency="ARS" [min]="1" [max]="2000" ></p-inputNumber>
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un precio</small>
+            </div>
+            <div class="p-field">
+                <label for="costo" class="mb-2 block">Costo:</label>
+                <p-inputNumber formControlName="costo" id="costo" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="stacked" mode="currency" currency="ARS" [min]="1" [max]="2000" ></p-inputNumber>
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un costo</small>
+            </div>
+            <div class="p-field">
+                <label for="unidad_medida" class="mb-2 block">Seleccione la unidad de medida:</label>
+                <p-dropdown formControlName="unidad_medida" id="unidad_medida" class="p-inputtext-lg {{invalid}}" [options]="unidad_medida"  ></p-dropdown>
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una unidad de medida</small>
+            </div>
+            <div class="p-field">
+                <label for="original" class="mb-2 block">¿Es producto original?</label>
+                <p-selectButton formControlName="original" id="original" class="p-inputtext-lg {{invalid}}" [options]="original" optionLabel="label" optionValue="value" ></p-selectButton>
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar si es original o no</small>
+            </div>
+            <div class="p-field">
+                <label for="marca" class="mb-2 block">Seleccione la marca:</label>
+                <p-dropdown formControlName="marca" id="marca" class="p-inputtext-lg {{invalid}}" [options]="marca"  ></p-dropdown>
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una marca</small>
+            </div>
+        </div>
+         <div class="p-fluid mt-2">
+            <div class="p-field">
+                <label for="color" class="mb-2 block">Seleccione el color:</label>
+                <p-multiSelect formControlName="color" id="color" class="p-inputtext-lg {{invalid}}" [options]="color" optionLabel="nombre"  ></p-multiSelect>
+                <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un color</small>
+            </div>
+
+         </div>
+    </form>
+</div>
+
+<ng-template pTemplate="footer">
+    <button pButton pRipple class="p-button-outlined-success" (click)="submit()" label="Guardar" iconPos="right"></button>
+    <button pButton pRipple class="p-button-outlined-danger" (click)="Confirmar($event,1)" label="Borrar" iconPos="right"></button>
+</ng-template>
+<p-toast key="abm_producto"></p-toast>

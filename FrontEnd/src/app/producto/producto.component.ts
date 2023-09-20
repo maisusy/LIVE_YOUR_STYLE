@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductoService } from './producto.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-producto',
@@ -15,6 +16,7 @@ export class ProductoComponent {
   
   constructor(
     public ProductoService : ProductoService,
+    public router : Router
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +53,13 @@ export class ProductoComponent {
             return 'danger';
       }
   }
+
+  Formulario(id : number | null){
+    if(id == null){
+      this.router.navigate(['abm-producto'])
+    }
+  }
+
   ObtenerProductos(){
     this.ProductoService.ObtenerProductos()
     .subscribe(

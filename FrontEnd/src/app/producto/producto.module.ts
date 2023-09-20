@@ -7,6 +7,7 @@ import { ProductoRoutingModule } from './producto-routing.module';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 
+import { AbmProductoModule } from './abm-producto/abm-producto.module';
 @NgModule({
   declarations: [
     ProductoComponent
@@ -17,7 +18,8 @@ import { TagModule } from 'primeng/tag';
     CarouselModule,
     ProductoRoutingModule,
     ButtonModule,
-    TagModule
+    TagModule,
+    AbmProductoModule
   ]
 })
 export class ProductoModule { }

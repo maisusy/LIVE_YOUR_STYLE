@@ -21,7 +21,7 @@
                         </div>
                         <div class="p-field p-2">
                             <label for="categoria" class="mb-2 block">Seleccione la categoria:</label>
-                            <p-dropdown formControlName="categoria_producto" id="categoria" class="p-inputtext-lg {{invalid}}" [options]="categoria_producto"  ></p-dropdown>
+                            <p-dropdown formControlName="categoria_producto" id="categoria" class="p-inputtext-lg {{invalid}}" [options]="categoria_producto" optionLabel="nombre"  optionValue="id"></p-dropdown>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una categoria</small>
                         </div>
                         <div class="p-field p-2">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="p-field p-2">
                             <label for="unidad_medida" class="mb-2 block">Seleccione la unidad de medida:</label>
-                            <p-dropdown formControlName="unidad_medida" id="unidad_medida" class="p-inputtext-lg {{invalid}}" [options]="unidad_medida"  ></p-dropdown>
+                            <p-dropdown formControlName="unidad_medida" id="unidad_medida" class="p-inputtext-lg {{invalid}}" [options]="unidad_medida" optionLabel="nombre"  optionValue="id" ></p-dropdown>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una unidad de medida</small>
                         </div>
                         <div class="p-field p-2">
@@ -46,12 +46,12 @@
                         </div>
                         <div class="p-field p-2">
                             <label for="marca" class="mb-2 block">Seleccione la marca:</label>
-                            <p-dropdown formControlName="marca" id="marca" class="p-inputtext-lg {{invalid}}" [options]="marca"  ></p-dropdown>
+                            <p-dropdown formControlName="marca" id="marca" class="p-inputtext-lg {{invalid}}" [options]="marca" optionLabel="nombre"  optionValue="id" ></p-dropdown>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una marca</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="color" class="mb-2 block">Seleccione el color:</label>
-                            <p-multiSelect formControlName="color" id="color" class="p-inputtext-lg {{invalid}}" [options]="color" optionLabel="nombre"  ></p-multiSelect>
+                            <p-multiSelect formControlName="color" id="color" class="p-inputtext-lg {{invalid}}" [options]="color" optionLabel="nombre"  optionValue="id"  ></p-multiSelect>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un color</small>
                         </div>
                     </div>

@@ -15,24 +15,25 @@ from Color.serializers import ColorSerializers
 class Predefinidos(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    
-    def get(self,request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         try:
-            data = Marca.objects.all()
-            marca = MarcaSerializer(data, many=True)
-            data = Cat_prod.objects.all()
-            categoria = CatProdSerializer(data, many=True)
-            data = Unidad_medida.objects.all()
-            unidad_medida = UnidadMedidaSerializers(data, many=True)
-            data = Color.objects.all()
-            color = ColorSerializers(data, many=True)
- 
+            marca_data = Marca.objects.all()
+            categoria_data = Cat_prod.objects.all()
+            unidad_medida_data = Unidad_medida.objects.all()
+            color_data = Color.objects.all()
+
+            marca_serializer = MarcaSerializer(marca_data, many=True)
+            categoria_serializer = CatProdSerializer(categoria_data, many=True)
+            unidad_medida_serializer = UnidadMedidaSerializers(unidad_medida_data, many=True)
+            color_serializer = ColorSerializers(color_data, many=True)
+
             datos = {
-                marca :marca.data,
-                categoria:categoria.data,
-                unidad_medida:unidad_medida.data,
-                color : color.data
+                "marca": marca_serializer.data,
+                "categoria": categoria_serializer.data,
+                "unidad_medida": unidad_medida_serializer.data,
+                "color": color_serializer.data
             }
+
             return Response(datos, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

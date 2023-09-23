@@ -36,7 +36,8 @@ export class AbmProductoComponent {
     'obs': new FormControl('', Validators.required),
   })
 
-  ngOninit(){
+  ngOnInit(): void {
+    this.ObtenerPredefinidos()
     if(this.formsProducto.value.id == null){
       this.accion = 'GUARDADO'
     }else{
@@ -102,6 +103,19 @@ export class AbmProductoComponent {
       } else {
         this.invalid = "ng-dirty"
       }
+    }
+
+    ObtenerPredefinidos(){
+      this.ProductoService.ObtenerPredefinidos()
+      .subscribe(
+        (res) => {
+          this.categoria_producto = res.categoria;
+          this.marca = res.marca;
+          this.unidad_medida = res.unidad_medida;
+          this.color = res.color;
+          console.log('predefinidos', res)
+        }
+        )
     }
 
 }

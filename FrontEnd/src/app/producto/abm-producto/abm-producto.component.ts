@@ -32,13 +32,14 @@ export class AbmProductoComponent {
     'unidad_medida': new FormControl('', Validators.required),
     'original': new FormControl('', Validators.required),
     'marca': new FormControl('', Validators.required),
-    'color': new FormControl('', Validators.required),
-    'obs': new FormControl('', Validators.required),
+    'color': new FormControl([], Validators.required),
+     'obs': new FormControl([], ),
   })
 
   ngOnInit(): void {
     this.ObtenerPredefinidos()
-    if(this.formsProducto.value.id == null){
+    console.log(this.formsProducto.value.id)
+    if(this.formsProducto.value.id == null || this.formsProducto.value.id == undefined || this.formsProducto.value.id == ''){
       this.accion = 'GUARDADO'
     }else{
       this.accion = 'ACTUALIZADO'
@@ -78,10 +79,10 @@ export class AbmProductoComponent {
 
   submit() {
       if (this.formsProducto.valid) {
-        if (this.formsProducto.value.id== null) {
+        if (this.accion == 'GUARDADO') {
 
+          delete this.formsProducto.value.id
           console.log(this.formsProducto.value)
-
           this.ProductoService.AgregarProducto(this.formsProducto.value)
           .subscribe(_ => {
             this.messageService.add({ key: 'abm-producto', severity: 'success', summary: `${this.accion} PRODUCTO`, detail: 'La acción se realizo correctamente' });

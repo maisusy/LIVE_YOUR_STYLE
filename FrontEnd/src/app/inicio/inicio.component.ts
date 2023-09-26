@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment as env } from 'src/environments/environments';
 
 @Component({
@@ -10,4 +11,14 @@ export class InicioComponent {
 
     public env = env;
 
+  constructor(
+    public ROUTER : Router
+  ){
+  
+  }
+
+
+    Redirigir(){
+      this.ROUTER.navigate(['producto'])
+    }
 }

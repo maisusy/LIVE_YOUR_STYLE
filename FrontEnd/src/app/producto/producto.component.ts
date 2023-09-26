@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { ProductoService } from './producto.service'
 import { Router } from '@angular/router';
+import { ConfirmationService , MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  styleUrls: ['./producto.component.css'],
+  providers : [ConfirmationService,MessageService]
 })
 export class ProductoComponent {
 
@@ -16,7 +19,9 @@ export class ProductoComponent {
   
   constructor(
     public ProductoService : ProductoService,
-    public router : Router
+    public router : Router,
+    public confirmationService : ConfirmationService,
+    public messageService : MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -72,5 +77,28 @@ export class ProductoComponent {
   }
 
 
+    Confirmar(event : Event, id : number ){
+      this.confirmationService.confirm({
+        target: event.target!,
+          message: '¿Estas seguro?',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            this.Eliminar(id)
+          },
+          reject: () => {
+              //reject action
+        }
+    });
+  }
+
+  Eliminar(id : number){
+    this.ProductoService.BorrarProducto(id)
+    .subscribe( _ => {
+      this.messageService.add({key: 'abm-producto', severity:'success', summary: `ELIMINACIÓN PRODUCTO` , detail:'La acción se realizo correctamente'});
+    }, error => {
+      console.log(error)
+      this.messageService.add({key: 'abm-producto', severity:'error', summary: `ELIMINACIÓN PRODUCTO` , detail: error.error.error});
+    })
+  }
 
 }

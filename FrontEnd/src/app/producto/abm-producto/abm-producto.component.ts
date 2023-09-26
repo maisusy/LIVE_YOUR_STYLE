@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductoService } from '../producto.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService , MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-abm-producto',
@@ -40,46 +41,27 @@ export class AbmProductoComponent {
     this.ObtenerPredefinidos()
     console.log(this.formsProducto.value.id)
     if(this.formsProducto.value.id == null || this.formsProducto.value.id == undefined || this.formsProducto.value.id == ''){
-      this.accion = 'GUARDADO'
+      this.accion = 'CREACIÓN'
     }else{
-      this.accion = 'ACTUALIZADO'
+      this.accion = 'MODIFICACIÓN'
     }
   }
 
   constructor(
     public ProductoService : ProductoService,
-    public messageService : MessageService,
     public confirmationService : ConfirmationService,
+    public router : Router,
+    public messageService : MessageService,
   ){}
 
 
-  Confirmar(event : Event, id : number ){
-      this.confirmationService.confirm({
-        target: event.target!,
-          message: '¿Estas seguro?',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-            this.Eliminar(id)
-          },
-          reject: () => {
-              //reject action
-        }
-    });
-  }
-
-  Eliminar(id : number){
-    this.ProductoService.BorrarProducto(id)
-    .subscribe( _ => {
-      this.messageService.add({key: 'abm-producto', severity:'success', summary: `ELIMINACIÓN PRODUCTO` , detail:'La acción se realizo correctamente'});
-    }, error => {
-      console.log(error)
-      this.messageService.add({key: 'abm-producto', severity:'error', summary: `ELIMINACIÓN PRODUCTO` , detail: error.error.error});
-    })
-  }
+    Cancelar(){
+      this.router.navigate(['producto'])
+    }
 
   submit() {
       if (this.formsProducto.valid) {
-        if (this.accion == 'GUARDADO') {
+        if (this.accion == 'CREACIÓN') {
 
           delete this.formsProducto.value.id
           console.log(this.formsProducto.value)

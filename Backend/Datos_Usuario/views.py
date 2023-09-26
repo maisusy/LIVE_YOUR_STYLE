@@ -4,19 +4,23 @@ from rest_framework.permissions import IsAuthenticated  # NOQA
 from rest_framework import status
 from Datos_Usuario.models import Datos_Usuario
 from Datos_Usuario.serializers import Datos_UsuarioSerializers
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 class Datos_Usuario_lista(APIView):
 
     queryset = Datos_Usuario.objects.none()
-    permission_classes = (IsAuthenticated,)
 
     def post(self,request,*args, **kwargs):
         _serializer = Datos_UsuarioSerializers(data=request.data)
-
+        user = User.objects.create(
+                                    username=request.data.get("usuario"),
+                                    password=request.data.get("contraseña"),
+                                    email=request.data.get("email"))
+        
         if _serializer.is_valid():
+            _serializer.save(user = user)
             _serializer.save(dir = request.data.get('dir'))
             return Response(_serializer.data, status=status.HTTP_201_CREATED) 
         else:

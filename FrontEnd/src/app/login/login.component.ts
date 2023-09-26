@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { InterceptorService } from '../interceptors/interceptor.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from './login.service';
+import { RouterTestingHarness } from '@angular/router/testing';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,9 @@ export class LoginComponent {
     private LoginService : LoginService
   ){}
 
+  Registrar(){
+    this.Router.navigate(['abm-usuario'])
+  }
 
   Ingresar() {
     if (this.formsLogin.valid) {

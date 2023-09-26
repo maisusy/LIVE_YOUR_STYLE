@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'categoria', loadChildren: () => import('./predefinidos/categoria/categoria.module').then(m => m.CategoriaModule) },
   { path: 'inicio', loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioModule) },
   { path: 'producto', loadChildren: () => import('./producto/producto.module').then(m => m.ProductoModule) },
+  { path: 'usuario', loadChildren: () => import('./usuario/usuario.module').then(m => m.UsuarioModule) },
   { path: 'login', component: LoginComponent},
   { path:'',redirectTo:'login',pathMatch:'full'},
 

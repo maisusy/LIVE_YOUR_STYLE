@@ -65,4 +65,22 @@ export class PredefinidosService {
     return this.http.put(`${this.URL}/unidad_medida/api/${id}/`,datos)
   }
 
+
+  /** CATEGORIA */
+  ObtenerCategorias(){
+    return this.http.get(`${this.URL}/cat_prod/api/`)
+  }
+
+  AgregarCategoria(datos : any){
+    return this.http.post(`${this.URL}/cat_prod/api/`,datos)
+  }
+  
+  BorrarCategoria(id : number){
+    return this.http.delete(`${this.URL}/cat_prod/api/${id}/`)
+  }
+
+  ModificarCategoria(id : number,datos : any){
+    return this.http.put(`${this.URL}/cat_prod/api/${id}/`,datos)
+  }
+
 }

@@ -13,6 +13,7 @@ import { LoginModule } from './login/login.module';
 import { InicioModule } from './inicio/inicio.module';
 import { MenuModule } from './menu/menu.module';
 import { ProductoModule } from './producto/producto.module';
+import { CategoriaModule } from './predefinidos/categoria/categoria.module';
 
 @NgModule({
   declarations: [								
@@ -30,7 +31,8 @@ import { ProductoModule } from './producto/producto.module';
     LoginModule,
     MenuModule,
     InicioModule,
-    ProductoModule
+    ProductoModule,
+    CategoriaModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -69,7 +69,6 @@ export class MenuComponent {
                         command : () => {
                           this.onMenuItemClick('marca')
                         }
-
                       },
                       {
                         label:'Colores',
@@ -77,7 +76,6 @@ export class MenuComponent {
                         command : () => {
                           this.onMenuItemClick('color')
                         }
-
                       },
                       {
                         label:'Unidades de Medida',
@@ -85,7 +83,13 @@ export class MenuComponent {
                         command : () => {
                           this.onMenuItemClick('unidad_medida')
                         }
-
+                      },
+                      {
+                        label:'Categoria',
+                        icon: 'pi pi-fw pi-plus',
+                        command : () => {
+                          this.onMenuItemClick('categoria')
+                        }
                       }
                     ]                
                   }
@@ -131,6 +135,9 @@ export class MenuComponent {
         break;
         case 'producto' : 
             this.router.navigate(['producto']);
+        break;
+        case 'categoria' : 
+            this.router.navigate(['categoria']);
         break;
         }
 

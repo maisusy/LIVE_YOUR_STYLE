@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 from decouple import config
 from pathlib import Path
+from datetime import timedelta
 
 
 
@@ -42,9 +43,9 @@ REST_FRAMEWORK = {
     ],
 }
 
-SIMPLe_JWT = {
-    'ACCESS_TOKEN_LIFETIME' : 900,
-    'REFRESH_TOKEN_LIFETIME' : 3600
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=1)
 }
 
 # Application definition

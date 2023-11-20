@@ -1,8 +1,8 @@
 /entorno_proyecto
 /entorno
 Backend/core/settings/.env
-Backend/*/__pycache__/*
-!/Backend/*/migrations/__init__.py
+__pycache__/
+Backend/**/migrations/
+!/Backend/**/migrations/__init__.py
 Backend/core/LIVE_YOUR_STYLE.sqlite3
-Backend/*/migrations/0001_initial.py
-Backend/*/migrations/__pycache__/0001_initial.cpython-310.pyc
+Backend/core/media/*

@@ -1,5 +1,5 @@
-<div class="background-container" >
-    <div class="surface-card p-4 shadow-2 border-round lg:w-6  w-full">
+<div class="background-container"> 
+    <div *ngIf="ban"  class="surface-card p-4 shadow-2 border-round lg:w-6  w-full">
         <div class="grid">
             <div class="col-12 md-6 text-4xl">
                 {{accion.toLocaleUpperCase()}} PRODUCTO
@@ -26,12 +26,12 @@
                         </div>
                         <div class="p-field p-2">
                             <label for="precio" class="mb-2 block">Precio:</label>
-                            <p-inputNumber formControlName="precio" id="precio" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="stacked" mode="currency" currency="ARS" [min]="1" [max]="2000" ></p-inputNumber>
+                            <p-inputNumber formControlName="precio" id="precio" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="stacked" mode="currency" currency="ARS" [min]="1" [max]="100000000" ></p-inputNumber>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un precio</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="costo" class="mb-2 block">Costo:</label>
-                            <p-inputNumber formControlName="costo" id="costo" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="stacked" mode="currency" currency="ARS" [min]="1" [max]="2000" ></p-inputNumber>
+                            <p-inputNumber formControlName="costo" id="costo" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="stacked" mode="currency" currency="ARS" [min]="1" [max]="100000000" ></p-inputNumber>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un costo</small>
                         </div>
                         <div class="p-field p-2">
@@ -64,6 +64,17 @@
             </div>
             <div class="col-3 md-6 col-offset-6"> 
                 <p-button  styleClass="p-button-success" class="p-2" (click)="submit()" label="Guardar" ></p-button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!ban" >
+        <div class="grid">
+            <div class="col-12 md-6 " > 
+                <div class="p-field p-2">
+                    <p-toast></p-toast>
+                    <p-fileUpload name="imagen" url="{{env.apiURL}}/producto/subir_imagen/{{id_producto}}/" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" >     </p-fileUpload>
+                </div>
             </div>
         </div>
     </div>

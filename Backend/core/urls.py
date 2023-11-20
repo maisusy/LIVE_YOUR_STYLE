@@ -23,6 +23,8 @@ from Envio import urls as envio_url
 from Compra import urls as compras_url
 from Predefinido import urls as predefinido_url
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,4 +52,4 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view() ,name ='toke-obtain-pair' ),
     path('api/token/refresh',TokenRefreshView.as_view(), name='token-refresh' )
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

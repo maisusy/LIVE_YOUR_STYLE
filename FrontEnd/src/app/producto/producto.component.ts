@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ProductoService } from './producto.service'
 import { Router } from '@angular/router';
 import { ConfirmationService , MessageService } from 'primeng/api';
-
+import { environment } from 'src/environments/environments';
 
 @Component({
   selector: 'app-producto',
@@ -15,8 +15,9 @@ export class ProductoComponent {
   public productos : any; 
   public loading : boolean = true;   
   responsiveOptions: any[] | undefined;
+  public env = environment;
+  public productoimagen : any;
 
-  
   constructor(
     public ProductoService : ProductoService,
     public router : Router,
@@ -25,7 +26,10 @@ export class ProductoComponent {
   ) { }
 
   ngOnInit(): void {
+      this.ObtenerImgProductos() 
       this.ObtenerProductos()
+      this.loading = false
+
       this.responsiveOptions = [
         {
             breakpoint: '1400px',
@@ -70,8 +74,30 @@ export class ProductoComponent {
     .subscribe(
       (res) => {
         this.productos = res;
-        this.loading = false;
-        console.log(res)
+
+
+          this.productos.forEach((valor : any) => {
+
+             this.productoimagen.forEach((valorimg : any) => {
+              if(valorimg.producto == valor.id){
+                  valor.img = valorimg.imagen;  
+              }
+            }) 
+        });  
+
+
+
+        console.log('productos ',this.productos)
+      }
+      )
+  }
+
+  ObtenerImgProductos(){
+    this.ProductoService.ObteneImgProductos()
+    .subscribe(
+      (res) => {
+        this.productoimagen = res;
+        console.log('productoimagen ',this.productoimagen)
       }
       )
   }

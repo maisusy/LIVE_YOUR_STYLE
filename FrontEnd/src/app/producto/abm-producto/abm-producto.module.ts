@@ -9,6 +9,7 @@ import { InputNumberModule } from 'primeng/inputnumber'
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { MultiSelectModule } from 'primeng/multiselect'
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MultiSelectModule } from 'primeng/multiselect'
     InputNumberModule,
     InputTextModule,
     SelectButtonModule,
-    MultiSelectModule
+    MultiSelectModule,
+    FileUploadModule
   ]
 })
 export class AbmProductoModule { }

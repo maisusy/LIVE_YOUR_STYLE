@@ -21,7 +21,7 @@ export class ProductoService {
     return this.http.get(`${this.URL}/producto/api/`)
   }
 
-  AgregarProducto(datos : any){
+  AgregarProducto(datos : any): Observable<any> {
     return this.http.post(`${this.URL}/producto/api/`,datos)
   }
 
@@ -33,9 +33,14 @@ export class ProductoService {
     return this.http.delete(`${this.URL}/producto/api/${id}/`)
   }
 
+  /** Productos Imagenes */
+  ObteneImgProductos(): Observable<any> {
+    return this.http.get(`${this.URL}/producto/imagenes/`)
+  }
+
 /** Predefinidos */
-ObtenerPredefinidos(): Observable<Predefinidos> {
-  return this.http.get<Predefinidos>(`${this.URL}/predefinidos/api/`)
-}
+  ObtenerPredefinidos(): Observable<Predefinidos> {
+    return this.http.get<Predefinidos>(`${this.URL}/predefinidos/api/`)
+  }
 
 }

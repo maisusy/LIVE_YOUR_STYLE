@@ -7,7 +7,7 @@ class Datos_Usuario(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
-    fecha_alta = models.DateField()
+    fecha_alta = models.DateField(auto_now=True)
     dni = models.IntegerField()
     cuit = models.CharField(max_length=13)
     dir = models.ManyToManyField(Direccion,blank=True)

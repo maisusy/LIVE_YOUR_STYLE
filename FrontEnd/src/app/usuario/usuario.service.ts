@@ -19,7 +19,7 @@ export class UsuarioService {
   }
 
   AgregarUsuario(datos : any){
-    return this.http.post(`${this.URL}/datos_usuario/api/`,datos)
+    return this.http.post(`${this.URL}/datos_usuario/api/crear/`,datos)
   }
 
   ModificarUsuario(id : number,datos:any){

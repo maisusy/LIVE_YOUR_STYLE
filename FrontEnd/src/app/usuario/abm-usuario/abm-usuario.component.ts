@@ -22,7 +22,7 @@ export class AbmUsuarioComponent {
     'rep_contraseña': new FormControl('', Validators.required),
     'nombres': new FormControl('', Validators.required),
     'apellidos': new FormControl('', Validators.required),
-    'fecha_alta': new FormControl(''),
+    'fecha_alta': new FormControl(this.obtenerFechaActual()),
     'dni': new FormControl('', Validators.required),
     'cuit': new FormControl('', Validators.required),
     'dir': new FormControl([], ),
@@ -47,6 +47,20 @@ export class AbmUsuarioComponent {
 
     Cancelar(){
       this.router.navigate(['usuario'])
+    }
+
+    obtenerFechaActual(): string {
+      const fechaActual: Date = new Date();
+      const year: number = fechaActual.getFullYear();
+      const month: number = fechaActual.getMonth() + 1; // Meses van de 0 a 11
+      const day: number = fechaActual.getDate();
+  
+      // Ajusta el formato (agrega ceros iniciales si es necesario)
+      const formattedMonth: string = month < 10 ? `0${month}` : `${month}`;
+      const formattedDay: string = day < 10 ? `0${day}` : `${day}`;
+  
+      // Formatea la fecha en "yyyy-MM-dd"
+      return `${year}-${formattedMonth}-${formattedDay}`;
     }
 
   submit() {

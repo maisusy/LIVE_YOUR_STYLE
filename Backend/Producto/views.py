@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny  # NOQA
 from rest_framework.response import Response
 from rest_framework import status
-from Producto.serializers import ProductoSerializers,ImagenProductoSerializers
+from Producto.serializers import ProductoSerializers,ImagenProductoSerializers,GetProductoSerializers
 from Producto.models import Producto,ImagenesProductos
 
 
@@ -48,7 +48,6 @@ class Producto_list(APIView):
         
         if _serializer.is_valid():
             _serializer.save(color = request.data.get('color'))
-            _serializer.save(obs = request.data.get('obs'))
 
             return Response(_serializer.data, status=status.HTTP_201_CREATED)  # NOQA
         else:
@@ -56,7 +55,8 @@ class Producto_list(APIView):
     
     def get(self,request, *args, **kwargs):
         prod = Producto.objects.all()
-        serializer = ProductoSerializers(prod,many=True)
+        
+        serializer = GetProductoSerializers(prod,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
 class Producto_id(APIView):
@@ -92,7 +92,6 @@ class Producto_id(APIView):
         serializer = ProductoSerializers(instance = instance, data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save(color = request.data.get('color'))
-            serializer.save(obs = request.data.get('obs'))
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # 4. Delete

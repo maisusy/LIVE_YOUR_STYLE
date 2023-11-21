@@ -39,8 +39,7 @@ export class AbmProductoComponent {
     'talle': new FormControl('', Validators.required),
     'original': new FormControl('', Validators.required),
     'marca': new FormControl('', Validators.required),
-    'color': new FormControl([]),
-    'obs': new FormControl([] )
+    'color': new FormControl([])
   })
 
   ngOnInit(): void {

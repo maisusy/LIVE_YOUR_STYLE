@@ -17,7 +17,6 @@ class Producto(models.Model):
     marca = models.ForeignKey(Marca,on_delete=models.CASCADE)
     color = models.ManyToManyField(Color,blank=True)
     descripcion = models.CharField(max_length=200)
-    obs = models.ManyToManyField(Observacion,blank=True)
 
 class ImagenesProductos(models.Model):
     imagen = models.ImageField(upload_to='productos/', null=True, blank=True)

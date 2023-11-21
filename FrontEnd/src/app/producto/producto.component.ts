@@ -63,11 +63,7 @@ export class ProductoComponent {
       }
   }
 
-  Formulario(id : number | null){
-    if(id == null){
-      this.router.navigate(['abm-producto'])
-    }
-  }
+
 
   ObtenerProductos(){
     this.ProductoService.ObtenerProductos()
@@ -83,8 +79,7 @@ export class ProductoComponent {
                   valor.img = valorimg.imagen;  
               }
             }) 
-        });  
-
+        }); 
 
 
         console.log('productos ',this.productos)

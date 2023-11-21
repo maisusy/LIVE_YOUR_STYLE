@@ -1,0 +1,134 @@
+<p-table
+    #dt2
+    [value]="Productos"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['nombre']"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    >
+    <ng-template pTemplate="caption">
+        <p class="text-2xl">Categorias</p>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:22%">Codigo</th>
+            <th style="width:22%">Imagen</th>
+            <th style="width:22%">Nombre</th>
+            <th style="width:22%">Descripción</th>
+            <th style="width:22%">Categoria</th>
+            <th style="width:22%">Stock</th>
+            <th style="width:22%">Precio</th>
+            <th style="width:22%">Costo</th>
+            <th style="width:22%">Talle</th>
+            <th style="width:22%">Original</th>
+            <th style="width:22%">Marca</th>
+            <th style="width:22%">Color</th>
+            <th style="width:22%">Observaciones</th>
+            <th style="width:12%">Acciones</th>
+        </tr>
+        <tr>
+            <th>
+                <p-columnFilter type="text" field="codigo"></p-columnFilter>
+            </th>
+            <th>
+                
+            </th>
+            <th>
+                <p-columnFilter type="text" field="nombre"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="descripcion"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="categoria"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="stock"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="precio"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="costo"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="talle"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="original"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="marca"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="color"></p-columnFilter>
+            </th>
+            <th>
+                
+            </th>
+            <th>
+                <p-button icon="pi pi-plus" (onClick)="Nuevo()" styleClass="p-button-raised p-button-success"></p-button>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-producto>
+        <tr>
+            <td>
+                {{ producto.id }}
+            </td>
+            <td>
+              <img src="http://127.0.0.1:8000{{ producto.img}}" [alt]="producto.img" width="100" class="shadow-4"/>
+            </td>
+            <td>
+                {{ producto.nombre }}
+            </td>
+            <td>
+                {{ producto.descripcion }}
+            </td>
+            <td>
+                {{ producto.categoria }}
+            </td>
+            <td>
+                {{ producto.stock }}
+            </td>
+            <td>
+                {{ producto.precio }}
+            </td>
+            <td>
+                {{ producto.costo }}
+            </td>
+            <td>
+                {{ producto.talle }}
+            </td>
+            <td>
+                {{ producto.original }}
+            </td>
+            <td>
+                {{ producto.marca }}
+            </td>
+            <td>
+                {{ producto.color }}
+            </td>
+            <td>
+              <p-button icon="pi pi-list" styleClass="p-button-raised"> </p-button>
+            </td>
+            <td>
+                <p-toast></p-toast>
+                <p-confirmPopup></p-confirmPopup>
+                <p-button icon="pi pi-pencil" styleClass="p-button-raised"> </p-button>
+                <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,producto.id)"> </p-button>
+            
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>

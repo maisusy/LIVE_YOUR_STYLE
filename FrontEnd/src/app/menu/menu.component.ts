@@ -60,6 +60,13 @@ export class MenuComponent {
                 icon: 'pi pi-fw pi-cog',
                 items : [
                   {
+                    label : 'Listado Productos'  ,
+                    icon: 'pi pi-fw pi-list',  
+                    command : () => {
+                      this.onMenuItemClick('Listado Productos')
+                    }
+                  },
+                  {
                     label : 'Listado Predefinidos'  ,
                     icon: 'pi pi-fw pi-list',  
                     items : [
@@ -120,7 +127,14 @@ export class MenuComponent {
 
       this.activeItem = item;
 
-        switch(item){
+      
+      switch(item){
+        case 'Listado Productos' : 
+            this.router.navigate(['producto/listado']);
+        break;
+        case 'marca' : 
+            this.router.navigate(['marca']);
+        break;
         case 'marca' : 
             this.router.navigate(['marca']);
         break;

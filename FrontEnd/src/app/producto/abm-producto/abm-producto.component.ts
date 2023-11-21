@@ -69,7 +69,7 @@ export class AbmProductoComponent {
   ){}
 
     Cancelar(){
-      this.router.navigate(['producto'])
+      this.router.navigate(['producto/listado'])
     }
 
     onUpload(event:any) {

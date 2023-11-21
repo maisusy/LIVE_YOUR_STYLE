@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 
 import { AbmProductoModule } from './abm-producto/abm-producto.module';
+import { ListadoModule } from './listado/listado.module';
 @NgModule({
   declarations: [
     ProductoComponent
@@ -19,7 +20,8 @@ import { AbmProductoModule } from './abm-producto/abm-producto.module';
     ProductoRoutingModule,
     ButtonModule,
     TagModule,
-    AbmProductoModule
+    AbmProductoModule,
+    ListadoModule
   ]
 })
 export class ProductoModule { }

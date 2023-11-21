@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductoService } from '../producto.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConfirmationService , MessageService } from 'primeng/api';
+import { ConfirmationService , MessageService, PrimeNGConfig } from 'primeng/api';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environments';
 
@@ -31,11 +31,12 @@ export class AbmProductoComponent {
   formsProducto = new FormGroup({
     'id': new FormControl(''),
     'nombre': new FormControl('', Validators.required),
+    'descripcion': new FormControl('', Validators.required),
     'stock': new FormControl('', Validators.required),
     'categoria_producto': new FormControl('', Validators.required),
     'precio': new FormControl('', Validators.required),
     'costo': new FormControl('', Validators.required),
-    'unidad_medida': new FormControl('', Validators.required),
+    'talle': new FormControl('', Validators.required),
     'original': new FormControl('', Validators.required),
     'marca': new FormControl('', Validators.required),
     'color': new FormControl([]),
@@ -50,6 +51,13 @@ export class AbmProductoComponent {
     }else{
       this.accion = 'MODIFICACIÓN'
     }
+
+    this.config.setTranslation({
+      'choose' : 'Elegir',
+      'upload' : 'Subir',
+      'cancel' : 'Cancelar',
+
+    })
   }
 
   constructor(
@@ -57,6 +65,7 @@ export class AbmProductoComponent {
     public confirmationService : ConfirmationService,
     public router : Router,
     public messageService : MessageService,
+    private config: PrimeNGConfig,
   ){}
 
     Cancelar(){
@@ -66,7 +75,7 @@ export class AbmProductoComponent {
     onUpload(event:any) {
       console.log(event)
 
-      this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+      this.messageService.add({severity: 'info', summary: 'Imagen subida', detail: ''});
      
   }
 

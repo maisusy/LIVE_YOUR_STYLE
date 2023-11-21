@@ -2,7 +2,7 @@
     <div *ngIf="ban"  class="surface-card p-4 shadow-2 border-round lg:w-6  w-full">
         <div class="grid">
             <div class="col-12 md-6 text-4xl">
-                {{accion.toLocaleUpperCase()}} PRODUCTO
+                {{accion.toLocaleUpperCase()}} PRODUCTO PASO 1
             </div>
         </div>
         <div class="grid">
@@ -13,6 +13,11 @@
                             <label for="nombre" class="mb-2 block"  >Nombre de Producto:</label>
                             <input formControlName="nombre" class="p-inputtext-lg {{invalid}}"  id='nombre' pInputText />
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un nombre</small>
+                        </div> 
+                        <div class="p-field p-2">
+                            <label for="descripcion" class="mb-2 block"  >Descripcion del Producto:</label>
+                            <textarea pInputTextarea [autoResize]="true" row="5" formControlName="descripcion" class="p-inputtext-lg {{invalid}}"  id='descripcion' ></textarea>
+                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un descripcion</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="stock" class="mb-2 block">Stock:</label>
@@ -26,18 +31,18 @@
                         </div>
                         <div class="p-field p-2">
                             <label for="precio" class="mb-2 block">Precio:</label>
-                            <p-inputNumber formControlName="precio" id="precio" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="stacked" mode="currency" currency="ARS" [min]="1" [max]="100000000" ></p-inputNumber>
+                            <p-inputNumber formControlName="precio" id="precio" class="p-inputtext-lg {{invalid}}"  mode="currency" currency="ARS" [min]="1"  ></p-inputNumber>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un precio</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="costo" class="mb-2 block">Costo:</label>
-                            <p-inputNumber formControlName="costo" id="costo" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="stacked" mode="currency" currency="ARS" [min]="1" [max]="100000000" ></p-inputNumber>
+                            <p-inputNumber formControlName="costo" id="costo" class="p-inputtext-lg {{invalid}}"  mode="currency" currency="ARS" [min]="1"  ></p-inputNumber>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un costo</small>
                         </div>
                         <div class="p-field p-2">
-                            <label for="unidad_medida" class="mb-2 block">Seleccione la unidad de medida:</label>
-                            <p-dropdown formControlName="unidad_medida" id="unidad_medida" class="p-inputtext-lg {{invalid}}" [options]="unidad_medida" optionLabel="nombre"  optionValue="id" ></p-dropdown>
-                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una unidad de medida</small>
+                            <label for="talle" class="mb-2 block">Talle:</label>
+                            <input formControlName="talle" class="p-inputtext-lg {{invalid}}"  id='talle' pInputText />
+                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar los talles</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="original" class="mb-2 block">¿Es producto original?</label>
@@ -68,13 +73,23 @@
         </div>
     </div>
 
-    <div *ngIf="!ban" >
+    <div *ngIf="!ban"  class="surface-card p-4 shadow-2 border-round lg:w-6  w-full">
+        <div class="grid">
+            <div class="col-12 md-6 text-4xl">
+                {{accion.toLocaleUpperCase()}} PRODUCTO PASO 2
+            </div>
+        </div>
         <div class="grid">
             <div class="col-12 md-6 " > 
                 <div class="p-field p-2">
                     <p-toast></p-toast>
                     <p-fileUpload name="imagen" url="{{env.apiURL}}/producto/subir_imagen/{{id_producto}}/" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" >     </p-fileUpload>
                 </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 md-6 "> 
+                <p-button  styleClass="p-button-warning" class="p-2"  (click)="Cancelar()" label="Listo"></p-button>
             </div>
         </div>
     </div>

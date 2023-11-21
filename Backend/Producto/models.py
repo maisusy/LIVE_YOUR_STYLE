@@ -12,10 +12,11 @@ class Producto(models.Model):
     categoria_producto = models.ForeignKey( Cat_prod  ,on_delete=models.CASCADE)
     precio = models.FloatField()
     costo = models.FloatField()
-    unidad_medida = models.ForeignKey(Unidad_medida , on_delete=models.CASCADE)
+    talle = models.CharField(max_length=4)
     original = models.BooleanField()
     marca = models.ForeignKey(Marca,on_delete=models.CASCADE)
     color = models.ManyToManyField(Color,blank=True)
+    descripcion = models.CharField(max_length=200)
     obs = models.ManyToManyField(Observacion,blank=True)
 
 class ImagenesProductos(models.Model):

@@ -7,13 +7,13 @@ from Producto.models import ImagenesProductos, Producto
 class ProductoSerializers(serializers.ModelSerializer):
     class Meta:
         model = Producto
-        fields =  ['id','nombre','stock','categoria_producto','precio','costo','unidad_medida','original','marca','color','obs']
+        fields =  ['id','nombre','stock','categoria_producto','precio','costo','talle','descripcion','original','marca','color','obs']
 
 class ImagenProductoSerializers(serializers.ModelSerializer):
     class Meta:
         model = ImagenesProductos
         fields = ['imagen', 'producto']
-        read_only_fields = ['producto']  # Marcar el campo como de solo lectura
+        read_only_fields = ['producto']  
 
     def create(self, validated_data):
         producto_id = validated_data.pop('producto_id')

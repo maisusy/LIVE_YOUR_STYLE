@@ -30,7 +30,8 @@ class Producto_imagen(APIView):
 
 class Producto_imagen_lista(APIView):
     queryset = Producto.objects.none()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [AllowAny]
+    authentication_classes = ()
     
     def get(self,request, *args, **kwargs):
         imgprod = ImagenesProductos.objects.all()
@@ -40,7 +41,8 @@ class Producto_imagen_lista(APIView):
         
 class Producto_list(APIView):
     queryset = Producto.objects.none()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [AllowAny]
+    authentication_classes = ()
 
     def post(self, request, *args, **kwargs):
 

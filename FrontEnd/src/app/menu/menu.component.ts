@@ -13,6 +13,7 @@ export class MenuComponent {
   items: MenuItem[] | undefined;
   activeItem: MenuItem | undefined;
   public env = env;
+  public username: any;
 
 
   constructor( public router : Router,
@@ -20,115 +21,146 @@ export class MenuComponent {
 
 
     ngOnInit() {
+      this.cargaItemsMenu()
+    }
 
+    cargaItemsMenu(){
+        this.username = localStorage.getItem('username');
         this.items = [
-            {
-                label: 'Inicio',
-                icon: 'pi pi-fw pi-home',
-                command : () => {
-                  this.onMenuItemClick('inicio')
+          {
+              label: 'Inicio',
+              icon: 'pi pi-fw pi-home',
+              command : () => {
+                this.onMenuItemClick('inicio')
+              }
+          },
+          {
+              label: 'Productos',
+              icon: 'pi pi-fw pi-shopping-cart',
+              command : () => {
+                this.onMenuItemClick('producto')
+              }
+          },
+          {
+              label: 'Turnos',
+              icon: 'pi pi-fw pi-calendar',
+              items : [
+                {
+                  label : 'Agendar Turno'  ,
+                  icon: 'pi pi-fw pi-calendar-plus',                  
+                },
+                {
+                  label : 'Listado'  ,
+                  icon: 'pi pi-fw pi-calendar-minus',                  
+                },
+                {
+                  label : 'Mis turnos'  ,
+                  icon: 'pi pi-fw pi-calendar-minus',                  
                 }
-            },
-            {
-                label: 'Productos',
-                icon: 'pi pi-fw pi-shopping-cart',
-                command : () => {
-                  this.onMenuItemClick('producto')
-                }
-            },
-            {
-                label: 'Turnos',
-                icon: 'pi pi-fw pi-calendar',
-                items : [
-                  {
-                    label : 'Agendar Turno'  ,
-                    icon: 'pi pi-fw pi-calendar-plus',                  
-                  },
-                  {
-                    label : 'Listado'  ,
-                    icon: 'pi pi-fw pi-calendar-minus',                  
-                  },
-                  {
-                    label : 'Mis turnos'  ,
-                    icon: 'pi pi-fw pi-calendar-minus',                  
+              ]
+          },
+          {
+              label: 'Administracion',
+              icon: 'pi pi-fw pi-cog',
+              items : [
+                {
+                  label : 'Listado Productos'  ,
+                  icon: 'pi pi-fw pi-list',  
+                  command : () => {
+                    this.onMenuItemClick('Listado Productos')
                   }
-                ]
-            },
-            
-            {
-                label: 'Administracion',
-                icon: 'pi pi-fw pi-cog',
-                items : [
-                  {
-                    label : 'Listado Productos'  ,
-                    icon: 'pi pi-fw pi-list',  
-                    command : () => {
-                      this.onMenuItemClick('Listado Productos')
-                    }
-                  },
-                  {
-                    label : 'Listado Predefinidos'  ,
-                    icon: 'pi pi-fw pi-list',  
-                    items : [
-                      {
-                        label:'Marcas',
-                        icon: 'pi pi-fw pi-plus',
-                        command : () => {
-                          this.onMenuItemClick('marca')
-                        }
-                      },
-                      {
-                        label:'Colores',
-                        icon: 'pi pi-fw pi-plus',
-                        command : () => {
-                          this.onMenuItemClick('color')
-                        }
-                      },
-                      {
-                        label:'Unidades de Medida',
-                        icon: 'pi pi-fw pi-plus',
-                        command : () => {
-                          this.onMenuItemClick('unidad_medida')
-                        }
-                      },
-                      {
-                        label:'Categoria',
-                        icon: 'pi pi-fw pi-plus',
-                        command : () => {
-                          this.onMenuItemClick('categoria')
-                        }
+                },
+                {
+                  label : 'Listado Predefinidos'  ,
+                  icon: 'pi pi-fw pi-list',  
+                  items : [
+                    {
+                      label:'Marcas',
+                      icon: 'pi pi-fw pi-plus',
+                      command : () => {
+                        this.onMenuItemClick('marca')
                       }
-                    ]                
-                  }
-                ]
+                    },
+                    {
+                      label:'Colores',
+                      icon: 'pi pi-fw pi-plus',
+                      command : () => {
+                        this.onMenuItemClick('color')
+                      }
+                    },
+                    {
+                      label:'Unidades de Medida',
+                      icon: 'pi pi-fw pi-plus',
+                      command : () => {
+                        this.onMenuItemClick('unidad_medida')
+                      }
+                    },
+                    {
+                      label:'Categoria',
+                      icon: 'pi pi-fw pi-plus',
+                      command : () => {
+                        this.onMenuItemClick('categoria')
+                      }
+                    }
+                  ]                
+                }
+              ]
+          },
+      ];
+
+      if(this.username != null || this.username == ''){
+        let data  =  {
+          label: this.username,
+          icon: 'pi pi-fw pi-user',
+          items : [
+            {
+              label : 'Cambiar contraseña'  ,
+              icon: 'pi pi-fw pi-lock',                  
             },
             {
-                label: 'Usuarios',
-                icon: 'pi pi-fw pi-user',
-                items : [
-                  {
-                    label : 'Cambiar contraseña'  ,
-                    icon: 'pi pi-fw pi-lock',                  
-                  },
-                  {
-                    label : 'Actualizar datos'  ,
-                    icon: 'pi pi-fw pi-user-edit',                  
-                  }
-                ]
+              label : 'Actualizar datos'  ,
+              icon: 'pi pi-fw pi-user-edit',                  
+            },
+            {
+              label : 'Cerrar Sesión'  ,
+              icon: 'pi pi-fw pi-sign-out',
+              command : () => {
+                this.onMenuItemClick('cerrar sesion')
+              }                  
             }
-        ];
-        this.activeItem = this.items[0];
+          ]
+        }
+
+        this.items.push(data)
+      }else{
+        let data =  {
+          label: 'Iniciar Sesión',
+          icon: 'pi pi-fw pi-sign-in',
+          command : () => {
+            this.onMenuItemClick('login')
+          }
+        }
+
+        this.items.push(data)
+      }
+      
+      this.activeItem = this.items[0];
     }
 
 
     onMenuItemClick(item : any) {
-        // Acceder al valor del elemento del menú seleccionado
-      console.log(item);
 
       this.activeItem = item;
-
       
       switch(item){
+        case 'cerrar sesion' : 
+        localStorage.setItem('token',  '')
+        localStorage.setItem('username',  '')
+        this.ngOnInit()
+        break;
+        case 'login' : 
+            this.router.navigate(['login']);
+        break;
         case 'Listado Productos' : 
             this.router.navigate(['producto/listado']);
         break;

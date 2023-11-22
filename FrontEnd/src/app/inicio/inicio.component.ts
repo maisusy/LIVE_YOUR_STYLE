@@ -18,7 +18,13 @@ export class InicioComponent {
   }
 
 
-    Redirigir(){
+    RedirigirProducto(){
       this.ROUTER.navigate(['producto'])
     }
+
+
+    RedirigirUsuario(){
+      this.ROUTER.navigate(['usuario/abm-usuario'])
+    }
+
 }

@@ -44,6 +44,7 @@ export class LoginComponent {
           this.token = res;
           console.log(res)
           localStorage.setItem('token',  this.token.access)
+          localStorage.setItem('username',  this.formsLogin.value.username || '')
           this.Router.navigate(['inicio']);
                })
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConfirmationService , MessageService } from 'primeng/api';
+import { ConfirmationService , MessageService, PrimeNGConfig } from 'primeng/api';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,9 +24,9 @@ export class AbmUsuarioComponent {
     'apellidos': new FormControl('', Validators.required),
     'fecha_alta': new FormControl(this.obtenerFechaActual()),
     'dni': new FormControl('', Validators.required),
-    'cuit': new FormControl('', Validators.required),
     'dir': new FormControl([], ),
     'email': new FormControl('', Validators.required),
+    'nivel' : new FormControl(2, Validators.required),
   })
 
   ngOnInit(): void {
@@ -36,6 +36,13 @@ export class AbmUsuarioComponent {
     }else{
       this.accion = 'MODIFICACIÓN'
     }
+
+    this.config.setTranslation({
+      'weak' : 'Débil',
+      'medium' : 'Moderada',
+      'strong' : 'Alta',
+    })
+
   }
 
   constructor(
@@ -43,10 +50,11 @@ export class AbmUsuarioComponent {
     public confirmationService : ConfirmationService,
     public router : Router,
     public messageService : MessageService,
+    private config: PrimeNGConfig,
   ){}
 
     Cancelar(){
-      this.router.navigate(['usuario'])
+      this.router.navigate(['login'])
     }
 
     obtenerFechaActual(): string {
@@ -72,6 +80,7 @@ export class AbmUsuarioComponent {
           this.UsuarioService.AgregarUsuario(this.formsUsuario.value)
           .subscribe(_ => {
             this.messageService.add({ key: 'abm-usuario', severity: 'success', summary: `${this.accion} Usuario`, detail: 'La acción se realizo correctamente' });
+            this.router.navigate(['login'])
           }, error => {
             console.log(error)
             this.messageService.add({ key: 'abm-usuario', severity: 'error', summary: `${this.accion} Usuario`, detail: error.error.error });

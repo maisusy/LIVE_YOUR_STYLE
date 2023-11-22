@@ -26,16 +26,16 @@
                         </div>
                         <div class="p-field p-2">
                             <label for="contraseña" class="mb-2 block"  >Contraseña:</label>
-                            <input formControlName="contraseña" class="p-inputtext-lg {{invalid}}"  id='contraseña' pInputText />
+                            <p-password formControlName="contraseña" class="p-inputtext-lg {{invalid}}"  id='contraseña' ></p-password>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar una contraseña</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="rep_contraseña" class="mb-2 block"  >Repetir Contraseña:</label>
-                            <input formControlName="rep_contraseña" class="p-inputtext-lg {{invalid}}"  id='rep_contraseña' pInputText />
+                            <p-password formControlName="rep_contraseña" class="p-inputtext-lg {{invalid}}"  id='rep_contraseña' ></p-password>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe repetir la contraseña</small>
                         </div>
                         <div class="p-field p-2">
-                            <label for="email" class="mb-2 block"  >Correo eLectronico:</label>
+                            <label for="email" class="mb-2 block"  >Correo electronico:</label>
                             <input formControlName="email" class="p-inputtext-lg {{invalid}}"  id='email' pInputText />
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un correo electronico</small>
                         </div>
@@ -43,11 +43,6 @@
                             <label for="dni" class="mb-2 block"  >Dni:</label>
                             <input formControlName="dni" class="p-inputtext-lg {{invalid}}"  id='dni' pInputText />
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un dni</small>
-                        </div>
-                        <div class="p-field p-2">
-                            <label for="cuit" class="mb-2 block"  >Cuit:</label>
-                            <input formControlName="cuit" class="p-inputtext-lg {{invalid}}"  id='cuit' pInputText />
-                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un cuit</small>
                         </div>
                     </div>
                 </form>
@@ -63,4 +58,4 @@
         </div>
     </div>
 </div>
-<p-toast key="abm-producto"></p-toast>
+<p-toast key="abm-usuario"></p-toast>

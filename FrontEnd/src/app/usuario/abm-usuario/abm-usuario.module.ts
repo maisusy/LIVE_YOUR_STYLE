@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { MultiSelectModule } from 'primeng/multiselect'
 import { AbmUsuarioComponent } from './abm-usuario.component';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AbmUsuarioComponent } from './abm-usuario.component';
     InputNumberModule,
     InputTextModule,
     SelectButtonModule,
-    MultiSelectModule
+    MultiSelectModule,
+    PasswordModule
   ]
 })
 export class AbmUsuarioModule { }

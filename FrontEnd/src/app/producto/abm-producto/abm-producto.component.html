@@ -10,11 +10,6 @@
                 <form [formGroup]="formsProducto">
                     <div class="p-fluid mt-2" >
                         <div class="p-field p-2">
-                            <label for="nombre" class="mb-2 block"  >Nombre de Producto:</label>
-                            <input formControlName="nombre" class="p-inputtext-lg {{invalid}}"  id='nombre' pInputText />
-                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un nombre</small>
-                        </div> 
-                        <div class="p-field p-2">
                             <label for="descripcion" class="mb-2 block"  >Descripcion del Producto:</label>
                             <textarea pInputTextarea [autoResize]="true" row="5" formControlName="descripcion" class="p-inputtext-lg {{invalid}}"  id='descripcion' ></textarea>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un descripcion</small>

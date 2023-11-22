@@ -30,7 +30,6 @@ export class AbmProductoComponent {
 
   formsProducto = new FormGroup({
     'id': new FormControl(''),
-    'nombre': new FormControl('', Validators.required),
     'descripcion': new FormControl('', Validators.required),
     'stock': new FormControl('', Validators.required),
     'categoria_producto': new FormControl('', Validators.required),
@@ -39,7 +38,7 @@ export class AbmProductoComponent {
     'talle': new FormControl('', Validators.required),
     'original': new FormControl('', Validators.required),
     'marca': new FormControl('', Validators.required),
-    'color': new FormControl([])
+    'color': new FormControl([]),
   })
 
   ngOnInit(): void {
@@ -58,6 +57,8 @@ export class AbmProductoComponent {
 
     })
   }
+
+  
 
   constructor(
     public ProductoService : ProductoService,

@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService , MessageService, PrimeNGConfig } from 'primeng/api';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environments';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -42,12 +43,15 @@ export class AbmProductoComponent {
   })
 
   ngOnInit(): void {
+    const datoCompartido = this.ProductoService.datoCompartido;
+    console.log(datoCompartido)
+
     this.ObtenerPredefinidos()
-    console.log(this.formsProducto.value.id)
-    if(this.formsProducto.value.id == null || this.formsProducto.value.id == undefined || this.formsProducto.value.id == ''){
+    if(datoCompartido == null ){
       this.accion = 'CREACIÓN'
     }else{
       this.accion = 'MODIFICACIÓN'
+      this.ArmarFormProducto(datoCompartido)
     }
 
     this.config.setTranslation({
@@ -58,7 +62,7 @@ export class AbmProductoComponent {
     })
   }
 
-  
+
 
   constructor(
     public ProductoService : ProductoService,
@@ -68,7 +72,25 @@ export class AbmProductoComponent {
     private config: PrimeNGConfig,
   ){}
 
+
+  ArmarFormProducto(datos : any){
+    this.formsProducto.patchValue({
+      'id': datos.id,
+      'descripcion': datos.descripcion,
+      'stock': datos.stock,
+      'categoria_producto': datos.categoria_producto.id,
+      'precio': datos.precio,
+      'costo': datos.costo,
+      'talle': datos.talle,
+      'original': datos.original,
+      'marca': datos.marca.id,
+      'color': datos.color.map((color : any) => color.id),
+    });
+  }
+
+
     Cancelar(){
+      this.ProductoService.datoCompartido = null;
       this.router.navigate(['producto/listado'])
     }
 
@@ -100,6 +122,9 @@ export class AbmProductoComponent {
           this.ProductoService.ModificarProducto(id,this.formsProducto.value)
           .subscribe(_ => {
             this.messageService.add({ key: 'abm-producto', severity: 'success', summary: `${this.accion} PRODUCTO`, detail: 'La acción se realizo correctamente' });
+            timer(1000).subscribe(() => {
+              this.Cancelar();
+            });
           }, error => {
             console.log(error)
             this.messageService.add({ key: 'abm-producto', severity: 'error', summary: `${this.accion} PRODUCTO`, detail: error.error.error });

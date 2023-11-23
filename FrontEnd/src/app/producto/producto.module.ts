@@ -9,6 +9,7 @@ import { TagModule } from 'primeng/tag';
 
 import { AbmProductoModule } from './abm-producto/abm-producto.module';
 import { ListadoModule } from './listado/listado.module';
+import { ProductoService } from './producto.service';
 @NgModule({
   declarations: [
     ProductoComponent
@@ -22,6 +23,7 @@ import { ListadoModule } from './listado/listado.module';
     TagModule,
     AbmProductoModule,
     ListadoModule
-  ]
+  ],
+  providers: [ProductoService],
 })
 export class ProductoModule { }

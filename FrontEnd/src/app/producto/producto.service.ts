@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductoService {
 
-
+  datoCompartido: any;
   private URL: string = "";
 
   constructor( private http: HttpClient) {

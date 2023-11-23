@@ -17,8 +17,6 @@ export class ListadoComponent implements OnInit {
 
   public Productos : any;
   public productoimagen : any;
-  public modalDatos : any;
-  public modal : string = "";
   public loading: boolean = true; 
 
   constructor(
@@ -49,18 +47,18 @@ export class ListadoComponent implements OnInit {
       this.router.navigate(['abm-producto'])
   }
 
+  Modificar(datos : any = null){
+    delete datos.img;
+    this.ProductoService.datoCompartido = datos;
+    this.router.navigate(['producto/abm-producto']);
+  }
+
   success(){
-    
-    this.modal = '';
     this.ObtenerProducto()
     this.ObtenerImgProductos()
   }
 
-  MODAL(tipo : string , modal : any = null ){
-    this.modal = tipo;
-    this.modalDatos = modal;
-  }
-
+ 
   Confirmar(event : Event, id : number ){
       this.confirmationService.confirm({
         target: event.target!,

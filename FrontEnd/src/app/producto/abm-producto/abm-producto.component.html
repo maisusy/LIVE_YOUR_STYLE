@@ -51,9 +51,18 @@
                         </div>
                         <div class="p-field p-2">
                             <label for="color" class="mb-2 block">Seleccione el color:</label>
-                            <p-multiSelect formControlName="color" id="color" class="p-inputtext-lg {{invalid}}" [options]="color" optionLabel="nombre"  optionValue="id"  ></p-multiSelect>
+                            <p-multiSelect
+                              formControlName="color"
+                              id="color"
+                              class="p-inputtext-lg {{invalid}}"
+                              [options]="color"
+                              optionLabel="nombre"
+                              optionValue="id"
+                              [defaultLabel]="'Seleccione'"
+                              [appendTo]="'body'"
+                            ></p-multiSelect>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un color</small>
-                        </div>
+                          </div>
                     </div>
                 </form>
             </div>

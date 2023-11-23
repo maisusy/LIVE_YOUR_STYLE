@@ -89,7 +89,7 @@
                 {{ producto.talle }}
             </td>
             <td>
-                {{ producto.original }}
+                {{ producto.original ? 'si' : 'no' }}
             </td>
             <td>
                 {{ producto.marca.nombre }}
@@ -105,7 +105,7 @@
             <td>
                 <p-toast></p-toast>
                 <p-confirmPopup></p-confirmPopup>
-                <p-button icon="pi pi-pencil" styleClass="p-button-raised"> </p-button>
+                <p-button icon="pi pi-pencil" styleClass="p-button-raised"  (onClick)="Modificar(producto)"> </p-button>
                 <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,producto.id)"> </p-button>
             
             </td>

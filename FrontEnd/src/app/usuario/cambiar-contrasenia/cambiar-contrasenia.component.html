@@ -1,0 +1,36 @@
+<div class="background-container" >
+    <div class="surface-card p-4 shadow-2 border-round lg:w-6  w-full">
+        <div class="grid">
+            <div class="col-12 md-6 text-4xl">
+                Cambio de Contraseña {{username}}
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 md-6 " > <!--p-fluid mt-2-->
+                <form [formGroup]="formsUsuario">
+                    <div class="p-fluid mt-2" >
+                        <div class="p-field p-2">
+                            <label for="contraseña" class="mb-2 block"  >Contraseña:</label>
+                            <p-password formControlName="password" class="p-inputtext-lg {{invalid}}"  id='contraseña' ></p-password>
+                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar una contraseña</small>
+                        </div>
+                        <div class="p-field p-2">
+                            <label for="rep_contraseña" class="mb-2 block"  >Repetir Contraseña:</label>
+                            <p-password formControlName="rep_contraseña" class="p-inputtext-lg {{invalid}}"  id='rep_contraseña' ></p-password>
+                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe repetir la contraseña</small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-3 md-6 "> 
+                <p-button  styleClass="p-button-warning" class="p-2"  (click)="Cancelar()" label="Cancelar"></p-button>
+            </div>
+            <div class="col-3 md-6 col-offset-6"> 
+                <p-button  styleClass="p-button-success" class="p-2" (click)="submit()" label="Guardar" ></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast key="abm-usuario"></p-toast>

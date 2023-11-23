@@ -30,4 +30,9 @@ export class UsuarioService {
     return this.http.delete(`${this.URL}/datos_usuario/api/${id}/`)
   }
 
+  CambiarContraseña(username : string,datos:any){
+    return this.http.put(`${this.URL}/datos_usuario/cambiocontrasenia/${username}/`,datos)
+  }
+
+
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsuarioComponent } from './usuario.component';
 import { AbmUsuarioComponent } from './abm-usuario/abm-usuario.component';
+import { CambiarContraseniaComponent } from './cambiar-contrasenia/cambiar-contrasenia.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'abm-usuario',
     component : AbmUsuarioComponent
+  },
+  {
+    path: 'cambiar-contrasenia',
+    component : CambiarContraseniaComponent
   }
 ];
 

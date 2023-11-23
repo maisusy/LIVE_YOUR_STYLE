@@ -26,6 +26,7 @@ export class MenuComponent {
 
     cargaItemsMenu(){
         this.username = localStorage.getItem('username');
+        this.items = []
         this.items = [
           {
               label: 'Inicio',
@@ -108,14 +109,18 @@ export class MenuComponent {
           },
       ];
 
-      if(this.username != null || this.username == ''){
+      console.log(this.username)
+      if(this.username != null && this.username !== ''){
         let data  =  {
           label: this.username,
           icon: 'pi pi-fw pi-user',
           items : [
             {
               label : 'Cambiar contraseña'  ,
-              icon: 'pi pi-fw pi-lock',                  
+              icon: 'pi pi-fw pi-lock',       
+              command : () => {
+                this.onMenuItemClick('cambiar-contrasenia')
+              }                   
             },
             {
               label : 'Actualizar datos'  ,
@@ -153,10 +158,14 @@ export class MenuComponent {
       this.activeItem = item;
       
       switch(item){
+        case 'cambiar-contrasenia':
+            this.router.navigate(['usuario/cambiar-contrasenia']);
+        break;
         case 'cerrar sesion' : 
-        localStorage.setItem('token',  '')
-        localStorage.setItem('username',  '')
-        this.ngOnInit()
+          localStorage.setItem('token',  '');
+          localStorage.setItem('username',  '');
+          this.cargaItemsMenu();
+          this.router.navigate(['inicio']);
         break;
         case 'login' : 
             this.router.navigate(['login']);

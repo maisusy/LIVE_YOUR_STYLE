@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { SesionExpComponent } from './login/sesion-exp/sesion-exp.component';
 
 const routes: Routes = [
   { path: 'unidad_medida', loadChildren: () => import('./predefinidos/unidad-medida/unidad-medida.module').then(m => m.UnidadMedidaModule) },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'producto', loadChildren: () => import('./producto/producto.module').then(m => m.ProductoModule) },
   { path: 'usuario', loadChildren: () => import('./usuario/usuario.module').then(m => m.UsuarioModule) },
   { path: 'login', component: LoginComponent},
+  { path: 'sesionexp', component: SesionExpComponent},
   { path:'',redirectTo:'login',pathMatch:'full'},
 
 ];

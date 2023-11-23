@@ -53,9 +53,9 @@ export class AbmUsuarioComponent {
     private config: PrimeNGConfig,
   ){}
 
-    Cancelar(){
-      this.router.navigate(['login'])
-    }
+  Cancelar(){
+    this.router.navigate(['login'])
+  }
 
     obtenerFechaActual(): string {
       const fechaActual: Date = new Date();
@@ -80,7 +80,7 @@ export class AbmUsuarioComponent {
           this.UsuarioService.AgregarUsuario(this.formsUsuario.value)
           .subscribe(_ => {
             this.messageService.add({ key: 'abm-usuario', severity: 'success', summary: `${this.accion} Usuario`, detail: 'La acción se realizo correctamente' });
-            this.router.navigate(['login'])
+            
           }, error => {
             console.log(error)
             this.messageService.add({ key: 'abm-usuario', severity: 'error', summary: `${this.accion} Usuario`, detail: error.error.error });

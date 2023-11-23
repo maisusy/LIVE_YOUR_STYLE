@@ -50,17 +50,19 @@ export class ProductoComponent {
   }
 
 
-  getSeverity(status: string) {
-    switch (status) {
-        case 'INSTOCK':
-            return 'success';
-        case 'LOWSTOCK':
-            return 'warning';
-        case 'OUTOFSTOCK':
-            return 'danger';
-        default:
-            return 'danger';
+  getSeverity(stock: number) {
+    
+    if(stock == 0){
+      return 'danger';
+    }else{
+      if(stock < 10){
+        return 'warning';
+      }else{
+        return 'success';
+        
       }
+
+    }
   }
 
 

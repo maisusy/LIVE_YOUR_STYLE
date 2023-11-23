@@ -11,10 +11,8 @@ class Producto_imagen(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self,request,id, *args, **kwargs):
-            # Acceder al ID de la URL
             producto_id = id
 
-            # Añadir el ID a los datos de la solicitud
             request.data['producto'] = producto_id
 
             print(request.data)
@@ -66,23 +64,13 @@ class Producto_id(APIView):
     queryset = Producto.objects.none()
     permission_classes = (IsAuthenticated,)
 
-    #obtener uno
+
     def get_object(self,id):
         try:
             return  Producto.objects.get(id=id)
         except Producto.DoesNotExist:
             return None
-    def get(self,requestt,id,*args, **kwargs):
-        instance = self.get_object(id)
-        if not instance:
-            return Response(
-                {'res':'No exite el objeto'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
 
-        serializer = ProductoSerializers(instance)
-        return Response(serializer.data,status=status.HTTP_200_OK)
-    #UPDATE
     def put(self,request,id,*args, **kwargs):
         instance = self.get_object(id)
         if not instance:
@@ -96,17 +84,28 @@ class Producto_id(APIView):
             serializer.save(color = request.data.get('color'))
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # 4. Delete
+
     def delete(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
+        
         if not instance:
             return Response(
-                {"res": "Object with todo id does not exists"}, 
+                {"res": "No existe el objeto"}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
+        
+        imagenes_productos = ImagenesProductos.objects.filter(producto=id)
+
+        # Elimina cada imagen asociada
+        for img_producto in imagenes_productos:
+            img_producto.imagen.delete()
+            img_producto.delete()
+
+        # Finalmente, elimina la instancia del producto
         instance.delete()
+
         return Response(
-            {"res": "Object deleted!"},
+            {"res": "Objeto Eliminado"},
             status=status.HTTP_200_OK
         )
     

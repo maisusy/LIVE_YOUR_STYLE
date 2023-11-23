@@ -7,8 +7,9 @@
     [rowsPerPageOptions]="[10, 25, 50]"
     [loading]="loading"
     [paginator]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['nombre']"
+    [scrollable]="true"
+    currentPageReportTemplate="Mostrado {first} de {last} de {totalRecords} registros"
+    [globalFilterFields]="['descripcion','categoria_producto.nombre','stock','precio','costo','talle','original','marca','color']"
     [tableStyle]="{ 'min-width': '50rem' }"
     >
     <ng-template pTemplate="caption">
@@ -16,7 +17,6 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th style="width:22%">Codigo</th>
             <th style="width:22%">Imagen</th>
             <th style="width:22%">Descripción</th>
             <th style="width:22%">Categoria</th>
@@ -30,9 +30,6 @@
             <th style="width:12%">Acciones</th>
         </tr>
         <tr>
-            <th>
-                <p-columnFilter type="text" field="codigo"></p-columnFilter>
-            </th>
             <th>
                 
             </th>
@@ -71,10 +68,7 @@
     <ng-template pTemplate="body" let-producto>
         <tr>
             <td>
-                {{ producto.id }}
-            </td>
-            <td>
-              <img src="http://127.0.0.1:8000{{ producto.img}}" [alt]="producto.img" width="100" class="shadow-4"/>
+              <img src="http://127.0.0.1:8000{{ producto.img}}" [alt]="producto.img" height="100rem"   width="100rem" class="shadow-4"/>
             </td>
             <td>
                 {{ producto.descripcion }}
@@ -86,10 +80,10 @@
                 {{ producto.stock }}
             </td>
             <td>
-                {{ producto.precio }}
+                {{ producto.precio | currency:'ARS'}}
             </td>
             <td>
-                {{ producto.costo }}
+                {{ producto.costo | currency:'ARS'}}
             </td>
             <td>
                 {{ producto.talle }}

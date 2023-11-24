@@ -10,13 +10,11 @@ from Marca.serializers import MarcaSerializer
 class marca_lista(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    # 1. List all
     def get(self, request, *args, **kwargs):
         marca = Marca.objects.all()
         serializer = MarcaSerializer(marca, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # 2. Create
     def post(self, request, *args, **kwargs):
         serializer = MarcaSerializer(data=request.data)
         if serializer.is_valid():
@@ -35,23 +33,12 @@ class marca_id(APIView):
             return Marca.objects.get(id=id)
         except Marca.DoesNotExist:
             return None
-    # 2. Retrieve
-    def get(self, request, id, *args, **kwargs):
-        todo_instance = self.get_object(id)
-        if not todo_instance:
-            return Response(
-                {"res": "Object with todo id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
 
-        serializer = MarcaSerializer(todo_instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-     # 3. Update
     def put(self, request, id, *args, **kwargs):
         todo_instance = self.get_object(id)
         if not todo_instance:
             return Response(
-                {"res": "Object with todo id does not exists"}, 
+                {"res": "No exite el objeto"}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
         serializer = MarcaSerializer(instance = todo_instance, data=request.data, partial = True)
@@ -65,12 +52,12 @@ class marca_id(APIView):
         todo_instance = self.get_object(id)
         if not todo_instance:
             return Response(
-                {"res": "Object with todo id does not exists"}, 
+                {"res": "No exite el objeto"}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
         todo_instance.delete()
         return Response(
-            {"res": "Object deleted!"},
+            {"res": "Objeto Eliminado"},
             status=status.HTTP_200_OK
         )
     

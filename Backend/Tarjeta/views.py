@@ -11,12 +11,12 @@ class Tarjeta_lista(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    #lista
+
     def get(self,request,*args,**kwargs):
         tarjeta = Tarjeta.objects.all()
         serializer = TarjetaSerializers(tarjeta,many=True)
         return Response(serializer.data, status = status.HTTP_200_OK)
-    #cREAR
+    
     def post(self,request,*args,**kwargs):
 
         serializer = TarjetaSerializers(data=request.data)
@@ -30,23 +30,12 @@ class Tarjeta_id(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    #obtener uno
     def get_object(self,id):
         try:
             return  Tarjeta.objects.get(id=id)
         except Tarjeta.DoesNotExist:
             return None
-    def get(self,requestt,id,*args, **kwargs):
-        instance = self.get_object(id)
-        if not instance:
-            return Response(
-                {'res':'No exite el objeto'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        serializer = TarjetaSerializers(instance)
-        return Response(serializer.data,status=status.HTTP_200_OK)
-    #UPDATE
+   
     def put(self,request,id,*args, **kwargs):
         instance = self.get_object(id)
         if not instance:
@@ -65,12 +54,12 @@ class Tarjeta_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {"res": "Object with todo id does not exists"}, 
+                {"res": "No exite el objeto"}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
         instance.delete()
         return Response(
-            {"res": "Object deleted!"},
+            {"res": "Objeto Eliminado"},
             status=status.HTTP_200_OK
         )
     

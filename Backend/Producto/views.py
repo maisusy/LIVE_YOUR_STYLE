@@ -71,14 +71,14 @@ class Producto_list(APIView):
 
     def post(self, request, *args, **kwargs):
 
-        _serializer = ProductoSerializers(data=request.data)  # NOQA
+        _serializer = ProductoSerializers(data=request.data)  
         
         if _serializer.is_valid():
             _serializer.save(color = request.data.get('color'))
 
-            return Response(_serializer.data, status=status.HTTP_201_CREATED)  # NOQA
+            return Response(_serializer.data, status=status.HTTP_201_CREATED)  
         else:
-            return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # NOQA
+            return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
     
     def get(self,request, *args, **kwargs):
         prod = Producto.objects.all()

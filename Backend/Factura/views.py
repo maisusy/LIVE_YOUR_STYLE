@@ -42,23 +42,13 @@ class Factura_id(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    #obtener uno
+   
     def get_object(self,id):
         try:
             return  Factura.objects.get(id=id)
         except Factura.DoesNotExist:
             return None
-    def get(self,requestt,id,*args, **kwargs):
-        instance = self.get_object(id)
-        if not instance:
-            return Response(
-                {"res":"No exite el objeto"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
 
-        serializer = FacturaSerializer(instance)
-        return Response(serializer.data,status=status.HTTP_200_OK)
-    #UPDATE
     def put(self,request,id,*args, **kwargs):
         instance = self.get_object(id)
         if not instance:
@@ -77,12 +67,12 @@ class Factura_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {"res": "Object with todo id does not exists"}, 
+                {"res": "No exite el objeto"}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
         instance.delete()
         return Response(
-            {"res": "Object deleted!"},
+            {"res": "Objeto Eliminado"},
             status=status.HTTP_200_OK
         )
     

@@ -20,7 +20,7 @@ class Insumo_lista(APIView):
             return Response(_serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(_serializer.errors , status = status.HTTP_400_BAD_REQUEST)    
-    #lista 
+     
     def get(self,request,*args, **kwargs):
         insumo = Insumo.objects.all()
         serializer = InsumoSerializers(insumo,many=True)
@@ -31,24 +31,14 @@ class Insumo_id(APIView):
     queryset = Insumo.objects.none()
     permission_classes = (IsAuthenticated,)
 
-    #obtener uno
+
     def get_object(self,id):
         try:
             return  Insumo.objects.get(id=id)
         except Insumo.DoesNotExist:
             return None
         
-    def get(self,requestt,id,*args, **kwargs):
-        instance = self.get_object(id)
-        if not instance:
-            return Response(
-                {'res':'No exite el objeto'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        _serializer = InsumoSerializers(instance)
-        return Response(_serializer.data,status=status.HTTP_200_OK)
-    
+  
     def put(self,request,id,*args, **kwargs):
         instance = self.get_object(id)
         if not instance:
@@ -67,12 +57,12 @@ class Insumo_id(APIView):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {"res": "Object with todo id does not exists"}, 
+                {"res": "No exite el objeto"}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
         instance.delete()
         return Response(
-            {"res": "Object deleted!"},
+            {"res": "Objeto Eliminado"},
             status=status.HTTP_200_OK
         )
     

@@ -22,8 +22,6 @@ class CambioContraseña(APIView):
         instance = self.get_object(username)
 
         hasher = PBKDF2PasswordHasher()
-        print(hasher.algorithm)
-        print(username)
         if not instance:
             return Response(
                 {"res": "No exite el objeto"}, status=status.HTTP_400_BAD_REQUEST

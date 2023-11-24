@@ -1,8 +1,6 @@
 from django.db import models
 from Color.models import Color
 from Categoria_producto.models import Cat_prod
-from Observacion.models import Observacion
-from Unidad_medida.models import Unidad_medida
 from Marca.models import Marca
 
 

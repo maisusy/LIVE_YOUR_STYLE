@@ -5,4 +5,4 @@ class InsumoSerializers(serializers.ModelSerializer):
     class Meta:
         model = Insumo
         fields = ['id','nombre','unidad_medida','stock',
-                  'costo','marca','color','obs','proveedor']
+                  'costo','marca','color','proveedor']

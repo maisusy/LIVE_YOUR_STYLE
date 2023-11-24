@@ -13,8 +13,7 @@ class VentaSerializers(serializers.ModelSerializer):
     productos = serializers.SerializerMethodField()
     class Meta:
         model = Venta
-        fields = ['id','usuario','correo','direccion','correo',
-                  'telefono','precio_total','estado','fecha',
+        fields = ['id','usuario','direccion','precio_total','estado','fecha',
                   'medio_pago','productos']
         
     def get_productos(self,obj):

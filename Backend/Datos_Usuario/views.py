@@ -57,13 +57,12 @@ class Datos_Usuario_crear(APIView):
             "apellidos": request.data.get("apellidos"),
             "fecha_alta": request.data.get("fecha_alta"),
             "dni": request.data.get("dni"),
-            "dir": request.data.get("dir"),
             "nivel": request.data.get("nivel"),
+            "telefono": request.data.get("telefono"),
         }
         _serializer = Datos_UsuarioSerializers(data=data)
 
         if _serializer.is_valid():
-            _serializer.save(dir=request.data.get("dir"))
             return Response(_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -83,14 +82,12 @@ class Datos_Usuario_id(APIView):
     queryset = Datos_Usuario.objects.none()
     permission_classes = (IsAuthenticated,)
 
-    # obtener uno
     def get_object(self, id):
         try:
             return Datos_Usuario.objects.get(id=id)
         except Datos_Usuario.DoesNotExist:
             return None
 
-    # UPDATE
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         if not instance:
@@ -101,18 +98,16 @@ class Datos_Usuario_id(APIView):
             instance=instance, data=request.data, partial=True
         )
         if serializer.is_valid():
-            serializer.save(dir=request.data.get("dir"))
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # 4. Delete
+        
     def delete(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         if not instance:
             return Response(
-                {"res": "Object with todo id does not exists"},
+                {"res": "El objeto no existe"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         instance.delete()
-        return Response({"res": "Object deleted!"}, status=status.HTTP_200_OK)
+        return Response({"res": "Objeto eliminado"}, status=status.HTTP_200_OK)

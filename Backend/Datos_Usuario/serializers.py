@@ -21,6 +21,6 @@ class Datos_UsuarioSerializers(serializers.ModelSerializer):
             "apellidos",
             "fecha_alta",
             "dni",
-            "dir",
             "nivel",
+            "telefono"
         ]

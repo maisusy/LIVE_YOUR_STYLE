@@ -9,7 +9,7 @@ from Producto.models import ImagenesProductos, Producto
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Color
-        fields = ("nombre",)
+        fields = ("id","nombre",)
 
 
 class ProductoSerializers(serializers.ModelSerializer):

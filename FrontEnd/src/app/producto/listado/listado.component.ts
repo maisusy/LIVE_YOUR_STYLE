@@ -40,7 +40,8 @@ export class ListadoComponent implements OnInit {
     })
     this.ObtenerImgProductos()
     this.ObtenerProducto()
-  
+    
+    this.ProductoService.producto_id=null
   }
 
   Nuevo(){
@@ -50,6 +51,11 @@ export class ListadoComponent implements OnInit {
   Modificar(datos : any = null){
     delete datos.img;
     this.ProductoService.datoCompartido = datos;
+    this.router.navigate(['producto/abm-producto']);
+  }
+
+  ModificarImagen(id : any = null){
+    this.ProductoService.producto_id = id;
     this.router.navigate(['producto/abm-producto']);
   }
 

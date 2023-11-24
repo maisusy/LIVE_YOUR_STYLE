@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductoService {
-
+  producto_id : any;
   datoCompartido: any;
   private URL: string = "";
 

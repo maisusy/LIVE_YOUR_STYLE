@@ -44,7 +44,6 @@ export class AbmProductoComponent {
 
   ngOnInit(): void {
     const datoCompartido = this.ProductoService.datoCompartido;
-    console.log(datoCompartido)
 
     this.ObtenerPredefinidos()
     if(datoCompartido == null ){
@@ -60,8 +59,12 @@ export class AbmProductoComponent {
       'cancel' : 'Cancelar',
 
     })
-  }
 
+    if(this.ProductoService.producto_id != null){
+      this.id_producto=this.ProductoService.producto_id;
+      this.ban = false;
+    }
+  }
 
 
   constructor(
@@ -88,17 +91,13 @@ export class AbmProductoComponent {
     });
   }
 
+  Cancelar(){
+    this.ProductoService.datoCompartido = null;
+    this.router.navigate(['producto/listado'])
+  }
 
-    Cancelar(){
-      this.ProductoService.datoCompartido = null;
-      this.router.navigate(['producto/listado'])
-    }
-
-    onUpload(event:any) {
-      console.log(event)
-
-      this.messageService.add({severity: 'info', summary: 'Imagen subida', detail: ''});
-     
+  onUpload(event:any) {
+    this.messageService.add({severity: 'info', summary: 'Imagen subida', detail: ''});
   }
 
   submit() {
@@ -110,7 +109,6 @@ export class AbmProductoComponent {
           .subscribe(res => {
             this.id_producto=res.id;
             this.ban = false;
-            console.log(this.ban)
             this.messageService.add({ key: 'abm-producto', severity: 'success', summary: `${this.accion} PRODUCTO`, detail: 'La acción se realizo correctamente' });
           }, error => {
             console.log(error)

@@ -4,26 +4,53 @@ from rest_framework.response import Response
 from rest_framework import status
 from Producto.serializers import ProductoSerializers,ImagenProductoSerializers,GetProductoSerializers
 from Producto.models import Producto,ImagenesProductos
+from django.db import transaction
+import os
+from django.conf import settings
 
 
 class Producto_imagen(APIView):
     queryset = Producto.objects.none()
     permission_classes = (IsAuthenticated,)
 
-    def post(self,request,id, *args, **kwargs):
-            producto_id = id
 
-            request.data['producto'] = producto_id
+    def get_object(self, id):
+        try:
+            return ImagenesProductos.objects.get(producto_id=id)
+        except ImagenesProductos.DoesNotExist:
+            return None
+    
+    def post(self, request, id, *args, **kwargs):
+        instance = self.get_object(id)
 
-            print(request.data)
-            _serializer = ImagenProductoSerializers(data=request.data)  # NOQA
-            
-            if _serializer.is_valid():
-                _serializer.save(producto_id=producto_id)
+        serializer = ImagenProductoSerializers(data=request.data)
 
-                return Response(_serializer.data, status=status.HTTP_201_CREATED)  # NOQA
+        if instance:
+            try:
+                with transaction.atomic():
+                    # Obtén la ruta del archivo
+                    file_path = os.path.join(settings.MEDIA_ROOT, str(instance.imagen))
+
+                    # Elimina la instancia de la base de datos
+                    instance.delete()
+
+                    # Elimina el archivo del sistema de archivos
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+
+                    if serializer.is_valid():
+                        serializer.save(producto_id=id)
+                        return Response(serializer.data, status=status.HTTP_201_CREATED)
+                    else:
+                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            if serializer.is_valid():
+                serializer.save(producto_id=id)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
-                return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # NOQA
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Producto_imagen_lista(APIView):
@@ -96,12 +123,10 @@ class Producto_id(APIView):
         
         imagenes_productos = ImagenesProductos.objects.filter(producto=id)
 
-        # Elimina cada imagen asociada
         for img_producto in imagenes_productos:
             img_producto.imagen.delete()
             img_producto.delete()
 
-        # Finalmente, elimina la instancia del producto
         instance.delete()
 
         return Response(

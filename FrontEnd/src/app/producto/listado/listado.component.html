@@ -61,7 +61,7 @@
                 <p-columnFilter type="text" field="color"></p-columnFilter>
             </th>
             <th>
-                <p-button icon="pi pi-plus" (onClick)="Nuevo()" styleClass="p-button-raised p-button-success"></p-button>
+                <p-button icon="pi pi-plus" (onClick)="Nuevo()" label="Nuevo Producto" styleClass="p-button-raised p-button-success"></p-button>
             </th>
         </tr>
     </ng-template>
@@ -105,8 +105,9 @@
             <td>
                 <p-toast></p-toast>
                 <p-confirmPopup></p-confirmPopup>
-                <p-button icon="pi pi-pencil" styleClass="p-button-raised"  (onClick)="Modificar(producto)"> </p-button>
-                <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,producto.id)"> </p-button>
+                <p-button icon="pi pi-pencil" styleClass="p-button-raised" label="Editar Producto" (onClick)="Modificar(producto)"> </p-button>
+                <p-button icon="pi pi-image" styleClass="p-button-raised" label="Editar Imagen" (onClick)="ModificarImagen(producto.id)"> </p-button>
+                <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger" label="Eliminar Producto" (onClick)="Confirmar($event,producto.id)">  </p-button>
             
             </td>
         </tr>

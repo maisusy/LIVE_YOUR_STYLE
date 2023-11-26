@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -21,7 +22,8 @@ import { TableModule } from 'primeng/table';
     ToastModule,
     TableModule,
     ConfirmPopupModule,
-    ButtonModule
+    ButtonModule,
+    FormsModule
   ]
 })
 export class ListadoModule { }

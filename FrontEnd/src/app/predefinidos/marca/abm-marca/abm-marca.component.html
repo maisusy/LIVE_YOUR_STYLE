@@ -2,17 +2,20 @@
     <ng-template pTemplate="header">
         {{accion.toLocaleUpperCase()}} MARCA
     </ng-template>
-    <form [formGroup]="formsMarca">
-        <div class="p-fluid mt-2">
-          <div class="p-field">
-              <span class="p-float-label">
-                  <input formControlName="nombre" class="p-inputtext-lg {{invalid}}" id="float-input" type="text" pInputText>
-                  <label for="float-input">Ingrese un Nombre</label>
-              </span>
-              <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un nombre</small>
-          </div>
+
+    <div class="grid">
+        <div class="col-12 md-6 " > 
+            <form [formGroup]="formsMarca">
+                <div class="p-fluid mt-2">
+                    <div class="p-field p-2">
+                        <label for="nombre">Ingrese un Nombre</label>
+                        <input formControlName="nombre" class="p-inputtext-lg {{invalid}}" id="nombre" type="text" pInputText>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un nombre</small>
+                    </div>
+                </div>
+            </form> 
         </div>
-    </form>
+    </div>
     <ng-template pTemplate="footer">
         <button pButton pRipple class="p-button-outlined-success" (click)="submit()" label="Guardar" iconPos="right"></button>
     </ng-template>

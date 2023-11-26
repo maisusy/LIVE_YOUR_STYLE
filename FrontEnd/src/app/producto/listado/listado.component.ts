@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ProductoService } from '../producto.service';
 import { Router } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
+  
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
@@ -13,11 +14,14 @@ import { Router } from '@angular/router';
     MessageService
   ]
 })
+
 export class ListadoComponent implements OnInit {
 
   public Productos : any;
   public productoimagen : any;
-  public loading: boolean = true; 
+  public loading: boolean = true;
+  public filtroColor: string = '';
+ 
 
   constructor(
     public confirmationService : ConfirmationService,
@@ -40,8 +44,8 @@ export class ListadoComponent implements OnInit {
     })
     this.ObtenerImgProductos()
     this.ObtenerProducto()
-    
     this.ProductoService.producto_id=null
+
   }
 
   Nuevo(){
@@ -59,12 +63,23 @@ export class ListadoComponent implements OnInit {
     this.router.navigate(['producto/abm-producto']);
   }
 
+  aplicarFiltroColor() {
+    if (this.filtroColor !== '') {
+      this.Productos = this.Productos.filter((producto: any) =>
+        producto.color.some((color: any) => color.nombre.toLowerCase().includes(this.filtroColor.toLowerCase()))
+      );
+    } else {
+      // Si el filtro está vacío, restaura la lista completa
+      this.ObtenerProducto();
+    }
+  }
+
   success(){
     this.ObtenerProducto()
     this.ObtenerImgProductos()
   }
 
- 
+
   Confirmar(event : Event, id : number ){
       this.confirmationService.confirm({
         target: event.target!,

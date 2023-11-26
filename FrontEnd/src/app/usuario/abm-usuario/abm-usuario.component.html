@@ -44,6 +44,11 @@
                             <input formControlName="dni" class="p-inputtext-lg {{invalid}}"  id='dni' pInputText />
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un dni</small>
                         </div>
+                        <div class="p-field p-2">
+                            <label for="telefono" class="mb-2 block"  >Telefono:</label>
+                            <input formControlName="telefono" class="p-inputtext-lg {{invalid}}"  id='telefono' pInputText />
+                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un telefono</small>
+                        </div>
                     </div>
                 </form>
             </div>

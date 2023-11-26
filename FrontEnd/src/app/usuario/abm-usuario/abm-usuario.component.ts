@@ -27,6 +27,7 @@ export class AbmUsuarioComponent {
     'dir': new FormControl([], ),
     'email': new FormControl('', Validators.required),
     'nivel' : new FormControl(2, Validators.required),
+    'telefono' : new FormControl('', Validators.required),
   })
 
   ngOnInit(): void {

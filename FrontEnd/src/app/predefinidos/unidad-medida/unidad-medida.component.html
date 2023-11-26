@@ -11,7 +11,7 @@
     [rowsPerPageOptions]="[10, 25, 50]"
     [loading]="loading"
     [paginator]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    currentPageReportTemplate="Mostrando {first} pagina con {last} registros, de un total de {totalRecords} registros"
     [globalFilterFields]="['nombre']"
     [tableStyle]="{ 'min-width': '50rem' }"
     >
@@ -32,7 +32,7 @@
                 <p-columnFilter type="text" field="nombre"></p-columnFilter>
             </th>
             <th>
-                <p-button icon="pi pi-plus" (onClick)="MODAL('unidadmedida',null)" styleClass="p-button-raised p-button-success"></p-button>
+                <p-button icon="pi pi-plus" (onClick)="MODAL('unidadmedida',null)" label="Nueva Unidad de Medida"  styleClass="p-button-raised p-button-success"></p-button>
             </th>
         </tr>
     </ng-template>
@@ -47,15 +47,15 @@
             <td>
                 <p-toast></p-toast>
                 <p-confirmPopup></p-confirmPopup>
-                <p-button icon="pi pi-pencil" styleClass="p-button-raised"(onClick)="MODAL('unidadmedida',unidadmedida)"> </p-button>
-                <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,unidadmedida.id)"> </p-button>
+                <p-button icon="pi pi-pencil" styleClass="p-button-raised"(onClick)="MODAL('unidadmedida',unidadmedida)" label="Modificar Unidad de Medida"> </p-button>
+                <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,unidadmedida.id)" label="Eliminar Unidad de Medida"> </p-button>
             
             </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="5">No customers found.</td>
+            <td colspan="5">No existen registros.</td>
         </tr>
     </ng-template>
 </p-table>

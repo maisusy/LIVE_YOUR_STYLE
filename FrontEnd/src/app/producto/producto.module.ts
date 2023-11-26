@@ -7,6 +7,7 @@ import { ProductoRoutingModule } from './producto-routing.module';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 
+import { InputTextModule } from 'primeng/inputtext';
 import { AbmProductoModule } from './abm-producto/abm-producto.module';
 import { ListadoModule } from './listado/listado.module';
 import { ProductoService } from './producto.service';
@@ -22,6 +23,7 @@ import { ProductoService } from './producto.service';
     ButtonModule,
     TagModule,
     AbmProductoModule,
+    InputTextModule,
     ListadoModule
   ],
   providers: [ProductoService],

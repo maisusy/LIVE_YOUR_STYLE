@@ -82,6 +82,12 @@ export class MenuComponent {
                         },
                       }
                     ],
+                }, {
+                  label : 'Proveedores'  ,
+                  icon: 'pi pi-fw pi-list',
+                  command : () => {
+                          this.onMenuItemClick('proveedor')
+                  }
                 },
                 {
                   label : 'Listado Predefinidos'  ,
@@ -172,6 +178,9 @@ export class MenuComponent {
       switch(item){
         case 'abm-productos':
             this.router.navigate(['producto/abm-producto']);
+        break;
+        case 'proveedor':
+            this.router.navigate(['proveedor']);
         break;
         case 'cambiar-contrasenia':
             this.router.navigate(['usuario/cambiar-contrasenia']);

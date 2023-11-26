@@ -1,0 +1,37 @@
+<p-dialog (onHide)="hide()" (onShow)="show()" [(visible)]="visible" [modal]="true" [style]="{width: '40vw'}">
+    <ng-template pTemplate="header">
+        {{accion.toLocaleUpperCase()}} PROVEEDOR
+    </ng-template>
+
+    <div class="grid">
+        <div class="col-12 md-6 " > 
+            <form [formGroup]="formProveedor">
+                <div class="p-fluid mt-2">
+
+                    <div class="p-field p-2">
+                        <label for="razon_social">Ingrese una razon social</label>
+                        <input formControlName="razon_social" class="p-inputtext-lg {{invalid}}" id="razon_social" type="text" pInputText>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar una razon social</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="obs">Ingrese un cuit</label>
+                        <input formControlName="cuit" class="p-inputtext-lg {{invalid}}" id="cuit" type="text" pInputText>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un cuit</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="obs">Ingrese un obs</label>
+                        <input formControlName="obs" class="p-inputtext-lg {{invalid}}" id="obs" type="text" pInputText>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar una observación</small>
+                    </div>
+                </div>
+            </form>     
+     </div>
+</div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple class="p-button-outlined-success" (click)="submit()" label="Guardar" iconPos="right"></button>
+    </ng-template>
+  </p-dialog>
+  
+  <p-toast key="abm-proveedor"></p-toast>
+  
+  

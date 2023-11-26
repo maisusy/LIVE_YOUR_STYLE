@@ -15,10 +15,11 @@ import { MenuModule } from './menu/menu.module';
 import { ProductoModule } from './producto/producto.module';
 import { CategoriaModule } from './predefinidos/categoria/categoria.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { ProveedorModule } from './proveedor/proveedor.module';
 
 @NgModule({
   declarations: [								
-    AppComponent
+    AppComponent,
    ],
   imports: [
     BrowserModule,
@@ -32,9 +33,10 @@ import { UsuarioModule } from './usuario/usuario.module';
     LoginModule,
     MenuModule,
     InicioModule,
-    ProductoModule,
+    ProveedorModule,
     CategoriaModule,
-    UsuarioModule
+    UsuarioModule,
+    ProductoModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

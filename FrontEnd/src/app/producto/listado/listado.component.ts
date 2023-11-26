@@ -116,6 +116,12 @@ export class ListadoComponent implements OnInit {
 
           this.Productos.forEach((valor : any) => {
 
+            if(valor.original = true){
+              valor.original = 'si';
+            }else{
+              valor.original = 'no';
+            }
+
              this.productoimagen.forEach((valorimg : any) => {
               if(valorimg.producto == valor.id){
                   valor.img = valorimg.imagen;  

@@ -17,17 +17,17 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th style="width:22%">Imagen</th>
-            <th style="width:22%">Descripción</th>
-            <th style="width:22%">Categoria</th>
-            <th style="width:22%">Stock</th>
-            <th style="width:22%">Precio</th>
-            <th style="width:22%">Costo</th>
-            <th style="width:22%">Talle</th>
-            <th style="width:22%">Original</th>
-            <th style="width:22%">Marca</th>
-            <th style="width:22%">Color</th>
-            <th style="width:12%">Acciones</th>
+            <th >Imagen</th>
+            <th >Descripción</th>
+            <th >Categoria</th>
+            <th >Stock</th>
+            <th >Precio</th>
+            <th >Costo</th>
+            <th >Talle</th>
+            <th >Original</th>
+            <th >Marca</th>
+            <th >Color</th>
+            <th >Acciones</th>
         </tr>
         <tr>
             <th>
@@ -88,8 +88,8 @@
             <td>
                 {{ producto.talle }}
             </td>
-            <td>
-                {{ producto.original ? 'si' : 'no' }}
+            <td >
+                {{ producto.original }}
             </td>
             <td>
                 {{ producto.marca.nombre }}

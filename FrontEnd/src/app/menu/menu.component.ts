@@ -65,11 +65,23 @@ export class MenuComponent {
               icon: 'pi pi-fw pi-cog',
               items : [
                 {
-                  label : 'Listado Productos'  ,
-                  icon: 'pi pi-fw pi-list',  
-                  command : () => {
-                    this.onMenuItemClick('Listado Productos')
-                  }
+                  label : 'Productos'  ,
+                  icon: 'pi pi-fw pi-list',
+                  items : [
+                      {
+                        label : 'Nuevo'  ,
+                        icon: 'pi pi-fw pi-plus', command : () => {
+                          this.onMenuItemClick('abm-productos')
+                        },
+                      },
+                      {
+                        label : 'Listado'  ,
+                        icon: 'pi pi-fw pi-list',  
+                        command : () => {
+                          this.onMenuItemClick('Listado Productos')
+                        },
+                      }
+                    ],
                 },
                 {
                   label : 'Listado Predefinidos'  ,
@@ -158,6 +170,9 @@ export class MenuComponent {
       this.activeItem = item;
       
       switch(item){
+        case 'abm-productos':
+            this.router.navigate(['producto/abm-producto']);
+        break;
         case 'cambiar-contrasenia':
             this.router.navigate(['usuario/cambiar-contrasenia']);
         break;

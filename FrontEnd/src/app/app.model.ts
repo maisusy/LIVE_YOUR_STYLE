@@ -5,6 +5,7 @@ export interface Predefinidos {
     categoria: Categoria[];
     unidad_medida: UnidadMedida[];
     color: Color[];
+    proveedor: Proveedor[];
   }
   
   export interface Marca {
@@ -36,3 +37,11 @@ export interface Predefinidos {
     // Otras propiedades
   }
   
+  export interface Proveedor  {
+    // Define las propiedades que esperas para el color
+    id: number;
+    razon_social: string;
+    obs: string;
+    cuit: number;
+    // Otras propiedades
+  }

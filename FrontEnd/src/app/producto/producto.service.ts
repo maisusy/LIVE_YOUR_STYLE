@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environments';
-import { Predefinidos } from './producto.model'; 
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -38,9 +37,5 @@ export class ProductoService {
     return this.http.get(`${this.URL}/producto/imagenes/`)
   }
 
-/** Predefinidos */
-  ObtenerPredefinidos(): Observable<Predefinidos> {
-    return this.http.get<Predefinidos>(`${this.URL}/predefinidos/api/`)
-  }
 
 }

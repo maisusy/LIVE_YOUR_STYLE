@@ -5,6 +5,7 @@ import { ConfirmationService , MessageService, PrimeNGConfig } from 'primeng/api
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environments';
 import { timer } from 'rxjs';
+import { AppService } from 'src/app/app.service';
 
 
 @Component({
@@ -71,6 +72,7 @@ export class AbmProductoComponent {
     public ProductoService : ProductoService,
     public confirmationService : ConfirmationService,
     public router : Router,
+    public PredifinidoService : AppService,
     public messageService : MessageService,
     private config: PrimeNGConfig,
   ){}
@@ -134,7 +136,7 @@ export class AbmProductoComponent {
     }
 
     ObtenerPredefinidos(){
-      this.ProductoService.ObtenerPredefinidos()
+      this.PredifinidoService.ObtenerPredefinidos()
       .subscribe(
         (res) => {
           this.categoria_producto = res.categoria;

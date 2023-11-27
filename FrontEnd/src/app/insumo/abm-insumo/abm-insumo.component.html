@@ -1,0 +1,69 @@
+<p-dialog (onHide)="hide()" (onShow)="show()" [(visible)]="visible" [modal]="true" [style]="{width: '40vw'}">
+    <ng-template pTemplate="header">
+        {{accion.toLocaleUpperCase()}} INSUMO
+    </ng-template>
+
+    <div class="grid">
+        <div class="col-12 md-6 " > 
+            <form [formGroup]="formInsumo">
+                <div class="p-fluid mt-2" >
+                    <div class="p-field p-2">
+                        <label for="descripcion" class="mb-2 block"  >Descripcion del Insumo:</label>
+                        <textarea pInputTextarea row="5" formControlName="descripcion" class="p-inputtext-lg {{invalid}}"  id='descripcion' ></textarea>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un descripcion</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="tipo" class="mb-2 block"  >Tipo :</label>
+                        <input type="text" pInputText  formControlName="tipo" class="p-inputtext-lg {{invalid}}"  id='tipo' />
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="stock" class="mb-2 block">Stock:</label>
+                        <p-inputNumber formControlName="stock" id="stock" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="minmax-buttons" [min]="1"  ></p-inputNumber>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un stock</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="unidad_medida" class="mb-2 block">Seleccione la unidad de medida:</label>
+                        <p-dropdown formControlName="unidad_medida" id="unidad_medida" class="p-inputtext-lg {{invalid}}" [options]="unidad_medida" optionLabel="nombre"  optionValue="id"></p-dropdown>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una unidad de medida</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="costo" class="mb-2 block">Costo por unidad de medida:</label>
+                        <p-inputNumber formControlName="costo" id="costo" class="p-inputtext-lg {{invalid}}"  mode="currency" currency="ARS" [min]="1"  ></p-inputNumber>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un costo por unida de medida</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="marca" class="mb-2 block">Seleccione la marca:</label>
+                        <p-dropdown formControlName="marca" id="marca" class="p-inputtext-lg {{invalid}}" [options]="marca" optionLabel="nombre"  optionValue="id" ></p-dropdown>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una marca</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="proveedor" class="mb-2 block">Seleccione el Proveedor:</label>
+                        <p-dropdown formControlName="proveedor" id="proveedor" class="p-inputtext-lg {{invalid}}" [options]="proveedor" optionLabel="razon_social"  optionValue="id" ></p-dropdown>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un proveedor</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="color" class="mb-2 block">Seleccione el color:</label>
+                        <p-multiSelect
+                          formControlName="color"
+                          id="color"
+                          class="p-inputtext-lg {{invalid}}"
+                          [options]="color"
+                          optionLabel="nombre"
+                          optionValue="id"
+                          [defaultLabel]="'Seleccione'"
+                          [appendTo]="'body'"
+                        ></p-multiSelect>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un color</small>
+                      </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple class="p-button-outlined-success" (click)="submit()" label="Guardar" iconPos="right"></button>
+    </ng-template>
+  </p-dialog>
+  
+  <p-toast key="abm-insumo"></p-toast>
+  
+  

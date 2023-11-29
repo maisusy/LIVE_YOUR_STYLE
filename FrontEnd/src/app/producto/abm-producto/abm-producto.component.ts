@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environments';
 import { timer } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { InsumoService } from 'src/app/insumo/insumo.service';
 
 
 @Component({
@@ -22,6 +23,8 @@ export class AbmProductoComponent {
   public unidad_medida : any;
   public marca : any;
   public color : any;
+  public proveedor : any;
+  public insumos : any;
   public id_producto : any;
   public ban : boolean = true;
   public original : any[] = [
@@ -41,6 +44,8 @@ export class AbmProductoComponent {
     'original': new FormControl('', Validators.required),
     'marca': new FormControl('', Validators.required),
     'color': new FormControl([]),
+    'proveedor': new FormControl(''),
+    'insumos': new FormControl([]),
   })
 
   ngOnInit(): void {
@@ -75,6 +80,7 @@ export class AbmProductoComponent {
     public PredifinidoService : AppService,
     public messageService : MessageService,
     private config: PrimeNGConfig,
+    public InsumoService : InsumoService
   ){}
 
 
@@ -103,7 +109,7 @@ export class AbmProductoComponent {
   }
 
   submit() {
-
+console.log(this.formsProducto.value)
       if (this.formsProducto.valid) {
         if (this.accion == 'CREACIÓN') {
           delete this.formsProducto.value.id;
@@ -143,8 +149,23 @@ export class AbmProductoComponent {
           this.marca = res.marca;
           this.unidad_medida = res.unidad_medida;
           this.color = res.color;
-        }
-        )
+          this.proveedor = res.proveedor;
+        })
+    }
+
+    ObtenerInsumos(){
+      this.InsumoService.ObtenerInsumo()
+      .subscribe(
+        (res) => {
+          this.insumos = res
+        })
+    }
+
+    CambiaValor(event : any){
+      console.log(event)
+      if(event.value = true){
+        this.ObtenerInsumos()
+      }
     }
 
 }

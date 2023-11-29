@@ -9,7 +9,7 @@
     [paginator]="true"
     [scrollable]="true"
     currentPageReportTemplate="Mostrando {first} pagina con {last} registros, de un total de {totalRecords} registros"
-    [globalFilterFields]="['descripcion','categoria_producto.nombre','stock','precio','costo','talle','original','marca.nombre','color']"
+    [globalFilterFields]="['descripcion','proveedor.razon_social','categoria_producto.nombre','stock','precio','costo','talle','original','marca.nombre','color']"
     [tableStyle]="{ 'min-width': '50rem' }"
     >
     <ng-template pTemplate="caption">
@@ -25,6 +25,7 @@
             <th >Costo</th>
             <th >Talle</th>
             <th >Original</th>
+            <th >Proveedor</th>
             <th >Marca</th>
             <th >Color</th>
             <th >Acciones</th>
@@ -53,6 +54,9 @@
             </th>
             <th>
                 <p-columnFilter type="text" field="original"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="proveedor.razon_social"></p-columnFilter>
             </th>
             <th>
                 <p-columnFilter type="text" field="marca.nombre"></p-columnFilter>
@@ -90,6 +94,9 @@
             </td>
             <td >
                 {{ producto.original }}
+            </td>
+            <td >
+                {{ producto.proveedor.razon_social }}
             </td>
             <td>
                 {{ producto.marca.nombre }}

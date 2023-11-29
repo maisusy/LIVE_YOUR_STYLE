@@ -44,11 +44,20 @@ class Datos_Usuario_crear(APIView):
     queryset = Datos_Usuario.objects.none()
 
     def post(self, request, *args, **kwargs):
+        # Verificar si el usuario ya existe
+        username = request.data.get("usuario")
+        email = request.data.get("email")
+
+        if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+            return Response({"error": "El usuario o el correo electrónico ya existen"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Si el usuario no existe, crearlo
         user = User.objects.create_user(
-            username=request.data.get("usuario"),
+            username=username,
             password=request.data.get("contraseña"),
-            email=request.data.get("email"),
+            email=email,
         )
+
         data = {
             "usuario": user.id,
             "nombres": request.data.get("nombres"),

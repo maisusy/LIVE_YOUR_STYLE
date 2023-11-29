@@ -3,6 +3,7 @@ import { UsuarioService } from '../usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService , MessageService, PrimeNGConfig } from 'primeng/api';
 import { Router } from '@angular/router';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-abm-usuario',
@@ -81,7 +82,9 @@ export class AbmUsuarioComponent {
           this.UsuarioService.AgregarUsuario(this.formsUsuario.value)
           .subscribe(_ => {
             this.messageService.add({ key: 'abm-usuario', severity: 'success', summary: `${this.accion} Usuario`, detail: 'La acción se realizo correctamente' });
-            
+            timer(1000).subscribe(() => {
+              this.Cancelar();
+            });
           }, error => {
             console.log(error)
             this.messageService.add({ key: 'abm-usuario', severity: 'error', summary: `${this.accion} Usuario`, detail: error.error.error });

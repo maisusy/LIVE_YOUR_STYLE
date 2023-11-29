@@ -1,0 +1,34 @@
+
+<p-dialog (onHide)="hide()" (onShow)="show()" [(visible)]="visible" [modal]="true" [style]="{width: '40vw'}">
+    <ng-template pTemplate="header">
+        {{accion.toLocaleUpperCase()}} INSUMO
+    </ng-template>
+
+    <div class="grid">
+        <div class="col-12 md-6 " > 
+            <form [formGroup]="formsInsumo">
+                <div class="p-fluid mt-2">
+
+                    <div class="p-field p-2">
+                        <label for="insumo" class="mb-2 block">Seleccione el insumo:</label>
+                        <p-dropdown formControlName="insumo" id="insumo"  class="p-inputtext-lg {{invalid}}" [options]="insumos" optionLabel="descripcion"  optionValue="id" ></p-dropdown>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un insumo</small>
+                    </div>
+                    <div class="p-field p-2">
+                        <label for="cantidad" class="mb-2 block">Cantidad:</label>
+                        <p-inputNumber formControlName="cantidad" id="cantidad" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="minmax-buttons" [min]="1"  ></p-inputNumber>
+                        <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar una cantidad</small>
+                    </div>
+
+                </div>
+            </form>     
+     </div>
+</div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple class="p-button-outlined-success" (click)="submit()" label="Agregar" iconPos="right"></button>
+    </ng-template>
+  </p-dialog>
+  
+  <p-toast key="abm-insumo"></p-toast>
+  
+  

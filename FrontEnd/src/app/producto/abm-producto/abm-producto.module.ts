@@ -11,10 +11,12 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { MultiSelectModule } from 'primeng/multiselect'
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ModalInsumoModule } from './modal-insumo/modal-insumo.module';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
-    AbmProductoComponent
+    AbmProductoComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     SelectButtonModule,
     MultiSelectModule,
     FileUploadModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ModalInsumoModule,
+    TableModule
   ]
 })
 export class AbmProductoModule { }

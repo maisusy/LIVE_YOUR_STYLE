@@ -1,3 +1,7 @@
+
+<app-modal-insumo [visible]="modal == 'modalinsumo'" (success)="success()" [datos]="modalDatos" ></app-modal-insumo>
+<p-toast key="modalinsumo"></p-toast>
+
 <div class="background-container"> 
     <div *ngIf="ban"  class="surface-card p-4 shadow-2 border-round lg:w-6  w-full">
         <div class="grid">
@@ -48,6 +52,32 @@
                             <label for="proveedor" class="mb-2 block">Seleccione la proveedor:</label>
                             <p-dropdown formControlName="proveedor" id="proveedor" class="p-inputtext-lg {{invalid}}" [options]="proveedor" optionLabel="razon_social"  optionValue="id" ></p-dropdown>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una proveedor</small>
+                        </div>
+                        <div class="p-field p-2" *ngIf="formsProducto.value.original ">  
+                            <p-table [value]="insumos" [tableStyle]="{'min-width': '50rem'}">
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th> 
+                                            <p-button icon="pi pi-plus" (onClick)="MODAL('modalinsumo',null)"   styleClass="p-button-raised p-button-success"></p-button>
+                                        </th>
+                                        <th>Insumo id </th>
+                                        <th>Cantidad</th>
+                                        <th>CostoTotal</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-insumo let-columns="columns">
+                                    <tr>
+                                        <td> 
+                                            <p-button icon="pi pi-pencil" (onClick)="MODAL('modalinsumo',insumo)"   styleClass="p-button-raised p-button-success"></p-button>
+                                            <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger" (onClick)="Quitar(insumo.insumo)" > </p-button>
+                                        </td>
+                                        <td>{{insumo.insumo}}</td>
+                                        <td>{{insumo.cantidad}}</td>
+                                        <td>{{insumo.costo_total | currency:'ARS'}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            
                         </div>
                         <div class="p-field p-2">
                             <label for="marca" class="mb-2 block">Seleccione la marca:</label>

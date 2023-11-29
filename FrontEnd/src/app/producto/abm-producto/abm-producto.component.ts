@@ -24,9 +24,11 @@ export class AbmProductoComponent {
   public marca : any;
   public color : any;
   public proveedor : any;
-  public insumos : any;
+  public insumos : any = [];
   public id_producto : any;
   public ban : boolean = true;
+  public modalDatos : any;
+  public modal : string = "";
   public original : any[] = [
     {label:'Si',value:true},
     {label:'No',value:false}
@@ -50,6 +52,7 @@ export class AbmProductoComponent {
 
   ngOnInit(): void {
     const datoCompartido = this.ProductoService.datoCompartido;
+    this.insumos = this.ProductoService.insumos;
 
     this.ObtenerPredefinidos()
     if(datoCompartido == null ){
@@ -101,11 +104,30 @@ export class AbmProductoComponent {
 
   Cancelar(){
     this.ProductoService.datoCompartido = null;
+    this.ProductoService.insumos= null;
     this.router.navigate(['producto/listado'])
   }
 
   onUpload(event:any) {
     this.messageService.add({severity: 'info', summary: 'Imagen subida', detail: ''});
+  }
+
+  Quitar(id : number){
+    this.insumos = this.insumos.filter((item:any) => item.insumo !== id);
+    console.log(id)
+    console.log(this.insumos)
+    this.ProductoService.insumos = this.insumos;
+  }
+
+  success(){
+    
+    this.modal = '';
+    this.insumos = this.ProductoService.insumos;
+  }
+
+  MODAL(tipo : string , modal : any = null ){
+    this.modal = tipo;
+    this.modalDatos = modal;
   }
 
   submit() {
@@ -118,6 +140,9 @@ console.log(this.formsProducto.value)
             this.id_producto=res.id;
             this.ban = false;
             this.messageService.add({ key: 'abm-producto', severity: 'success', summary: `${this.accion} PRODUCTO`, detail: 'La acción se realizo correctamente' });
+            timer(1000).subscribe(() => {
+              this.Cancelar();
+            });
           }, error => {
             console.log(error)
             this.messageService.add({ key: 'abm-producto', severity: 'error', summary: `${this.accion} PRODUCTO`, detail: error.error.error });
@@ -153,19 +178,10 @@ console.log(this.formsProducto.value)
         })
     }
 
-    ObtenerInsumos(){
-      this.InsumoService.ObtenerInsumo()
-      .subscribe(
-        (res) => {
-          this.insumos = res
-        })
-    }
+
 
     CambiaValor(event : any){
       console.log(event)
-      if(event.value = true){
-        this.ObtenerInsumos()
-      }
     }
 
 }

@@ -38,15 +38,15 @@ export class AbmProductoComponent {
   formsProducto = new FormGroup({
     'id': new FormControl(''),
     'descripcion': new FormControl('', Validators.required),
-    'stock': new FormControl('', Validators.required),
+    'stock': new FormControl(1, Validators.required),
     'categoria_producto': new FormControl('', Validators.required),
-    'precio': new FormControl('', Validators.required),
-    'costo': new FormControl('', Validators.required),
+    'precio': new FormControl(0, Validators.required),
+    'costo': new FormControl(0, Validators.required),
     'talle': new FormControl('', Validators.required),
-    'original': new FormControl('', Validators.required),
+    'original': new FormControl(false , Validators.required),
     'marca': new FormControl('', Validators.required),
     'color': new FormControl([]),
-    'proveedor': new FormControl(''),
+    'proveedor': new FormControl(null),
     'insumos': new FormControl([]),
   })
 
@@ -99,7 +99,11 @@ export class AbmProductoComponent {
       'original': datos.original,
       'marca': datos.marca.id,
       'color': datos.color.map((color : any) => color.id),
+      'proveedor': datos.proveedor.id,
+      'insumos' : datos.insumos
     });
+    this.ProductoService.insumos= datos.insumos;
+
   }
 
   Cancelar(){
@@ -120,9 +124,28 @@ export class AbmProductoComponent {
   }
 
   success(){
-    
     this.modal = '';
     this.insumos = this.ProductoService.insumos;
+    let costo : number = 0;
+    this.insumos .forEach((valor:any)=> { 
+      costo = costo + valor.costo_total;        
+    })
+    const costoControl = this.formsProducto.get('costo');
+    if (costoControl) {
+      costoControl.enable();
+      costoControl.disable();
+      costoControl.setValue(costo);
+      
+    }
+ 
+
+  }
+
+  CambiaValor(event :any){
+    const costoControl = this.formsProducto.get('costo');
+    if (costoControl) {
+        costoControl.enable();
+    }
   }
 
   MODAL(tipo : string , modal : any = null ){
@@ -131,18 +154,40 @@ export class AbmProductoComponent {
   }
 
   submit() {
-console.log(this.formsProducto.value)
+
+    console.log(this.formsProducto.value)
+    if(this.formsProducto.value.original == true){
+      let costo : number= 0;
+      this.insumos .forEach((valor:any)=> { 
+        costo = costo + valor.costo_total;        
+      })
+      const costoControl = this.formsProducto.get('costo');
+      if (costoControl) {
+        costoControl.enable();
+        this.formsProducto.value.costo = costo
+
+      }
+
+      this.formsProducto.value.insumos = this.insumos.map((valor:any) => { return {
+        insumo: valor.insumo,
+          costo_total: valor.costo_total,
+          cantidad: valor.cantidad
+        };
+      });
+
+      this.formsProducto.value.proveedor = null;
+    }
+    console.log(this.formsProducto.value)
+
       if (this.formsProducto.valid) {
         if (this.accion == 'CREACIÓN') {
-          delete this.formsProducto.value.id;
+
           this.ProductoService.AgregarProducto(this.formsProducto.value)
           .subscribe(res => {
             this.id_producto=res.id;
             this.ban = false;
             this.messageService.add({ key: 'abm-producto', severity: 'success', summary: `${this.accion} PRODUCTO`, detail: 'La acción se realizo correctamente' });
-            timer(1000).subscribe(() => {
-              this.Cancelar();
-            });
+            
           }, error => {
             console.log(error)
             this.messageService.add({ key: 'abm-producto', severity: 'error', summary: `${this.accion} PRODUCTO`, detail: error.error.error });
@@ -180,8 +225,7 @@ console.log(this.formsProducto.value)
 
 
 
-    CambiaValor(event : any){
-      console.log(event)
-    }
+  
+
 
 }

@@ -54,6 +54,13 @@ export class ListadoComponent implements OnInit {
 
   Modificar(datos : any = null){
     delete datos.img;
+    datos.forEach( (valor:any) => {
+      if(valor.original = 'si'){
+        valor.original = true
+      }else{
+        valor.original = false
+      }
+    })
     this.ProductoService.datoCompartido = datos;
     this.router.navigate(['producto/abm-producto']);
   }
@@ -69,7 +76,6 @@ export class ListadoComponent implements OnInit {
         producto.color.some((color: any) => color.nombre.toLowerCase().includes(this.filtroColor.toLowerCase()))
       );
     } else {
-      // Si el filtro está vacío, restaura la lista completa
       this.ObtenerProducto();
     }
   }

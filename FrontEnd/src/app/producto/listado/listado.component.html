@@ -96,7 +96,7 @@
                 {{ producto.original }}
             </td>
             <td >
-                {{ producto.proveedor.razon_social }}
+                {{ producto.proveedor?.razon_social || 'No aplica' }}
             </td>
             <td>
                 {{ producto.marca.nombre }}

@@ -21,9 +21,10 @@ export class ModalInsumoComponent {
   public insumos: any = [];
 
   formsInsumo = new FormGroup({
-    'insumo': new FormControl(''),
+    'insumo': new FormControl('', Validators.required),
     'cantidad': new FormControl(0, Validators.required),
-    'costo_total': new FormControl(0, Validators.required),
+    'descripcion': new FormControl(0),
+    'costo_total': new FormControl(0,),
   })
 
   constructor(
@@ -53,8 +54,8 @@ export class ModalInsumoComponent {
   }
 
   show() {
-
-    if (this.datos != null) {
+    console.log('datos: ',this.datos)
+    if (this.datos !== null) {
       this.accion = "Cambiar"
       this.formsInsumo.setValue(this.datos)
     } else {
@@ -64,28 +65,29 @@ export class ModalInsumoComponent {
 
 
   submit() {
-    let insumo = this.ProductoService.insumos;
     let cantidad = this.formsInsumo.value.cantidad;
     let data = this.insumos.filter( (valor:any) => valor.id == this.formsInsumo.value.insumo)
 
     let precio_unidad = data.map((valor:any) => valor.costo);
+    this.formsInsumo.value.descripcion = data.map((valor:any) => valor.descripcion);
 
     if (this.formsInsumo.valid ) { 
-      if(this.accion = "Cambiar"){
+      if(this.accion == "Agregar"){
 
-        console.log('precio_unidad',precio_unidad)
-        console.log('cantidad',cantidad)
+        console.log('Agregar')
         if(precio_unidad !== null && cantidad !== null && precio_unidad !== undefined && cantidad !== undefined){
           this.formsInsumo.value.costo_total  = (precio_unidad * cantidad);
         }
-        insumo.push(this.formsInsumo.value)
-        console.log(insumo)
-        this.ProductoService.insumos = insumo;
-        this.messageService.add({ key: 'abm-unidad_medida', severity: 'success', summary: `Insumo Agregado`, detail: 'La acción se realizo correctamente' });
+        console.log(this.formsInsumo.value);
+        this.ProductoService.insumos.push(this.formsInsumo.value);
+        console.log(this.ProductoService.insumos);
+
+        this.messageService.add({ key: 'modalinsumo', severity: 'success', summary: `Insumo Agregado`, detail: 'La acción se realizo correctamente' });
         
       }else{
 
-        insumo.forEach((item:any) => {
+        console.log('Cambiar')
+        this.ProductoService.insumos.forEach((item:any) => {
           if(item.insumo == this.formsInsumo.value.insumo){
             item.cantidad = this.formsInsumo.value.cantidad;
             if(precio_unidad !== null && cantidad !== null && precio_unidad !== undefined && cantidad !== undefined){
@@ -93,11 +95,11 @@ export class ModalInsumoComponent {
             }
           }
           
-        });
-
-        this.ProductoService.insumos = insumo;
+        })
 
       }
+
+      this.hide()
 
     }else {
       this.invalid = "ng-dirty"

@@ -11,15 +11,16 @@ from Insumo.models import Insumo
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Color
-        fields = (
-            "id",
-            "nombre",
-        )
+        fields = ["id","nombre"]
 
+class GetProductoInsumoSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = ProductoInsumo
+        fields = ["insumo","cantidad", "costo_total"]
 
 class ProductoInsumoSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Producto
+        model = ProductoInsumo
         fields = ["producto", "cantidad", "costo_total"]
 
 
@@ -74,7 +75,7 @@ class GetProductoSerializers(serializers.ModelSerializer):
     marca = MarcaSerializer()
     color = ColorSerializer(many=True)
     proveedor = ProveedorSerializers()
-
+    insumos = serializers.SerializerMethodField()
     class Meta:
         model = Producto
         fields = [
@@ -89,7 +90,13 @@ class GetProductoSerializers(serializers.ModelSerializer):
             "marca",
             "color",
             "proveedor",
+            "insumos"
         ]
+
+    def get_insumos(self,obj):
+        qset = ProductoInsumo.objects.filter(producto=obj)
+        return [GetProductoInsumoSerializers(m).data for m in qset]
+
 
 
 class ImagenProductoSerializers(serializers.ModelSerializer):

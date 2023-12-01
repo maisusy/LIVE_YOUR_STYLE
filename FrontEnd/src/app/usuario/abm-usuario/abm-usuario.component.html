@@ -28,25 +28,27 @@
                             <label for="contraseña" class="mb-2 block"  >Contraseña:</label>
                             <p-password formControlName="contraseña" class="p-inputtext-lg {{invalid}}"  id='contraseña' ></p-password>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar una contraseña</small>
+                            <small *ngIf="invalid_pass != ''" id="username2-help" class="p-error">Las contraseñas no coinciden</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="rep_contraseña" class="mb-2 block"  >Repetir Contraseña:</label>
                             <p-password formControlName="rep_contraseña" class="p-inputtext-lg {{invalid}}"  id='rep_contraseña' ></p-password>
-                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe repetir la contraseña</small>
+                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe repetir la contraseña</small> 
+                            <small *ngIf="invalid_pass != ''" id="username2-help" class="p-error">Las contraseñas no coinciden</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="email" class="mb-2 block"  >Correo electronico:</label>
                             <input formControlName="email" class="p-inputtext-lg {{invalid}}"  id='email' pInputText />
-                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un correo electronico</small>
+                            <small *ngIf="invalid !== ''" id="username2-help" class="p-error">Debe ingresar un correo electronico(correo&#64;correo.com)</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="dni" class="mb-2 block"  >Dni:</label>
-                            <input formControlName="dni" class="p-inputtext-lg {{invalid}}"  id='dni' pInputText />
+                            <p-inputMask mask="99999999" formControlName="dni" class="p-inputtext-lg {{invalid}}"  id='dni'></p-inputMask>  
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un dni</small>
                         </div>
                         <div class="p-field p-2">
                             <label for="telefono" class="mb-2 block"  >Telefono:</label>
-                            <input formControlName="telefono" class="p-inputtext-lg {{invalid}}"  id='telefono' pInputText />
+                            <p-inputMask mask="(9999)999999" formControlName="telefono" class="p-inputtext-lg {{invalid}}"  id='telefono'></p-inputMask> 
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un telefono</small>
                         </div>
                     </div>

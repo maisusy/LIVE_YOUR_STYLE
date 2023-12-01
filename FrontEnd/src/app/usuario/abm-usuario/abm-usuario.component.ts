@@ -13,6 +13,7 @@ import { timer } from 'rxjs';
 })
 export class AbmUsuarioComponent {
 
+  public invalid_pass: string = "";
   public invalid: string = "";
   public accion : string = '';
 
@@ -26,7 +27,7 @@ export class AbmUsuarioComponent {
     'fecha_alta': new FormControl(this.obtenerFechaActual()),
     'dni': new FormControl('', Validators.required),
     'dir': new FormControl([], ),
-    'email': new FormControl('', Validators.required),
+    'email': new FormControl('',[ Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') ]),
     'nivel' : new FormControl(2, Validators.required),
     'telefono' : new FormControl('', Validators.required),
   })
@@ -74,35 +75,40 @@ export class AbmUsuarioComponent {
     }
 
   submit() {
+    if(this.formsUsuario.value.contraseña == this.formsUsuario.value.rep_contraseña ){
+
       if (this.formsUsuario.valid) {
         if (this.accion == 'CREACIÓN') {
+            delete this.formsUsuario.value.id
+            console.log(this.formsUsuario.value)
+            this.UsuarioService.AgregarUsuario(this.formsUsuario.value)
+            .subscribe(_ => {
+              this.messageService.add({ key: 'abm-usuario', severity: 'success', summary: `${this.accion} Usuario`, detail: 'La acción se realizo correctamente' });
+              timer(1000).subscribe(() => {
+                this.Cancelar();
+              });
+            }, error => {
+              console.log(error)
+              this.messageService.add({ key: 'abm-usuario', severity: 'error', summary: `${this.accion} Usuario`, detail: error.error.error });
+            })
+          } else {
+            let id = Number(this.formsUsuario.value.id)
 
-          delete this.formsUsuario.value.id
-          console.log(this.formsUsuario.value)
-          this.UsuarioService.AgregarUsuario(this.formsUsuario.value)
-          .subscribe(_ => {
-            this.messageService.add({ key: 'abm-usuario', severity: 'success', summary: `${this.accion} Usuario`, detail: 'La acción se realizo correctamente' });
-            timer(1000).subscribe(() => {
-              this.Cancelar();
-            });
-          }, error => {
-            console.log(error)
-            this.messageService.add({ key: 'abm-usuario', severity: 'error', summary: `${this.accion} Usuario`, detail: error.error.error });
-          })
+            this.UsuarioService.ModificarUsuario(id,this.formsUsuario.value)
+            .subscribe(_ => {
+              this.messageService.add({ key: 'abm-usuario', severity: 'success', summary: `${this.accion} Usuario`, detail: 'La acción se realizo correctamente' });
+            }, error => {
+              console.log(error)
+              this.messageService.add({ key: 'abm-usuario', severity: 'error', summary: `${this.accion} Usuario`, detail: error.error.error });
+            })
+          }
         } else {
-          let id = Number(this.formsUsuario.value.id)
-
-          this.UsuarioService.ModificarUsuario(id,this.formsUsuario.value)
-          .subscribe(_ => {
-            this.messageService.add({ key: 'abm-usuario', severity: 'success', summary: `${this.accion} Usuario`, detail: 'La acción se realizo correctamente' });
-          }, error => {
-            console.log(error)
-            this.messageService.add({ key: 'abm-usuario', severity: 'error', summary: `${this.accion} Usuario`, detail: error.error.error });
-          })
+          this.invalid = "ng-dirty"
         }
-      } else {
-        this.invalid = "ng-dirty"
-      }
+    }else{
+      this.invalid_pass  = "ng-dirty"
     }
+
+  }
 
 }

@@ -54,7 +54,6 @@ export class ModalInsumoComponent {
   }
 
   show() {
-    console.log('datos: ',this.datos)
     if (this.datos !== null) {
       this.accion = "Cambiar"
       this.formsInsumo.setValue(this.datos)
@@ -74,19 +73,14 @@ export class ModalInsumoComponent {
     if (this.formsInsumo.valid ) { 
       if(this.accion == "Agregar"){
 
-        console.log('Agregar')
         if(precio_unidad !== null && cantidad !== null && precio_unidad !== undefined && cantidad !== undefined){
           this.formsInsumo.value.costo_total  = (precio_unidad * cantidad);
         }
-        console.log(this.formsInsumo.value);
         this.ProductoService.insumos.push(this.formsInsumo.value);
-        console.log(this.ProductoService.insumos);
 
         this.messageService.add({ key: 'modalinsumo', severity: 'success', summary: `Insumo Agregado`, detail: 'La acción se realizo correctamente' });
         
       }else{
-
-        console.log('Cambiar')
         this.ProductoService.insumos.forEach((item:any) => {
           if(item.insumo == this.formsInsumo.value.insumo){
             item.cantidad = this.formsInsumo.value.cantidad;

@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ProductoService } from '../producto.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { InsumoService } from 'src/app/insumo/insumo.service';
   
 @Component({
   selector: 'app-listado',
@@ -29,6 +30,7 @@ export class ListadoComponent implements OnInit {
     public ProductoService : ProductoService,
     private config: PrimeNGConfig,
     public router : Router,
+    public InsumoService : InsumoService
   ) { }
 
   ngOnInit(): void {
@@ -52,18 +54,19 @@ export class ListadoComponent implements OnInit {
       this.router.navigate(['abm-producto'])
   }
 
-  Modificar(datos : any = null){
-    delete datos.img;
-    datos.forEach( (valor:any) => {
-      if(valor.original = 'si'){
-        valor.original = true
+  Modificar(datos : any ){
+      delete datos.img;
+
+      if(datos.original == 'si'){
+        datos.original = true
       }else{
-        valor.original = false
+        datos.original = false
       }
-    })
+  
     this.ProductoService.datoCompartido = datos;
+
     this.router.navigate(['producto/abm-producto']);
-  }
+}
 
   ModificarImagen(id : any = null){
     this.ProductoService.producto_id = id;
@@ -107,7 +110,6 @@ export class ListadoComponent implements OnInit {
       this.messageService.add({key: 'Producto', severity:'success', summary: `ELIMINACIÓN Producto` , detail:'La acción se realizo correctamente'});
       this.success()
     }, error => {
-      console.log(error)
       this.messageService.add({key: 'Producto', severity:'error', summary: `ELIMINACIÓN Producto` , detail: error.error.error});
     })
     
@@ -119,10 +121,9 @@ export class ListadoComponent implements OnInit {
       (res) => {
         this.Productos = res;
 
-
           this.Productos.forEach((valor : any) => {
 
-            if(valor.original = true){
+            if(valor.original == true){
               valor.original = 'si';
             }else{
               valor.original = 'no';
@@ -133,10 +134,9 @@ export class ListadoComponent implements OnInit {
                   valor.img = valorimg.imagen;  
               }
             }) 
-        }); 
+        });  
 
         this.loading = false;
-        console.log('productos ',this.Productos)
       }
     )
   }
@@ -146,7 +146,6 @@ export class ListadoComponent implements OnInit {
     .subscribe(
       (res) => {
         this.productoimagen = res;
-        console.log('productoimagen ',this.productoimagen)
       }
       )
   }

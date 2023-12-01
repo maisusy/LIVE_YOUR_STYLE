@@ -13,15 +13,10 @@ class ColorSerializer(serializers.ModelSerializer):
         model = Color
         fields = ["id","nombre"]
 
-class GetProductoInsumoSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = ProductoInsumo
-        fields = ["insumo","cantidad", "costo_total"]
-
 class ProductoInsumoSerializers(serializers.ModelSerializer):
     class Meta:
         model = ProductoInsumo
-        fields = ["producto", "cantidad", "costo_total"]
+        fields = ["insumo","cantidad", "costo_total"]
 
 
 class ProductoSerializers(serializers.ModelSerializer):
@@ -95,7 +90,7 @@ class GetProductoSerializers(serializers.ModelSerializer):
 
     def get_insumos(self,obj):
         qset = ProductoInsumo.objects.filter(producto=obj)
-        return [GetProductoInsumoSerializers(m).data for m in qset]
+        return [ProductoInsumoSerializers(m).data for m in qset]
 
 
 

@@ -3,27 +3,25 @@
 <p-toast key="color"></p-toast>
 
 <p-table
-    #dt2
     [value]="Color"
     dataKey="id"
-    [rows]="10"
+    [rows]="5"
     [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10, 25, 50]"
+    [rowsPerPageOptions]="[5, 15, 50]"
     [loading]="loading"
     [paginator]="true"
     currentPageReportTemplate="Mostrando {first} pagina con {last} registros, de un total de {totalRecords} registros"
-    [globalFilterFields]="['nombre','tono']"
     [tableStyle]="{ 'min-width': '50rem' }"
     >
     <ng-template pTemplate="caption">
-        <p class="text-2xl">Colores</p>
+        <p class="text-2xl">Listado de Colores</p>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th style="width:22%">Codigo</th>
-            <th style="width:22%">Nombre</th>
-            <th style="width:22%">Tono</th>
-            <th style="width:12%">Acciones</th>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Tono</th>
+            <th>Acciones</th>
         </tr>
         <tr>
             <th>
@@ -54,8 +52,8 @@
             <td>
                 <p-toast></p-toast>
                 <p-confirmPopup></p-confirmPopup>
-                <p-button icon="pi pi-pencil" styleClass="p-button-raised"(onClick)="MODAL('color',color)" label="Modificar Producto"> </p-button>
-                <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,color.id)" label="Eliminar Producto"> </p-button>
+                <p-button icon="pi pi-pencil" styleClass="p-button-raised"(onClick)="MODAL('color',color)" label="Modificar Color"> </p-button>
+                <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,color.id)" label="Eliminar Color"> </p-button>
             
             </td>
         </tr>

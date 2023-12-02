@@ -5,6 +5,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { StylesModule } from 'src/app/styles.module';
+import { InputMaskModule } from 'primeng/inputmask';
 
 
 
@@ -22,6 +23,7 @@ import { StylesModule } from 'src/app/styles.module';
     ReactiveFormsModule,
     ToastModule,
     StylesModule,
+    InputMaskModule
   ]
 })
 export class AbmProveedorModule { }

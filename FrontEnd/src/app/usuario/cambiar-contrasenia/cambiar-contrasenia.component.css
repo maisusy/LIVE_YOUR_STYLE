@@ -1,11 +1,11 @@
 .background-container {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100%; 
-    background-image: url('../../../assets/background.jpg');
-    background-size: cover; /* Ajusta la imagen de fondo para cubrir todo el contenedor */
-    background-repeat: no-repeat;
-    min-height: 100vh; /* Asegura que la imagen de fondo cubra toda la altura de la ventana */
-    padding-bottom: 20px; /* Agrega espacio en la parte inferior para evitar que el contenido se superponga */
-  }
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100%; 
+  background-image: url('../../../assets/background_general.jpg');
+  background-size: cover; /* Ajusta la imagen de fondo para cubrir todo el contenedor */
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Asegura que la imagen de fondo cubra toda la altura de la ventana */
+  padding-bottom: 20px; /* Agrega espacio en la parte inferior para evitar que el contenido se superponga */
+}

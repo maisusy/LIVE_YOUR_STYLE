@@ -15,7 +15,7 @@
                     </div>
                     <div class="p-field p-2">
                         <label for="obs">Ingrese un cuit</label>
-                        <input formControlName="cuit" class="p-inputtext-lg {{invalid}}" id="cuit" type="text" pInputText>
+                        <p-inputMask mask="99-99999999-9" formControlName="cuit" class="p-inputtext-lg {{invalid}}" id="cuit"></p-inputMask>  
                         <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un cuit</small>
                     </div>
                     <div class="p-field p-2">

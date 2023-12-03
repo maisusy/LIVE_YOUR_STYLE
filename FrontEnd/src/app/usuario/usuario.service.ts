@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environments';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class UsuarioService {
   constructor( private http: HttpClient) {
     this.URL = environment.apiURL
   }
-  /** Productos */
+  /** Usuarios */
   ObtenerUsuarios(){
     return this.http.get(`${this.URL}/datos_usuario/api/`)
   }

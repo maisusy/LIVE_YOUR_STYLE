@@ -11,6 +11,9 @@ import { StylesModule } from '../styles.module';
   declarations: [
     LoginComponent
   ],
+  exports:[
+    LoginComponent
+  ],
   imports: [
     CommonModule,
     CheckboxModule,

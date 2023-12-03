@@ -11,6 +11,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AbmProductoModule } from './abm-producto/abm-producto.module';
 import { ListadoModule } from './listado/listado.module';
 import { ProductoService } from './producto.service';
+import { ModalVentasModule } from './modal-ventas/modal_ventas.module';
+import { ToastModule } from 'primeng/toast';
+
 @NgModule({
   declarations: [
     ProductoComponent
@@ -24,7 +27,9 @@ import { ProductoService } from './producto.service';
     TagModule,
     AbmProductoModule,
     InputTextModule,
-    ListadoModule
+    ListadoModule,
+    ModalVentasModule,
+    ToastModule
   ],
   providers: [ProductoService],
 })

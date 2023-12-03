@@ -1,0 +1,39 @@
+<div> <!-- AGREGAR -->
+    <p-dialog (onHide)="hide()" (onShow)="show()" [(visible)]="visible" [modal]="true" [style]="{width: '40vw'}">
+        <ng-template pTemplate="header">
+            {{accion.toLocaleUpperCase()}} INSUMO
+        </ng-template>
+
+        <div class="grid">
+            <div class="col-12 md-6 " >
+                <form [formGroup]="formProductosVenta">
+                    <div class="p-fluid mt-2">
+                        <div class="p-field p-2">
+                          <label for="descripcion" class="mb-2 block"  >Descripcion del Producto:</label>
+                            <input type="text" pInputText value='' id="descripcion" [readOnly]="true" formControlName="descripcion">
+                          </div>
+                        <div class="p-field p-2">
+                            <label for="precio" class="mb-2 block">Precio por unidad:</label>
+                            <p-inputNumber formControlName="precio" id="precio" class="p-inputtext-lg" mode="currency" currency="ARS" [min]="1" [readonly]="true"></p-inputNumber>
+                        </div>
+                        <div class="p-field p-2">
+                            <label for="cantidad" class="mb-2 block">Cantidad:</label>
+                            <p-inputNumber formControlName="cantidad"  id="cantidad" (ngModelChange)="CambiaCantidad($event)" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="minmax-buttons" [min]="1"  ></p-inputNumber>
+                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar un cantidad</small>
+                            <small *ngIf="invalid_2 != ''" id="username2-help" class="p-error">La cantidad selecconada supera el stock del producto</small>
+                        </div>
+                        <div class="p-field p-2">
+                            <label for="costo_total" class="mb-2 block">Costo total:</label>
+                            <p-inputNumber formControlName="costo_total"  id="costo_total" class="p-inputtext-lg {{invalid}}"  mode="currency" currency="ARS" [min]="1"  [readonly]="true"></p-inputNumber>
+                        </div>
+                    </div>
+                </form>
+         </div>
+    </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple class="p-button-outlined-success" (click)="submit()" label="Agregar" iconPos="right"></button>
+        </ng-template>
+      </p-dialog>
+
+      <p-toast key="modalinsumo"></p-toast>
+</div>

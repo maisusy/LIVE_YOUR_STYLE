@@ -1,4 +1,7 @@
 
+<app-modal-ventas [visible]="modal == 'modalventas'" (success)="success()" [datos]="modalDatos" ></app-modal-ventas>
+<p-toast key="modalventas"></p-toast>
+
 <div class="card" >
     <p-carousel [value]="productos" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-producto pTemplate="item">
@@ -11,7 +14,7 @@
                     <h6 class="mt-0 mb-3">{{ '$' + producto.precio }}</h6>
                     <p-tag [value]="'Queda en stock ' + producto.stock" [severity]="getSeverity(producto.stock)"></p-tag>
                     <div class="car-buttons mt-5">
-                        <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-cart-plus"></p-button>
+                        <p-button type="button" styleClass="p-button p-button-rounded mr-2" (onClick)="AgregarCarrito('modalventas',producto)" icon="pi pi-cart-plus"></p-button>
                         <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-plus"></p-button>
                     </div>
                 </div>

@@ -2,9 +2,34 @@
     <ng-template pTemplate="start">
       <img src="{{env.myVarForImageURLS}}/diseno-de-moda.png" height="40" class="mr-2" />
     </ng-template>
-    
+
     <ng-template pTemplate="end">
-      <input type="text" pInputText placeholder="Search" class="w-full" />
+      <button type="button" (click)="showDialog()" pButton icon="pi pi-shopping-cart" label="Carrito"></button>
     </ng-template>
   </p-menubar>
-  
+
+  <p-dialog header="Carrito" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">
+    <p-table [value]="productos" [scrollable]="true" scrollHeight="flex" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Descripcion</th>
+                <th>Precio por Unidad</th>
+                <th>Cantidad</th>
+                <th>Costo Total</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producto>
+            <tr>
+                <td>{{producto.descripcion}}</td>
+                <td>{{producto.precio}}</td>
+                <td>{{producto.cantidad}}</td>
+                <td>{{producto.costo_total}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <ng-template pTemplate="footer">
+
+        <button type="button" pButton pRipple icon="pi pi-shopping-bag" (click)="Comprar()" label="Compra" class="p-button-text"></button>
+        <button type="button" pButton pRipple icon="pi pi-times" (click)="CancelarCompra()" label="Cancelar Compra" class="p-button-text"></button>
+    </ng-template>
+</p-dialog>

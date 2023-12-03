@@ -4,6 +4,8 @@ import { MenuComponent } from './menu.component';
 import { MenubarModule } from 'primeng/menubar';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { StylesModule } from '../styles.module';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { StylesModule } from '../styles.module';
     MenubarModule,
     TabMenuModule,
     StylesModule,
+    DialogModule,
+    TableModule
   ]
 })
 export class MenuModule { }

@@ -1,27 +1,58 @@
-import { Component } from '@angular/core';
+import { VentasService } from './../ventas/ventas.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { environment as env } from '../../environments/environments';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit, OnDestroy{
 
   items: MenuItem[] | undefined;
   activeItem: MenuItem | undefined;
   public env = env;
   public username: any;
-
+  dialogVisible: boolean = false;
+  private productosSubscription: Subscription | undefined;
+  public productos : any = [];
 
   constructor( public router : Router,
-     private route: ActivatedRoute){}
+     private AppService : AppService,
+     public VentasService : VentasService
+     ){}
 
 
     ngOnInit() {
       this.cargaItemsMenu()
+      this.productosSubscription = this.AppService.ObtenerProductoActualizado().subscribe(() => {
+        this.showDialog();
+      });
+    }
+
+    ngOnDestroy() {
+      // Desuscribirse para evitar posibles fugas de memoria
+      if (this.productosSubscription) {
+        this.productosSubscription.unsubscribe();
+      }
+    }
+
+    showDialog() {
+      console.log('Mostrando el diálogo con productos:', this.AppService.productos);
+      this.productos = this.AppService.productos;
+      this.dialogVisible = true;
+    }
+
+    CancelarCompra(){
+      this.AppService.productos = [];
+      this.dialogVisible=false;
+    }
+
+    Comprar(){
     }
 
     cargaItemsMenu(){
@@ -48,15 +79,15 @@ export class MenuComponent {
               items : [
                 {
                   label : 'Agendar Turno'  ,
-                  icon: 'pi pi-fw pi-calendar-plus',                  
+                  icon: 'pi pi-fw pi-calendar-plus',
                 },
                 {
                   label : 'Listado'  ,
-                  icon: 'pi pi-fw pi-calendar-minus',                  
+                  icon: 'pi pi-fw pi-calendar-minus',
                 },
                 {
                   label : 'Mis turnos'  ,
-                  icon: 'pi pi-fw pi-calendar-minus',                  
+                  icon: 'pi pi-fw pi-calendar-minus',
                 }
               ]
           },
@@ -76,7 +107,7 @@ export class MenuComponent {
                       },
                       {
                         label : 'Listado'  ,
-                        icon: 'pi pi-fw pi-list',  
+                        icon: 'pi pi-fw pi-list',
                         command : () => {
                           this.onMenuItemClick('Listado Productos')
                         },
@@ -97,7 +128,7 @@ export class MenuComponent {
                 },
                 {
                   label : 'Listado Predefinidos'  ,
-                  icon: 'pi pi-fw pi-list',  
+                  icon: 'pi pi-fw pi-list',
                   items : [
                     {
                       label:'Marcas',
@@ -127,7 +158,7 @@ export class MenuComponent {
                         this.onMenuItemClick('categoria')
                       }
                     }
-                  ]                
+                  ]
                 }
               ]
           },
@@ -141,21 +172,21 @@ export class MenuComponent {
           items : [
             {
               label : 'Cambiar contraseña'  ,
-              icon: 'pi pi-fw pi-lock',       
+              icon: 'pi pi-fw pi-lock',
               command : () => {
                 this.onMenuItemClick('cambiar-contrasenia')
-              }                   
+              }
             },
             {
               label : 'Actualizar datos'  ,
-              icon: 'pi pi-fw pi-user-edit',                  
+              icon: 'pi pi-fw pi-user-edit',
             },
             {
               label : 'Cerrar Sesión'  ,
               icon: 'pi pi-fw pi-sign-out',
               command : () => {
                 this.onMenuItemClick('cerrar sesion')
-              }                  
+              }
             }
           ]
         }
@@ -172,7 +203,7 @@ export class MenuComponent {
 
         this.items.push(data)
       }
-      
+
       this.activeItem = this.items[0];
     }
 
@@ -180,7 +211,7 @@ export class MenuComponent {
     onMenuItemClick(item : any) {
 
       this.activeItem = item;
-      
+
       switch(item){
         case 'insumo':
             this.router.navigate(['insumo']);
@@ -194,37 +225,37 @@ export class MenuComponent {
         case 'cambiar-contrasenia':
             this.router.navigate(['usuario/cambiar-contrasenia']);
         break;
-        case 'cerrar sesion' : 
+        case 'cerrar sesion' :
           localStorage.setItem('token',  '');
           localStorage.setItem('username',  '');
           this.cargaItemsMenu();
           this.router.navigate(['inicio']);
         break;
-        case 'login' : 
+        case 'login' :
             this.router.navigate(['login']);
         break;
-        case 'Listado Productos' : 
+        case 'Listado Productos' :
             this.router.navigate(['producto/listado']);
         break;
-        case 'marca' : 
+        case 'marca' :
             this.router.navigate(['marca']);
         break;
-        case 'marca' : 
+        case 'marca' :
             this.router.navigate(['marca']);
         break;
-        case 'color' : 
+        case 'color' :
             this.router.navigate(['color']);
         break;
-        case 'unidad_medida' : 
+        case 'unidad_medida' :
             this.router.navigate(['unidad_medida']);
         break;
-        case 'inicio' : 
+        case 'inicio' :
             this.router.navigate(['inicio']);
         break;
-        case 'producto' : 
+        case 'producto' :
             this.router.navigate(['producto']);
         break;
-        case 'categoria' : 
+        case 'categoria' :
             this.router.navigate(['categoria']);
         break;
         }

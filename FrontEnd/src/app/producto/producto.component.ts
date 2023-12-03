@@ -12,11 +12,13 @@ import { environment } from 'src/environments/environments';
 })
 export class ProductoComponent {
 
-  public productos : any; 
-  public loading : boolean = true;   
+  public productos : any;
+  public loading : boolean = true;
   responsiveOptions: any[] | undefined;
   public env = environment;
   public productoimagen : any;
+  public modalDatos : any;
+  public modal : string = "";
 
   constructor(
     public ProductoService : ProductoService,
@@ -26,7 +28,7 @@ export class ProductoComponent {
   ) { }
 
   ngOnInit(): void {
-      this.ObtenerImgProductos() 
+      this.ObtenerImgProductos()
       this.ObtenerProductos()
       this.loading = false
 
@@ -50,8 +52,26 @@ export class ProductoComponent {
   }
 
 
+  success(){
+    this.modal = '';
+  }
+
+  AgregarCarrito(tipo : string , datos : any = null){
+    let data = {
+      producto_id : datos.id,
+      descripcion : datos.descripcion,
+      precio : datos.precio,
+      cantidad : 1,
+      costo_total : datos.precio * 1,
+      estado : 'AGREGAR',
+      stock : datos.stock
+    }
+    this.modal = tipo;
+    this.modalDatos = data;
+  }
+
   getSeverity(stock: number) {
-    
+
     if(stock == 0){
       return 'danger';
     }else{
@@ -59,7 +79,7 @@ export class ProductoComponent {
         return 'warning';
       }else{
         return 'success';
-        
+
       }
 
     }
@@ -78,10 +98,10 @@ export class ProductoComponent {
 
              this.productoimagen.forEach((valorimg : any) => {
               if(valorimg.producto == valor.id){
-                  valor.img = valorimg.imagen;  
+                  valor.img = valorimg.imagen;
               }
-            }) 
-        }); 
+            })
+        });
 
 
         console.log('productos ',this.productos)

@@ -16,14 +16,20 @@ import { ProductoModule } from './producto/producto.module';
 import { CategoriaModule } from './predefinidos/categoria/categoria.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ProveedorModule } from './proveedor/proveedor.module';
+import localeEsAR from '@angular/common/locales/es-AR';
+import { CommonModule } from '@angular/common';
+import { VentasComponent } from './ventas/ventas.component';
+
 
 @NgModule({
-  declarations: [								
+  declarations: [
     AppComponent,
+    VentasComponent,
    ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    CommonModule,
     StylesModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -13,5 +13,5 @@ class Insumo(models.Model):
     stock = models.IntegerField()
     costo = models.FloatField()
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
-    color = models.ManyToManyField(Color, blank=True)
+    color = models.ForeignKey(Color, on_delete=models.CASCADE)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)

@@ -1,18 +1,9 @@
 from rest_framework import serializers
 from Proveedor.serializers import ProveedorSerializers
 from Unidad_medida.serializers import UnidadMedidaSerializers
-from Color.models import Color
+from Color.serializers import ColorSerializers
 from Marca.serializers import MarcaSerializer
 from Insumo.models import Insumo
-
-
-class ColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Color
-        fields = (
-            "id",
-            "nombre",
-        )
 
 
 class InsumoSerializers(serializers.ModelSerializer):
@@ -33,7 +24,7 @@ class InsumoSerializers(serializers.ModelSerializer):
 
 class GetInsumoSerializers(serializers.ModelSerializer):
     marca = MarcaSerializer()
-    color = ColorSerializer(many=True)
+    color = ColorSerializers()
     proveedor = ProveedorSerializers()
     unidad_medida = UnidadMedidaSerializers()
 

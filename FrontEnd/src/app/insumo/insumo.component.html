@@ -48,7 +48,7 @@
                 <p-columnFilter type="text" field="marca.nombre"></p-columnFilter>
             </th>
             <th>
-                <input type="text"  [(ngModel)]="filtroColor"  (input)="aplicarFiltroColor()" pInputText >
+              <p-columnFilter type="text" field="color.nombre"></p-columnFilter>
             </th>
             <th>
                 <p-columnFilter type="text" field="proveedor.razon_social"></p-columnFilter>
@@ -79,12 +79,7 @@
                 {{ insumo.marca.nombre }}
             </td>
             <td>
-                <ng-container *ngIf="insumo.color && insumo.color.length > 0">
-                    <span *ngFor="let color of insumo.color; let last = last">
-                        {{ color.nombre }}
-                        <span *ngIf="!last">, </span>
-                    </span>
-                </ng-container>
+                {{ insumo.color.nombre }}
             </td>
             <td>
                 {{ insumo.proveedor.razon_social }}
@@ -94,7 +89,7 @@
                 <p-confirmPopup></p-confirmPopup>
                 <p-button icon="pi pi-pencil" styleClass="p-button-raised"(onClick)="MODAL('insumo',insumo)" label="Modificar Insumo"> </p-button>
                 <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,insumo.id)" label="Eliminar Insumo"> </p-button>
-            
+
             </td>
         </tr>
     </ng-template>

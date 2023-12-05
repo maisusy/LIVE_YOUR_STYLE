@@ -1,6 +1,6 @@
 import { VentasService } from './../ventas/ventas.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { environment as env } from '../../environments/environments';
 import {  Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,8 @@ import { AppService } from '../app.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
+  providers : [ConfirmationService,MessageService]
 })
 export class MenuComponent implements OnInit, OnDestroy{
 
@@ -20,10 +21,13 @@ export class MenuComponent implements OnInit, OnDestroy{
   dialogVisible: boolean = false;
   private productosSubscription: Subscription | undefined;
   public productos : any = [];
+  public modalDatos : any;
+  public modal : string = "";
 
   constructor( public router : Router,
      private AppService : AppService,
-     public VentasService : VentasService
+     public VentasService : VentasService,
+     public confirmationService : ConfirmationService,
      ){}
 
 
@@ -41,6 +45,40 @@ export class MenuComponent implements OnInit, OnDestroy{
       }
     }
 
+    success(){
+      this.modal = '';
+    }
+
+    MODAL(tipo : string , datos : any = null){
+      let data = {
+        producto_id : datos.producto_id,
+        descripcion : datos.descripcion,
+        precio : datos.precio,
+        cantidad : datos.cantidad,
+        costo_total : datos.precio * datos.cantidad,
+        estado : 'ACTUALIZAR',
+        stock : datos.stock
+      }
+      this.modal = tipo;
+      this.modalDatos = data;
+    }
+
+    Confirmar(event : Event, id : number ){
+      this.confirmationService.confirm({
+        target: event.target!,
+          message: '¿Estas seguro?',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            this.AppService.productos = this.AppService.productos.filter((valor: any) => valor.producto_id != id);
+
+            console.log('datos después de eliminar', this.AppService.productos);
+            this.AppService.NotificarMenu();
+          },
+          reject: () => {
+              //reject action
+        }
+    });
+  }
     showDialog() {
       console.log('Mostrando el diálogo con productos:', this.AppService.productos);
       this.productos = this.AppService.productos;

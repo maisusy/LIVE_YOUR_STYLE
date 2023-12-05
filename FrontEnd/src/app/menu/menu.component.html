@@ -1,3 +1,4 @@
+
 <p-menubar [model]="items"  >
     <ng-template pTemplate="start">
       <img src="{{env.myVarForImageURLS}}/diseno-de-moda.png" height="40" class="mr-2" />
@@ -12,6 +13,7 @@
     <p-table [value]="productos" [scrollable]="true" scrollHeight="flex" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
+                <th></th>
                 <th>Descripcion</th>
                 <th>Precio por Unidad</th>
                 <th>Cantidad</th>
@@ -20,6 +22,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-producto>
             <tr>
+                <td>
+                  <p-confirmPopup></p-confirmPopup>
+                  <p-button icon="pi pi-pencil" styleClass="p-button-raised" (onClick)="MODAL('modalventas',producto)"> </p-button>
+                  <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger"(onClick)="Confirmar($event,producto.producto_id)">  </p-button>
+                </td>
                 <td>{{producto.descripcion}}</td>
                 <td>{{producto.precio}}</td>
                 <td>{{producto.cantidad}}</td>
@@ -33,3 +40,7 @@
         <button type="button" pButton pRipple icon="pi pi-times" (click)="CancelarCompra()" label="Cancelar Compra" class="p-button-text"></button>
     </ng-template>
 </p-dialog>
+
+<app-modal-ventas [visible]="modal == 'modalventas'" (success)="success()" [datos]="modalDatos" ></app-modal-ventas>
+ <p-toast key="modalventas"></p-toast>
+

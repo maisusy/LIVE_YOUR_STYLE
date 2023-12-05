@@ -19,12 +19,12 @@ import { ProveedorModule } from './proveedor/proveedor.module';
 import localeEsAR from '@angular/common/locales/es-AR';
 import { CommonModule } from '@angular/common';
 import { VentasComponent } from './ventas/ventas.component';
+import { MenuComponent } from './menu/menu.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    VentasComponent,
    ],
   imports: [
     BrowserModule,

@@ -69,7 +69,7 @@ export class AbmProductoComponent {
     }
 
     this.config.setTranslation({
-      'choose' : 'Elegir',
+      'choose' : 'Elegir Imagen',
       'upload' : 'Subir',
       'cancel' : 'Cancelar',
 
@@ -156,8 +156,8 @@ export class AbmProductoComponent {
 
     let costo : number = 0;
     if(this.insumos.length > 0 ){
-      this.insumos.forEach((valor:any)=> { 
-        costo = costo + valor.costo_total;        
+      this.insumos.forEach((valor:any)=> {
+        costo = costo + valor.costo_total;
       })
     }
 
@@ -166,7 +166,7 @@ export class AbmProductoComponent {
       costoControl.enable();
       costoControl.disable();
       costoControl.setValue(costo);
-      
+
     }
   }
 
@@ -196,8 +196,8 @@ export class AbmProductoComponent {
 
      let costo : number = 0;
     if(this.insumos.length > 0 ){
-      this.insumos.forEach((valor:any)=> { 
-        costo = costo + valor.costo_total;        
+      this.insumos.forEach((valor:any)=> {
+        costo = costo + valor.costo_total;
       })
     }
 
@@ -205,7 +205,7 @@ export class AbmProductoComponent {
     if (costoControl) {
       costoControl.enable();
       costoControl.setValue(costo);
-      
+
       if(this.formsProducto.value.original == true ){
           if (this.accion == 'CREACIÓN') {
             this.formsProducto.value.insumos = this.insumos.map((valor:any) => { return {
@@ -227,7 +227,7 @@ export class AbmProductoComponent {
       }
     }
 
-    
+
     console.log('this.formsProducto.value',this.formsProducto.value)
 
     return this.formsProducto.value;
@@ -236,17 +236,17 @@ export class AbmProductoComponent {
 
   submit() {
       /* SI EL PRODUCTO ES ORIGINAL */
-     
+
       console.log('this.formsProducto.value',this.formsProducto.value)
       if (this.formsProducto.valid) {
         if (this.formsProducto.value.id == null) {
-          
+
           this.ProductoService.AgregarProducto(this.PrepararArrayInsumo(null))
           .subscribe(res => {
             this.id_producto=res.id;
             this.ban = false;
             this.messageService.add({ key: 'abm-producto', severity: 'success', summary: `${this.accion} PRODUCTO`, detail: 'La acción se realizo correctamente' });
-            
+
           }, error => {
             console.log(error)
             this.messageService.add({ key: 'abm-producto', severity: 'error', summary: `${this.accion} PRODUCTO`, detail: error.error.error });
@@ -286,7 +286,7 @@ export class AbmProductoComponent {
 
 
 
-  
+
 
 
 }

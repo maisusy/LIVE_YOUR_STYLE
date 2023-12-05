@@ -6,6 +6,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { StylesModule } from '../styles.module';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
+import { ModalVentasModule } from '../producto/modal-ventas/modal_ventas.module';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { TableModule } from 'primeng/table';
     TabMenuModule,
     StylesModule,
     DialogModule,
-    TableModule
+    TableModule,
+    ModalVentasModule,
+    ToastModule,
+    ConfirmPopupModule
   ]
 })
 export class MenuModule { }

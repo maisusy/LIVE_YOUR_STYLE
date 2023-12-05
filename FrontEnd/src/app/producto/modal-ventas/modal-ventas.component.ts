@@ -1,11 +1,13 @@
 import { AppService } from 'src/app/app.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-modal-ventas',
   templateUrl: './modal-ventas.component.html',
-  styleUrls: ['./modal-ventas.component.css']
+  styleUrls: ['./modal-ventas.component.css'],
+  providers : [ConfirmationService,MessageService]
 })
 export class ModalVentasComponent {
 
@@ -26,6 +28,7 @@ export class ModalVentasComponent {
     'precio': new FormControl(1, Validators.required),
     'cantidad': new FormControl(1, Validators.required),
     'costo_total': new FormControl(1, Validators.required),
+    'stock': new FormControl(1, Validators.required),
   })
 
   constructor(
@@ -39,8 +42,6 @@ export class ModalVentasComponent {
   CambiaCantidad(event : any){
     const precioControl = this.formProductosVenta.get('precio');
     const costoTotalControl = this.formProductosVenta.get('costo_total');
-    console.log(event)
-    console.log(this.stock)
     if(event > this.stock){
         this.invalid_2 = 'ng.dirty';
     }else{
@@ -57,13 +58,10 @@ export class ModalVentasComponent {
   }
 
   show() {
-    console.log(this.datos)
       this.accion = this.datos.estado;
       this.stock = this.datos.stock;
       let data = this.datos;
       delete data.estado;
-      delete data.stock;
-
       this.formProductosVenta.setValue(this.datos);
   }
 
@@ -77,10 +75,20 @@ export class ModalVentasComponent {
             if (this.accion == "AGREGAR") {
               let data = this.formProductosVenta.value;
               this.AppService.productos.push(data);
-              console.log(this.AppService.productos);
               this.AppService.NotificarMenu(); // Notificar al componente del menú que los productos se han actualizado
+
             } else {
-              // Otras operaciones si es necesario
+                console.log(this.accion);
+                let data = this.formProductosVenta.value;
+
+                this.AppService.productos.forEach((valor: any) => {
+                  if (valor.producto_id == this.formProductosVenta.value.producto_id) {
+                    valor.cantidad = data.cantidad;
+                    valor.costo_total = data.costo_total;
+                  }
+                });
+                console.log('datos ', this.AppService.productos);
+                this.AppService.NotificarMenu();
             }
             this.hide();
           } else {

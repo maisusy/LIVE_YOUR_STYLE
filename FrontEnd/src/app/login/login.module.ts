@@ -5,6 +5,7 @@ import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StyleClassModule } from 'primeng/styleclass';
 import { StylesModule } from '../styles.module';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { StylesModule } from '../styles.module';
     ReactiveFormsModule,
     StyleClassModule,
     StylesModule,
+    ToastModule
   ]
 })
 export class LoginModule { }

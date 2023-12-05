@@ -6,11 +6,15 @@ import { InterceptorService } from '../interceptors/interceptor.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from './login.service';
 import { RouterTestingHarness } from '@angular/router/testing';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [
+    MessageService
+  ]
 })
 export class LoginComponent {
 
@@ -24,11 +28,11 @@ export class LoginComponent {
   public username: any ;
   public password: any ;
   public env = env;
-  public token :any;
 
   constructor(
     private Router : Router,
-    private LoginService : LoginService
+    private LoginService : LoginService,
+    public messageService : MessageService,
   ){}
 
   Registrar(){
@@ -39,12 +43,16 @@ export class LoginComponent {
     if (this.formsLogin.valid) {
         this.LoginService.Login(this.formsLogin.value)
         .subscribe(
-          (res) => {
-          this.token = res;
-          localStorage.setItem('token',  this.token.access)
+          (res : any) => {
+          localStorage.setItem('token', res)
           localStorage.setItem('username',  this.formsLogin.value.username || '')
           this.Router.navigate(['inicio']);
-               })
+          },
+          (error) => {
+            this.messageService.add({key: 'error', severity:'error', summary: `ERROR` , detail: error.error.error});
+
+          }
+        )
 
     } else {
       this.invalid = 'ng-dirty';

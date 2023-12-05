@@ -7,6 +7,8 @@ from Datos_Usuario.serializers import Datos_UsuarioSerializers, UserSerializers
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class CambioContraseña(APIView):
@@ -37,6 +39,27 @@ class CambioContraseña(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LoginView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = ()
+
+    def post(self, request, *args, **kwargs):
+        username = request.data.get("username")
+        password = request.data.get("password")
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            refresh = RefreshToken.for_user(user)
+
+            return Response(str(refresh.access_token), status=status.HTTP_200_OK)
+        else:
+            return Response(
+                {"error": "Usuario no encontrado o Contraseña Invalida"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+
 class Datos_Usuario_crear(APIView):
     permission_classes = [AllowAny]
     authentication_classes = ()
@@ -48,8 +71,14 @@ class Datos_Usuario_crear(APIView):
         username = request.data.get("usuario")
         email = request.data.get("email")
 
-        if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
-            return Response({"error": "El usuario o el correo electrónico ya existen"}, status=status.HTTP_400_BAD_REQUEST)
+        if (
+            User.objects.filter(username=username).exists()
+            or User.objects.filter(email=email).exists()
+        ):
+            return Response(
+                {"error": "El usuario o el correo electrónico ya existen"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Si el usuario no existe, crearlo
         user = User.objects.create_user(
@@ -67,9 +96,11 @@ class Datos_Usuario_crear(APIView):
             "nivel": request.data.get("nivel"),
             "telefono": request.data.get("telefono"),
         }
+        print(data)
         _serializer = Datos_UsuarioSerializers(data=data)
 
         if _serializer.is_valid():
+            _serializer.save()
             return Response(_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -108,7 +139,7 @@ class Datos_Usuario_id(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
     def delete(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         if not instance:

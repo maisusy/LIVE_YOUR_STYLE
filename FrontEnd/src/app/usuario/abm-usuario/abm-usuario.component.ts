@@ -63,14 +63,12 @@ export class AbmUsuarioComponent {
     obtenerFechaActual(): string {
       const fechaActual: Date = new Date();
       const year: number = fechaActual.getFullYear();
-      const month: number = fechaActual.getMonth() + 1; // Meses van de 0 a 11
+      const month: number = fechaActual.getMonth() + 1;
       const day: number = fechaActual.getDate();
-  
-      // Ajusta el formato (agrega ceros iniciales si es necesario)
+
       const formattedMonth: string = month < 10 ? `0${month}` : `${month}`;
       const formattedDay: string = day < 10 ? `0${day}` : `${day}`;
-  
-      // Formatea la fecha en "yyyy-MM-dd"
+
       return `${year}-${formattedMonth}-${formattedDay}`;
     }
 
@@ -80,7 +78,6 @@ export class AbmUsuarioComponent {
       if (this.formsUsuario.valid) {
         if (this.accion == 'CREACIÓN') {
             delete this.formsUsuario.value.id
-            console.log(this.formsUsuario.value)
             this.UsuarioService.AgregarUsuario(this.formsUsuario.value)
             .subscribe(_ => {
               this.messageService.add({ key: 'abm-usuario', severity: 'success', summary: `${this.accion} Usuario`, detail: 'La acción se realizo correctamente' });

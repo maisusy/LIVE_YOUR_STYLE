@@ -18,7 +18,7 @@ export class LoginComponent {
     'username': new FormControl('', Validators.required),
     'password': new FormControl('', Validators.required)
   })
-  
+
 
   public invalid: string = "";
   public username: any ;
@@ -37,12 +37,10 @@ export class LoginComponent {
 
   Ingresar() {
     if (this.formsLogin.valid) {
-        console.log(this.formsLogin.value);
         this.LoginService.Login(this.formsLogin.value)
         .subscribe(
           (res) => {
           this.token = res;
-          console.log(res)
           localStorage.setItem('token',  this.token.access)
           localStorage.setItem('username',  this.formsLogin.value.username || '')
           this.Router.navigate(['inicio']);

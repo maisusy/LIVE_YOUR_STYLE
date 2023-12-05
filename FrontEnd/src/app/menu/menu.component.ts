@@ -111,100 +111,105 @@ export class MenuComponent implements OnInit, OnDestroy{
                 this.onMenuItemClick('producto')
               }
           },
-          {
-              label: 'Turnos',
-              icon: 'pi pi-fw pi-calendar',
-              items : [
-                {
-                  label : 'Agendar Turno'  ,
-                  icon: 'pi pi-fw pi-calendar-plus',
-                },
-                {
-                  label : 'Listado'  ,
-                  icon: 'pi pi-fw pi-calendar-minus',
-                },
-                {
-                  label : 'Mis turnos'  ,
-                  icon: 'pi pi-fw pi-calendar-minus',
-                }
-              ]
-          },
-          {
-              label: 'Administracion',
-              icon: 'pi pi-fw pi-cog',
-              items : [
-                {
-                  label : 'Productos'  ,
-                  icon: 'pi pi-fw pi-list',
-                  items : [
-                      {
-                        label : 'Nuevo'  ,
-                        icon: 'pi pi-fw pi-plus', command : () => {
-                          this.onMenuItemClick('abm-productos')
-                        },
-                      },
-                      {
-                        label : 'Listado'  ,
-                        icon: 'pi pi-fw pi-list',
-                        command : () => {
-                          this.onMenuItemClick('Listado Productos')
-                        },
-                      }
-                    ],
-                }, {
-                  label : 'Proveedores'  ,
-                  icon: 'pi pi-fw pi-list',
-                  command : () => {
-                          this.onMenuItemClick('proveedor')
-                  }
-                },{
-                  label : 'Insumos'  ,
-                  icon: 'pi pi-fw pi-list',
-                  command : () => {
-                          this.onMenuItemClick('insumo')
-                  }
-                },
-                {
-                  label : 'Listado Predefinidos'  ,
-                  icon: 'pi pi-fw pi-list',
-                  items : [
-                    {
-                      label:'Marcas',
-                      icon: 'pi pi-fw pi-plus',
-                      command : () => {
-                        this.onMenuItemClick('marca')
-                      }
-                    },
-                    {
-                      label:'Colores',
-                      icon: 'pi pi-fw pi-plus',
-                      command : () => {
-                        this.onMenuItemClick('color')
-                      }
-                    },
-                    {
-                      label:'Unidades de Medida',
-                      icon: 'pi pi-fw pi-plus',
-                      command : () => {
-                        this.onMenuItemClick('unidad_medida')
-                      }
-                    },
-                    {
-                      label:'Categoria',
-                      icon: 'pi pi-fw pi-plus',
-                      command : () => {
-                        this.onMenuItemClick('categoria')
-                      }
-                    }
-                  ]
-                }
-              ]
-          },
       ];
 
       console.log(this.username)
       if(this.username != null && this.username !== ''){
-        let data  =  {
+        let data_admin = {
+          label: 'Administracion',
+          icon: 'pi pi-fw pi-cog',
+          items : [
+            {
+              label : 'Productos'  ,
+              icon: 'pi pi-fw pi-list',
+              items : [
+                  {
+                    label : 'Nuevo'  ,
+                    icon: 'pi pi-fw pi-plus', command : () => {
+                      this.onMenuItemClick('abm-productos')
+                    },
+                  },
+                  {
+                    label : 'Listado'  ,
+                    icon: 'pi pi-fw pi-list',
+                    command : () => {
+                      this.onMenuItemClick('Listado Productos')
+                    },
+                  }
+                ],
+            }, {
+              label : 'Proveedores'  ,
+              icon: 'pi pi-fw pi-list',
+              command : () => {
+                      this.onMenuItemClick('proveedor')
+              }
+            },{
+              label : 'Insumos'  ,
+              icon: 'pi pi-fw pi-list',
+              command : () => {
+                      this.onMenuItemClick('insumo')
+              }
+            },
+            {
+              label : 'Listado Predefinidos'  ,
+              icon: 'pi pi-fw pi-list',
+              items : [
+                {
+                  label:'Marcas',
+                  icon: 'pi pi-fw pi-plus',
+                  command : () => {
+                    this.onMenuItemClick('marca')
+                  }
+                },
+                {
+                  label:'Colores',
+                  icon: 'pi pi-fw pi-plus',
+                  command : () => {
+                    this.onMenuItemClick('color')
+                  }
+                },
+                {
+                  label:'Unidades de Medida',
+                  icon: 'pi pi-fw pi-plus',
+                  command : () => {
+                    this.onMenuItemClick('unidad_medida')
+                  }
+                },
+                {
+                  label:'Categoria',
+                  icon: 'pi pi-fw pi-plus',
+                  command : () => {
+                    this.onMenuItemClick('categoria')
+                  }
+                }
+              ]
+            }
+          ]
+           };
+        this.items.push(data_admin)
+
+        let data_turno =  {
+            label: 'Turnos',
+            icon: 'pi pi-fw pi-calendar',
+            items : [
+              {
+                label : 'Agendar Turno'  ,
+                icon: 'pi pi-fw pi-calendar-plus',
+              },
+              {
+                label : 'Listado'  ,
+                icon: 'pi pi-fw pi-calendar-minus',
+              },
+              {
+                label : 'Mis turnos'  ,
+                icon: 'pi pi-fw pi-calendar-minus',
+              }
+            ]
+        }
+
+        this.items.push(data_turno)
+
+        let data_usuario  =  {
           label: this.username,
           icon: 'pi pi-fw pi-user',
           items : [
@@ -228,8 +233,7 @@ export class MenuComponent implements OnInit, OnDestroy{
             }
           ]
         }
-
-        this.items.push(data)
+        this.items.push(data_usuario)
       }else{
         let data =  {
           label: 'Iniciar Sesión',
@@ -238,7 +242,6 @@ export class MenuComponent implements OnInit, OnDestroy{
             this.onMenuItemClick('login')
           }
         }
-
         this.items.push(data)
       }
 

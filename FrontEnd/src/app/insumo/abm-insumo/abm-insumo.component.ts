@@ -76,9 +76,12 @@ export class AbmInsumoComponent {
   }
 
   submit() {
+    if(this.formInsumo.value.tipo == null){
+      this.formInsumo.value.tipo = "-"
+    }
     if (this.formInsumo.valid) {
       if (this.accion == "Guardar") {
-        delete this.formInsumo.value.id
+        delete this.formInsumo.value.id;
         this.InsumoService.AgregarInsumo(this.formInsumo.value)
         .subscribe(_ => {
           this.messageService.add({ key: 'abm-insumo', severity: 'success', summary: `${this.accion} INSUMO`, detail: 'La acción se realizo correctamente' });
@@ -88,7 +91,6 @@ export class AbmInsumoComponent {
         })
       } else {
         let id = Number(this.formInsumo.value.id)
-        console.log(this.formInsumo.value)
         this.InsumoService.ModificarInsumo(id,this.formInsumo.value)
         .subscribe(_ => {
           this.messageService.add({ key: 'abm-insumo', severity: 'success', summary: `${this.accion} INSUMO`, detail: 'La acción se realizo correctamente' });

@@ -8,7 +8,7 @@ from Marca.models import Marca
 # Create your models here.
 class Insumo(models.Model):
     descripcion = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=50, default="")
+    tipo = models.CharField(max_length=50)
     unidad_medida = models.ForeignKey(Unidad_medida, on_delete=models.CASCADE)
     stock = models.IntegerField()
     costo = models.FloatField()

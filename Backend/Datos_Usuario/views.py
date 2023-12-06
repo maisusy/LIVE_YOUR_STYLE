@@ -59,6 +59,12 @@ class LoginView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth.models import User
+from .models import Datos_Usuario
+from .serializers import Datos_UsuarioSerializers
 
 class Datos_Usuario_crear(APIView):
     permission_classes = [AllowAny]
@@ -70,13 +76,15 @@ class Datos_Usuario_crear(APIView):
         # Verificar si el usuario ya existe
         username = request.data.get("usuario")
         email = request.data.get("email")
+        dni = request.data.get("dni")
 
         if (
             User.objects.filter(username=username).exists()
             or User.objects.filter(email=email).exists()
+            or Datos_Usuario.objects.filter(dni=dni).exists()
         ):
             return Response(
-                {"error": "El usuario o el correo electrónico ya existen"},
+                {"error": "El usuario, el correo electrónico o el DNI ya existen"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -92,11 +100,11 @@ class Datos_Usuario_crear(APIView):
             "nombres": request.data.get("nombres"),
             "apellidos": request.data.get("apellidos"),
             "fecha_alta": request.data.get("fecha_alta"),
-            "dni": request.data.get("dni"),
+            "dni": dni,
             "nivel": request.data.get("nivel"),
             "telefono": request.data.get("telefono"),
         }
-        print(data)
+
         _serializer = Datos_UsuarioSerializers(data=data)
 
         if _serializer.is_valid():
@@ -104,7 +112,6 @@ class Datos_Usuario_crear(APIView):
             return Response(_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class Datos_Usuario_lista(APIView):
     queryset = Datos_Usuario.objects.none()

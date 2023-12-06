@@ -13,6 +13,6 @@ class Datos_Usuario(models.Model):
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     fecha_alta = models.DateField(auto_now=True)
-    dni = models.IntegerField()
+    dni = models.IntegerField(unique=True)
     nivel = models.CharField(max_length=10, choices=OPCIONES)
     telefono = models.CharField(max_length=70,blank=True)

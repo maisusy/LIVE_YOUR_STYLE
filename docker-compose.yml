@@ -4,7 +4,6 @@ services:
   backend:
     build:
       context: .
-      target: Backend
     ports:
       - "8000:8000"
     volumes:
@@ -13,13 +12,10 @@ services:
     command: ["python3", "manage.py", "runserver", "--settings=core.settings.dev"]
     depends_on:
       - frontend
-
   frontend:
     build:
       context: .
-      target: Frontend
     ports:
       - "4200:4200"
     volumes:
       - ./Frontend:/app/Frontend
-

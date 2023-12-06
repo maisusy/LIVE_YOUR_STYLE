@@ -16,16 +16,20 @@ CMD ["python3", "manage.py", "migrate", "--settings=core.settings.dev"]
 CMD ["python3", "manage.py", "runserver", "--settings=core.settings.dev"]
 
 # Usa una imagen de Node.js para el frontend de Angular
-FROM node:14 AS Frontend
+FROM node AS Frontend
 
 # Establece el directorio de trabajo para el frontend
-WORKDIR /app/Frontend
+WORKDIR /app/FrontEnd
 
 # Copia los archivos del frontend al contenedor
-COPY ./Frontend .
+COPY ./FrontEnd .
 
+RUN rm -rf node_modules
+RUN rm package-lock.json
+# Limpio cache
+RUN npm cache clean --force
 # Instala las dependencias del frontend
-RUN npm install
+RUN npm install --force
 
 # Ejecuta el servidor de desarrollo de Angular
 CMD ["ng", "serve", "--open"]
@@ -38,7 +42,7 @@ WORKDIR /app
 
 # Copia los archivos de ambos contenedores al directorio de trabajo
 COPY --from=Backend /app/Backend /app/Backend
-COPY --from=Frontend /app/Frontend /app/Frontend
+COPY --from=Frontend /app/FrontEnd /app/FrontEnd
 
 # Expón el puerto 8000 para el backend de Django y el puerto 4200 para el frontend de Angular
 EXPOSE 8000 4200

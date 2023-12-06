@@ -45,7 +45,7 @@ export class AbmProductoComponent {
     'costo': new FormControl(0, Validators.required),
     'talle': new FormControl('', Validators.required),
     'original': new FormControl(false , Validators.required),
-    'marca': new FormControl('', Validators.required),
+    'marca': new FormControl(0, Validators.required),
     'color': new FormControl([]),
     'proveedor': new FormControl(null),
     'insumos': new FormControl([]),
@@ -124,7 +124,7 @@ export class AbmProductoComponent {
       (res) => {
         this.insumos_listado = res
         this.ArmarFormProducto(datoCompartido)
-        this.DeshabilitarCostos()
+        this.DeshabilitarCostos_Marca()
       }
     )
   }
@@ -149,10 +149,10 @@ export class AbmProductoComponent {
   success(){
     this.modal = '';
     this.insumos = this.ProductoService.insumos;
-    this.DeshabilitarCostos()
+    this.DeshabilitarCostos_Marca()
   }
 
-  DeshabilitarCostos(){
+  DeshabilitarCostos_Marca(){
 
     let costo : number = 0;
     if(this.insumos.length > 0 ){
@@ -168,18 +168,34 @@ export class AbmProductoComponent {
       costoControl.setValue(costo);
 
     }
+
+    const marcaControl = this.formsProducto.get('marca');
+    if (marcaControl) {
+      marcaControl.enable();
+      marcaControl.disable();
+      marcaControl.setValue(21);
+
+    }
+
+
+
   }
 
   CambiaValor(event :any){
     if(event.value){ /* ES ORIGINAL */
       this.formsProducto.value.proveedor = null;
-      this.DeshabilitarCostos()
+      this.DeshabilitarCostos_Marca()
     }else{ /* NO ES ORIGINAL */
 
       const costoControl = this.formsProducto.get('costo');
       if (costoControl) {
           costoControl.enable();
       }
+      const marcaControl = this.formsProducto.get('marca');
+      if (marcaControl) {
+          marcaControl.enable();
+      }
+
 
       this.formsProducto.value.insumos = [];
     }
@@ -192,55 +208,54 @@ export class AbmProductoComponent {
 
   PrepararArrayInsumo(id : any){
 
-    this.formsProducto.value.proveedor = null;
+    let costo : number = 0;
+     if(this.insumos.length > 0 ){
+       this.insumos.forEach((valor:any)=> {
+         costo = costo + valor.costo_total;
+       })
+     }
 
-     let costo : number = 0;
-    if(this.insumos.length > 0 ){
-      this.insumos.forEach((valor:any)=> {
-        costo = costo + valor.costo_total;
-      })
-    }
+     const costoControl = this.formsProducto.get('costo');
+     const marcaControl = this.formsProducto.get('marca');
+     if (costoControl && marcaControl) {
 
-    const costoControl = this.formsProducto.get('costo');
-    if (costoControl) {
-      costoControl.enable();
-      costoControl.setValue(costo);
+       if(this.formsProducto.value.original == true ){
+          costoControl.enable();
+          costoControl.setValue(costo);
 
-      if(this.formsProducto.value.original == true ){
-          if (this.accion == 'CREACIÓN') {
-            this.formsProducto.value.insumos = this.insumos.map((valor:any) => { return {
-              insumo: valor.insumo,
-              costo_total: valor.costo_total,
-              cantidad: valor.cantidad
-            };
-          });
-        }else{
-          this.formsProducto.value.insumos = this.insumos.map((valor:any) => { return {
-            insumo: valor.insumo,
-            costo_total: valor.costo_total,
-            cantidad: valor.cantidad,
-            producto : id
-          };
-        });
-        }
+          marcaControl.enable();
+          marcaControl.setValue(21);
 
-      }
-    }
+          this.formsProducto.value.proveedor = null;
+           if (this.accion == 'CREACIÓN') {
+             this.formsProducto.value.insumos = this.insumos.map((valor:any) => { return {
+               insumo: valor.insumo,
+               costo_total: valor.costo_total,
+               cantidad: valor.cantidad
+             };
+           });
+         }else{
+           this.formsProducto.value.insumos = this.insumos.map((valor:any) => { return {
+             insumo: valor.insumo,
+             costo_total: valor.costo_total,
+             cantidad: valor.cantidad,
+             producto : id
+           };
+         });
+         }
 
-
-    console.log('this.formsProducto.value',this.formsProducto.value)
+       }
+     }
+    console.log('PrepararArrayInsumo',this.formsProducto.value)
 
     return this.formsProducto.value;
 
   }
 
   submit() {
-      /* SI EL PRODUCTO ES ORIGINAL */
-
-      console.log('this.formsProducto.value',this.formsProducto.value)
+      console.log('SUBMIT ',this.formsProducto.value)
       if (this.formsProducto.valid) {
         if (this.formsProducto.value.id == null) {
-
           this.ProductoService.AgregarProducto(this.PrepararArrayInsumo(null))
           .subscribe(res => {
             this.id_producto=res.id;

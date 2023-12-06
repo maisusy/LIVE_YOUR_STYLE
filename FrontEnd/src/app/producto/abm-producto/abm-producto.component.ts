@@ -22,7 +22,7 @@ export class AbmProductoComponent {
   public categoria_producto : any;
   public unidad_medida : any;
   public marca : any;
-  public color : any;
+  public color : any = [];
   public proveedor : any;
   public insumos : any = [];
   public insumos_listado : any = [];
@@ -294,14 +294,13 @@ export class AbmProductoComponent {
         this.categoria_producto = res.categoria;
         this.marca = res.marca;
         this.unidad_medida = res.unidad_medida;
-        this.color = res.color;
+        res.color.forEach( (valor:any) => {
+          console.log()
+          this.color.push({'id':valor.id,'nombre':valor.nombre + ' - ' + valor.tono})
+        })
         this.proveedor = res.proveedor;
+        console.log(this.color)
       })
   }
-
-
-
-
-
 
 }

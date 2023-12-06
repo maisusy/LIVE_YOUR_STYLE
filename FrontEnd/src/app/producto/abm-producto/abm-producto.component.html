@@ -2,7 +2,7 @@
 <app-modal-insumo [visible]="modal == 'modalinsumo'" (success)="success()" [datos]="modalDatos" ></app-modal-insumo>
 <p-toast key="modalinsumo"></p-toast>
 
-<div class="background-container"> 
+<div class="background-container">
     <div *ngIf="ban"  class="surface-card p-4 shadow-2 border-round lg:w-6  w-full">
         <div class="grid">
             <div class="col-12 md-6 text-4xl">
@@ -43,11 +43,11 @@
                             <p-dropdown formControlName="proveedor" id="proveedor" class="p-inputtext-lg {{invalid}}" [options]="proveedor" optionLabel="razon_social"  optionValue="id" ></p-dropdown>
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una proveedor</small>
                         </div>
-                        <div class="p-field p-2" *ngIf="formsProducto.value.original ">  
+                        <div class="p-field p-2" *ngIf="formsProducto.value.original ">
                             <p-table [value]="insumos" [tableStyle]="{'min-width': '50rem'}">
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
-                                        <th> 
+                                        <th>
                                             <p-button icon="pi pi-plus" (onClick)="MODAL('modalinsumo',null)"   styleClass="p-button-raised p-button-success"></p-button>
                                         </th>
                                         <th>Insumo id </th>
@@ -57,7 +57,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-insumo let-columns="columns">
                                     <tr>
-                                        <td> 
+                                        <td>
                                             <p-button icon="pi pi-pencil" (onClick)="MODAL('modalinsumo',insumo)"   styleClass="p-button-raised p-button-success"></p-button>
                                             <p-button icon="pi pi-trash" styleClass="p-button-raised p-button-danger" (onClick)="Quitar(insumo.insumo)" > </p-button>
                                         </td>
@@ -85,19 +85,20 @@
                             <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar una marca</small>
                         </div>
                         <div class="p-field p-2">
-                            <label for="color" class="mb-2 block">Seleccione el color:</label>
-                            <p-multiSelect formControlName="color"    id="color"  class="p-inputtext-lg {{invalid}}" [options]="color" optionLabel="nombre"  optionValue="id" [defaultLabel]="'Seleccione'" [appendTo]="'body'"></p-multiSelect>
-                            <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un color</small>
-                          </div>
+                          <label for="color" class="mb-2 block">Seleccione el color:</label>
+                          <p-multiSelect formControlName="color" id="color" class="p-inputtext-lg {{invalid}}" [options]="color" optionLabel="nombre" optionValue="id" [defaultLabel]="'Seleccione'" [appendTo]="'body'"></p-multiSelect>
+                          <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un color</small>
+                        </div>
+
                     </div>
                 </form>
             </div>
         </div>
         <div class="grid">
-            <div class="col-3 md-6 "> 
+            <div class="col-3 md-6 ">
                 <p-button  styleClass="p-button-warning" class="p-2"  (click)="Cancelar()" label="Cancelar"></p-button>
             </div>
-            <div class="col-3 md-6 col-offset-6"> 
+            <div class="col-3 md-6 col-offset-6">
                 <p-button  styleClass="p-button-success" class="p-2" (click)="submit()" label="Guardar" ></p-button>
             </div>
         </div>
@@ -110,7 +111,7 @@
             </div>
         </div>
         <div class="grid">
-            <div class="col-12 md-6 " > 
+            <div class="col-12 md-6 " >
                 <div class="p-field p-2">
                     <p-toast></p-toast>
                     <p-fileUpload name="imagen" url="{{env.apiURL}}/producto/subir_imagen/{{id_producto}}/" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" >     </p-fileUpload>
@@ -118,7 +119,7 @@
             </div>
         </div>
         <div class="grid">
-            <div class="col-12 md-6 "> 
+            <div class="col-12 md-6 ">
                 <p-button  styleClass="p-button-warning" class="p-2"  (click)="Cancelar()" label="Listo"></p-button>
             </div>
         </div>

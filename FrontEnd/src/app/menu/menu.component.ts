@@ -2,7 +2,7 @@ import { VentasService } from './../ventas/ventas.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { environment as env } from '../../environments/environments';
-import {  Router } from '@angular/router';
+import {  NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppService } from '../app.service';
 
@@ -23,6 +23,7 @@ export class MenuComponent implements OnInit, OnDestroy{
   public productos : any = [];
   public modalDatos : any;
   public modal : string = "";
+  public ruta : string = "";
 
   constructor( public router : Router,
      private AppService : AppService,
@@ -36,6 +37,15 @@ export class MenuComponent implements OnInit, OnDestroy{
       this.productosSubscription = this.AppService.ObtenerProductoActualizado().subscribe(() => {
         this.showDialog();
       });
+
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          // Capturar la ruta actual cuando se complete una navegación
+          this.ruta = event.url;
+          console.log('Ruta actual:', this.ruta);
+        }
+      });
+
     }
 
     ngOnDestroy() {
@@ -135,7 +145,7 @@ export class MenuComponent implements OnInit, OnDestroy{
           ]
       }
         this.items.push(data_turno)
-        
+
         let data_admin = {
           label: 'Administracion',
           icon: 'pi pi-fw pi-cog',
@@ -234,7 +244,7 @@ export class MenuComponent implements OnInit, OnDestroy{
           ]
         }
         this.items.push(data_usuario)
-        
+
       }else{
         let data =  {
           label: 'Iniciar Sesión',

@@ -5,7 +5,7 @@
     </ng-template>
 
     <ng-template pTemplate="end">
-      <button type="button" *ngIf="this.username != null && this.username !== ''" (click)="showDialog()" pButton icon="pi pi-shopping-cart" label="Carrito"></button>
+      <button *ngIf="ruta=='/producto' && this.username != null && this.username !== ''" type="button" (click)="showDialog()" pButton icon="pi pi-shopping-cart" label="Carrito"></button>
     </ng-template>
   </p-menubar>
 

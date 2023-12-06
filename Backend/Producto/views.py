@@ -2,16 +2,18 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny  # NOQA
 from rest_framework.response import Response
 from rest_framework import status
+from Insumo.models import Insumo
 from Producto.serializers import (
     ProductoSerializers,
     ImagenProductoSerializers,
     GetProductoSerializers,
-    ProductoInsumoSerializers
+    ProductoInsumoSerializers,
 )
-from Producto.models import Producto, ImagenesProductos,ProductoInsumo
+from Producto.models import Producto, ImagenesProductos, ProductoInsumo
 from django.db import transaction
 import os
 from django.conf import settings
+
 
 class Producto_imagen(APIView):
     queryset = Producto.objects.none()
@@ -79,6 +81,14 @@ class Producto_list(APIView):
     def post(self, request, *args, **kwargs):
         try:
             serializer = ProductoSerializers(data=request.data)
+            insumos_data = request.data.get("insumos")
+
+            for insumo_data in insumos_data:
+                instance_insumo = Insumo.objects.get(id=insumo_data.get("insumo"))
+                cantidad = insumo_data.get("cantidad")
+                instance_insumo.stock -= cantidad
+                instance_insumo.save()
+
             if serializer.is_valid():
                 serializer.save(
                     insumos=request.data.get("insumos"), color=request.data.get("color")
@@ -126,17 +136,17 @@ class Producto_id(APIView):
             # Crear nuevas instancias de ProductoInsumo
             insumos_data = request.data.get("insumos", [])
             for insumo_data in insumos_data:
-                insumo_producto_serializer = ProductoInsumoSerializers(
-                    data=insumo_data
-                )
+                insumo_producto_serializer = ProductoInsumoSerializers(data=insumo_data)
                 if insumo_producto_serializer.is_valid():
                     insumo_producto_serializer.save(producto=instance)
                 else:
                     # Manejar errores de validación de ProductoInsumo
                     return Response(
-                        {"res": "Error en la validación de ProductoInsumo",
-                         "errors": insumo_producto_serializer.errors},
-                        status=status.HTTP_400_BAD_REQUEST
+                        {
+                            "res": "Error en la validación de ProductoInsumo",
+                            "errors": insumo_producto_serializer.errors,
+                        },
+                        status=status.HTTP_400_BAD_REQUEST,
                     )
 
             # Guardar el producto con el resto de los datos
@@ -151,7 +161,7 @@ class Producto_id(APIView):
         except Exception as e:
             return Response(
                 {"res": f"Error en la vista: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
     def delete(self, request, id, *args, **kwargs):

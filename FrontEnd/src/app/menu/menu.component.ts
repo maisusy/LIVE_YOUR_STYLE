@@ -115,6 +115,27 @@ export class MenuComponent implements OnInit, OnDestroy{
 
       console.log(this.username)
       if(this.username != null && this.username !== ''){
+
+        let data_turno =  {
+          label: 'Turnos',
+          icon: 'pi pi-fw pi-calendar',
+          items : [
+            {
+              label : 'Agendar Turno'  ,
+              icon: 'pi pi-fw pi-calendar-plus',
+            },
+            {
+              label : 'Listado'  ,
+              icon: 'pi pi-fw pi-calendar-minus',
+            },
+            {
+              label : 'Mis turnos'  ,
+              icon: 'pi pi-fw pi-calendar-minus',
+            }
+          ]
+      }
+        this.items.push(data_turno)
+        
         let data_admin = {
           label: 'Administracion',
           icon: 'pi pi-fw pi-cog',
@@ -188,27 +209,6 @@ export class MenuComponent implements OnInit, OnDestroy{
            };
         this.items.push(data_admin)
 
-        let data_turno =  {
-            label: 'Turnos',
-            icon: 'pi pi-fw pi-calendar',
-            items : [
-              {
-                label : 'Agendar Turno'  ,
-                icon: 'pi pi-fw pi-calendar-plus',
-              },
-              {
-                label : 'Listado'  ,
-                icon: 'pi pi-fw pi-calendar-minus',
-              },
-              {
-                label : 'Mis turnos'  ,
-                icon: 'pi pi-fw pi-calendar-minus',
-              }
-            ]
-        }
-
-        this.items.push(data_turno)
-
         let data_usuario  =  {
           label: this.username,
           icon: 'pi pi-fw pi-user',
@@ -234,6 +234,7 @@ export class MenuComponent implements OnInit, OnDestroy{
           ]
         }
         this.items.push(data_usuario)
+        
       }else{
         let data =  {
           label: 'Iniciar Sesión',

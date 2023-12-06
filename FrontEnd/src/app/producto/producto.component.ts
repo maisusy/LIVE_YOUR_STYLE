@@ -19,6 +19,8 @@ export class ProductoComponent {
   public productoimagen : any;
   public modalDatos : any;
   public modal : string = "";
+  public username : any = '';
+  public AgrupadoProductos: { categoria: string; productos: any[] }[] = [];
 
   constructor(
     public ProductoService : ProductoService,
@@ -28,6 +30,8 @@ export class ProductoComponent {
   ) { }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('username'))
+      this.username = localStorage.getItem('username');
       this.ObtenerImgProductos()
       this.ObtenerProductos()
       this.loading = false
@@ -50,7 +54,6 @@ export class ProductoComponent {
         }
     ];
   }
-
 
   success(){
     this.modal = '';
@@ -85,7 +88,22 @@ export class ProductoComponent {
     }
   }
 
+  AgruparProductosCategoria(): { categoria: string; productos: any[] }[] {
+    return this.productos.reduce((acc: { categoria: string; productos: any[] }[], producto: any) => {
+      const categoria = producto.categoria_producto.nombre;
 
+      // Busca si ya existe una entrada para la categoría
+      const existingEntry = acc.find((entry) => entry.categoria === categoria);
+
+      if (existingEntry) {
+        existingEntry.productos.push(producto);
+      } else {
+        acc.push({ categoria, productos: [producto] });
+      }
+
+      return acc;
+    }, []);
+  }
 
   ObtenerProductos(){
     this.ProductoService.ObtenerProductos()
@@ -102,7 +120,7 @@ export class ProductoComponent {
               }
             })
         });
-
+        this.AgrupadoProductos = this.AgruparProductosCategoria();
 
         console.log('productos ',this.productos)
       }

@@ -13,6 +13,7 @@ import { ListadoModule } from './listado/listado.module';
 import { ProductoService } from './producto.service';
 import { ModalVentasModule } from './modal-ventas/modal_ventas.module';
 import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ToastModule } from 'primeng/toast';
   imports: [
     CommonModule,
     StylesModule,
+    TableModule,
     CarouselModule,
     ProductoRoutingModule,
     ButtonModule,

@@ -2,24 +2,32 @@
 <app-modal-ventas [visible]="modal == 'modalventas'" (success)="success()" [datos]="modalDatos" ></app-modal-ventas>
 <p-toast key="modalventas"></p-toast>
 
-<div class="card" >
-    <p-carousel [value]="productos" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
-        <ng-template let-producto pTemplate="item">
-            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
-                <div class="mb-3">
-                    <img src="http://127.0.0.1:8000{{ producto.img}}" height="300rem" width="300rem" [alt]="producto.descripcion" class="w-6 shadow-2" />
-                </div>
-                <div>
-                    <h4 class="mb-1">{{ producto.descripcion }}</h4>
-                    <h6 class="mt-0 mb-3">{{ '$' + producto.precio }}</h6>
-                    <p-tag [value]="'Queda en stock ' + producto.stock" [severity]="getSeverity(producto.stock)"></p-tag>
-                    <div class="car-buttons mt-5">
-                        <p-button type="button" styleClass="p-button p-button-rounded mr-2" (onClick)="AgregarCarrito('modalventas',producto)" icon="pi pi-cart-plus"></p-button>
-                        <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-plus"></p-button>
+<div class="background-container">
+
+  <div *ngFor="let group of AgrupadoProductos" class="card">
+    <h1 class="titulo">{{ group.categoria }}</h1>
+    <div class="card" >
+      <p-carousel  [value]="group.productos" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+            <ng-template let-producto pTemplate="producto">
+                <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" >
+                    <div class="mb-3">
+                        <img src="http://127.0.0.1:8000{{ producto.img}}" height="300rem" width="300rem" [alt]="producto.descripcion" class="w-6 shadow-2" />
+                    </div>
+                    <div>
+                        <h4 class="mb-1 texto">{{ producto.descripcion }}</h4>
+                        <h6 class="mt-0 mb-3  texto">Talle: {{ producto.talle }}</h6>
+                        <h6 class="mt-0 mb-3 texto">Marca: {{ producto.marca.nombre }}</h6>
+                        <h4 class="mt-0 mb-3 texto">{{ '$' + producto.precio }}</h4>
+                        <p-tag [value]="'Queda en stock ' + producto.stock" [severity]="getSeverity(producto.stock)"></p-tag>
+                        <div class="car-buttons mt-5">
+                            <p-button type="button" [disabled]="this.username == null || this.username == ''" styleClass="p-button p-button-rounded mr-2" (onClick)="AgregarCarrito('modalventas',producto)" icon="pi pi-cart-plus"></p-button>
+                         </div>
                     </div>
                 </div>
-            </div>
-        </ng-template>
-    </p-carousel>
+            </ng-template>
+        </p-carousel>
+    </div>
+
+  </div>
 </div>
-  
+

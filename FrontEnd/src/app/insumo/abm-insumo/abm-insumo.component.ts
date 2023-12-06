@@ -20,7 +20,7 @@ export class AbmInsumoComponent {
   public invalid: string = "";
   public unidad_medida : any;
   public marca : any;
-  public color : any;
+  public color : any = [];
   public proveedor : any;
 
   formInsumo = new FormGroup({
@@ -62,6 +62,7 @@ export class AbmInsumoComponent {
   }
 
   ArmarFormProducto(datos : any){
+    console.log(datos)
     this.formInsumo.patchValue({
       'id': datos.id,
       'descripcion': datos.descripcion,
@@ -71,7 +72,7 @@ export class AbmInsumoComponent {
       'costo': datos.costo,
       'marca': datos.marca.id,
       'proveedor': datos.proveedor.id,
-      'color': datos.color.map((color : any) => color.id),
+      'color': datos.color.id,
     });
   }
 
@@ -112,8 +113,9 @@ export class AbmInsumoComponent {
         this.proveedor = res.proveedor;
         this.marca = res.marca;
         this.unidad_medida = res.unidad_medida;
-        this.color = res.color;
-        console.log(res)
+        res.color.forEach( (valor:any) => {
+          this.color.push({'id':valor.id,'nombre':valor.nombre + ' - ' + valor.tono})
+        })
       }
       )
   }

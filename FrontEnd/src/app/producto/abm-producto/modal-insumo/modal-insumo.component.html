@@ -5,30 +5,30 @@
     </ng-template>
 
     <div class="grid">
-        <div class="col-12 md-6 " > 
+        <div class="col-12 md-6 " >
             <form [formGroup]="formsInsumo">
                 <div class="p-fluid mt-2">
 
                     <div class="p-field p-2">
                         <label for="insumo" class="mb-2 block">Seleccione el insumo:</label>
-                        <p-dropdown formControlName="insumo" id="insumo"  class="p-inputtext-lg {{invalid}}" [options]="insumos" optionLabel="descripcion"  optionValue="id" ></p-dropdown>
+                        <p-dropdown formControlName="insumo" (onChange)="Cambiar($event)" id="insumo"  class="p-inputtext-lg {{invalid}}" [options]="insumos" optionLabel="descripcion"  optionValue="id" ></p-dropdown>
                         <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe seleccionar un insumo</small>
                     </div>
                     <div class="p-field p-2">
-                        <label for="cantidad" class="mb-2 block">Cantidad:</label>
-                        <p-inputNumber formControlName="cantidad" id="cantidad" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="minmax-buttons" [min]="1"  ></p-inputNumber>
+                        <label for="cantidad" class="mb-2 block">Cantidad en {{unidad}}:</label>
+                        <p-inputNumber formControlName="cantidad" (ngModelChange)="CambiarCantidad($event)" id="cantidad" class="p-inputtext-lg {{invalid}}"  [showButtons]="true" inputId="minmax-buttons" [min]="1"  ></p-inputNumber>
                         <small *ngIf="invalid != ''" id="username2-help" class="p-error">Debe ingresar una cantidad</small>
+                        <small *ngIf="invalid_2 != ''" id="username2-help" class="p-error">Ha superado el stock</small>
                     </div>
 
                 </div>
-            </form>     
+            </form>
      </div>
 </div>
     <ng-template pTemplate="footer">
         <button pButton pRipple class="p-button-outlined-success" (click)="submit()" label="Agregar" iconPos="right"></button>
     </ng-template>
   </p-dialog>
-  
+
   <p-toast key="modalinsumo"></p-toast>
-  
-  
+

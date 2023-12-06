@@ -18,6 +18,10 @@ export class ModalInsumoComponent {
 
   public accion: string = "";
   public invalid: string = "";
+  public invalid_2: string = "";
+  public unidad: string = "";
+  public stock: number = 0;
+  public cantidad: number = 0;
   public insumos: any = [];
 
   formsInsumo = new FormGroup({
@@ -37,12 +41,36 @@ export class ModalInsumoComponent {
     this.ObtenerInsumo()
   }
 
+  Cambiar(event : any){
+    this.insumos.forEach((valor:any) => {
+      if(event.value == valor.id ){
+        this.unidad = valor.unidad;
+        this.stock = valor.stock;
+      }
+    });
+  }
+
+  CambiarCantidad(event : any){
+    this.cantidad = event
+    if( this.cantidad > this.stock){
+      this.invalid_2 = "ng-dirty"
+    }
+  }
 
   ObtenerInsumo(){
     this.InsumoService.ObtenerInsumo()
     .subscribe(
       (res) => {
-        this.insumos = res
+        let data : any  = res;
+        console.log(res)
+        data.forEach( (valor:any) => {
+          this.insumos.push({'id':valor.id,
+                            'descripcion':valor.descripcion + ' - ' + valor.color.nombre,
+                            'unidad':valor.unidad_medida.nombre,
+                            'stock':valor.stock,
+                            'costo':valor.costo,
+                            'nombre':valor.descripcion})
+        })
       }
     )
   }
@@ -64,40 +92,49 @@ export class ModalInsumoComponent {
 
 
   submit() {
-    let cantidad = this.formsInsumo.value.cantidad;
-    let data = this.insumos.filter( (valor:any) => valor.id == this.formsInsumo.value.insumo)
+    if(this.cantidad > this.stock){
+      this.invalid_2 = "ng-dirty"
 
-    let precio_unidad = data.map((valor:any) => valor.costo);
-    this.formsInsumo.value.descripcion = data.map((valor:any) => valor.descripcion);
+    }else{
+      let cantidad = this.formsInsumo.value.cantidad;
+      let data = this.insumos.filter( (valor:any) => valor.id == this.formsInsumo.value.insumo)
 
-    if (this.formsInsumo.valid ) { 
-      if(this.accion == "Agregar"){
+      console.log(data)
+      let precio_unidad = data.map((valor:any) => valor.costo);
+      this.formsInsumo.value.descripcion = data.map((valor:any) => valor.nombre);
 
-        if(precio_unidad !== null && cantidad !== null && precio_unidad !== undefined && cantidad !== undefined){
-          this.formsInsumo.value.costo_total  = (precio_unidad * cantidad);
-        }
-        this.ProductoService.insumos.push(this.formsInsumo.value);
+      if (this.formsInsumo.valid ) {
+        if(this.accion == "Agregar"){
 
-        this.messageService.add({ key: 'modalinsumo', severity: 'success', summary: `Insumo Agregado`, detail: 'La acción se realizo correctamente' });
-        
-      }else{
-        this.ProductoService.insumos.forEach((item:any) => {
-          if(item.insumo == this.formsInsumo.value.insumo){
-            item.cantidad = this.formsInsumo.value.cantidad;
-            if(precio_unidad !== null && cantidad !== null && precio_unidad !== undefined && cantidad !== undefined){
-              item.costo_total = (precio_unidad * cantidad);
-            }
+          if(precio_unidad !== null && cantidad !== null && precio_unidad !== undefined && cantidad !== undefined){
+            this.formsInsumo.value.costo_total  = (precio_unidad * cantidad);
+
           }
-          
-        })
+          console.log(this.formsInsumo.value)
+          this.ProductoService.insumos.push(this.formsInsumo.value);
 
+          this.messageService.add({ key: 'modalinsumo', severity: 'success', summary: `Insumo Agregado`, detail: 'La acción se realizo correctamente' });
+          this.invalid_2 = "";
+        }else{
+          this.ProductoService.insumos.forEach((item:any) => {
+            if(item.insumo == this.formsInsumo.value.insumo){
+              item.cantidad = this.formsInsumo.value.cantidad;
+              if(precio_unidad !== null && cantidad !== null && precio_unidad !== undefined && cantidad !== undefined){
+                item.costo_total = (precio_unidad * cantidad);
+              }
+            }
+
+          })
+          this.invalid_2 = "";
+        }
+
+        this.hide()
+
+      }else {
+        this.invalid = "ng-dirty"
       }
-
-      this.hide()
-
-    }else {
-      this.invalid = "ng-dirty"
     }
+
   }
 
 }

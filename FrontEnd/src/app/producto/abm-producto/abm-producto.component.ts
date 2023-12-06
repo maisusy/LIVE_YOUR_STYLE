@@ -299,7 +299,6 @@ export class AbmProductoComponent {
           this.color.push({'id':valor.id,'nombre':valor.nombre + ' - ' + valor.tono})
         })
         this.proveedor = res.proveedor;
-        console.log(this.color)
       })
   }
 

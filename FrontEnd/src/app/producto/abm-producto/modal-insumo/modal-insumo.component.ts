@@ -38,6 +38,7 @@ export class ModalInsumoComponent {
   ) { }
 
   ngOnInit(): void {
+    this.invalid_2 = "";
     this.ObtenerInsumo()
   }
 
@@ -78,6 +79,7 @@ export class ModalInsumoComponent {
   hide() {
     this.formsInsumo.reset()
     this.invalid = ""
+    this.invalid_2 = ""
     this.success.emit()
   }
 

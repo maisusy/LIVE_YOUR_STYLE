@@ -36,7 +36,6 @@ export class ModalVentasComponent {
   ) { }
 
   ngOnInit(): void {
-
   }
 
   CambiaCantidad(event : any){
@@ -54,6 +53,7 @@ export class ModalVentasComponent {
   hide() {
     this.formProductosVenta.reset()
     this.invalid = ""
+    this.invalid_2 = ""
     this.success.emit()
   }
 
